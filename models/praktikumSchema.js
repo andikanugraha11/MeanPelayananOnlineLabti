@@ -60,6 +60,10 @@ module.exports.getPraktikumByKelas = (kelas, callback) => {
     Praktikum.findOne(query, callback);
 }
 
+module.exports.getPraktikumById = (id, callback) => {
+    Praktikum.findById(id, callback);
+}
+
 //ADD pratikum
 module.exports.addNewPraktikum = (newPraktikum, callback) => {
     newPraktikum.save(callback);

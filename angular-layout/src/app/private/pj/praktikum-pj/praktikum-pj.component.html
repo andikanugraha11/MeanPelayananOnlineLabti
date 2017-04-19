@@ -34,26 +34,23 @@
                                         </th>
                                         <th class="text-center">Kelas</th>
                                         <th class="text-center">Jumlah Pertemuan</th>
-                                        <th class="text-center">Shift</th>
                                         <th class="text-center">Detail</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <!--<tr *ngFor="let praktikum of praktikums">-->
-                                    <tr>
-                                        <td>Sistem Basis Data 1</td>
-                                        <td class="text-center">3IA01</td>
-                                        <td class="text-center">4</td>
-                                        <td class="text-center">3</td>
+                                    <tr *ngFor="let praktikum of praktikums">
+                                        <td>{{praktikum.nama_praktikum}}</td>
+                                        <td class="text-center">{{praktikum.kelas}}</td>
+                                        <td class="text-center">{{praktikum._detailId.length}}</td>
                                         <td class="text-center">
-                                            <a class="btn btn-primary" id="id" (click)=showDetail($event.target.attributes.id.value)>Detail</a>
+                                            <a class="btn btn-primary" routerLink="/dashboard/pj/praktikum/{{praktikum._id}}">Detail</a>
                                         </td>
                                     </tr>
                                 </tbody>
                                 <tfoot>
                                     <tr>
-                                        <td colspan="6">
-                                            <mfBootstrapPaginator [rowsOnPageSet]="[5,10,25]"></mfBootstrapPaginator>
+                                        <td colspan=" 6 ">
+                                            <mfBootstrapPaginator [rowsOnPageSet]="[5,10,25] "></mfBootstrapPaginator>
                                         </td>
                                     </tr>
                                 </tfoot>

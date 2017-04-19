@@ -25,81 +25,89 @@
                         <h3 class="panel-title"><i class="fa fa-list"></i> Detail Praktikum</h3>
                     </div>
                     <div class="panel-body">
-                        <h3 class="text-center">SISTEM BASIS DATA - 3IA01</h3>
+                        <h3 class="text-center">{{praktikum.nama_praktikum}} - {{praktikum.kelas}}</h3>
+                        <br/>
                         <div class="row">
-                            <div class="col-md-offset-4 col-md-4">
-                                <select class="form-control">
-                                  <option>Pertemuan 1</option>
-                                  <option>Pertemuan 2</option>
-                                  <option>Pertemuan 3</option>
-                                  <option>Pertemuan 4</option>
+
+                            <div class="col-md-offset-8 col-md-4">
+                                <label>Pilih Pertemuan :</label>
+                                <select [(ngModel)]="detailPertemuan" name="detailPertemuan" (change)="onChangePertemuan()" class="form-control">
+                                  <option *ngFor="let detail of details" [ngValue]="detail._id">Pertemuan {{detail.pertemuan}}</option>
                             </select>
                             </div>
                         </div>
                         <br/>
                         <!-- regular tabs -->
-                        <tabset>
-                            <tab title="Daftar Praktikan">
-                                <div class="table-responsive ">
-                                    <table class="table table-striped table-bordered " cellspacing="0" width="100%">
-                                        <thead>
-                                            <tr>
-                                                <th class="text-center">Nama</th>
-                                                <th class="text-center">NPM</th>
-                                                <th class="text-center">Keterangan</th>
-                                                <th class="text-center">Aksi</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <!--<tr *ngFor="let praktikum of praktikums">-->
-                                            <tr>
-                                                <td>Muhammad Andika Nugraha</td>
-                                                <td class="text-center">57414084</td>
-                                                <td class="text-center">Masuk</td>
-                                                <td class="text-center">
-                                                    <a class="btn btn-danger" id="id" (click)=showDetail($event.target.attributes.id.value)>Tidak Masuk</a>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>Tukang Bolos</td>
-                                                <td class="text-center">57414084</td>
-                                                <td class="text-center">Tidak Masuk (Belum Pengulangan)</td>
-                                                <td class="text-center">
-                                                    <button class="btn btn-default" id="id" style="cursor: not-allowed;">Tidak Masuk</button>
-                                                </td>
-                                            </tr>
-                                        </tbody>
+                        <ng-container *ngIf="flag; then thenBlock; else elseBlock"></ng-container>
+                        <ng-template #thenBlock>
+                            <tabset>
+                                <tab title="Daftar Praktikan">
+                                    <div class="table-responsive ">
+                                        <table class="table table-striped table-bordered " cellspacing="0" width="100%">
+                                            <thead>
+                                                <tr>
+                                                    <th class="text-center">Nama</th>
+                                                    <th class="text-center">NPM</th>
+                                                    <th class="text-center">Keterangan</th>
+                                                    <th class="text-center">Aksi</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <!--<tr *ngFor="let praktikum of praktikums">-->
+                                                <tr>
+                                                    <td>Muhammad Andika Nugraha</td>
+                                                    <td class="text-center">57414084</td>
+                                                    <td class="text-center">Masuk</td>
+                                                    <td class="text-center">
+                                                        <a class="btn btn-danger" id="id" (click)=showDetail($event.target.attributes.id.value)>Tidak Masuk</a>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Tukang Bolos</td>
+                                                    <td class="text-center">57414084</td>
+                                                    <td class="text-center">Tidak Masuk (Belum Pengulangan)</td>
+                                                    <td class="text-center">
+                                                        <button class="btn btn-default" id="id" style="cursor: not-allowed;">Tidak Masuk</button>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
 
-                                    </table>
-                                </div>
-                            </tab>
-                            <tab title="Daftar Praktikan Pengulangan">
-                                <div class="table-responsive ">
-                                    <table class="table table-striped table-bordered " cellspacing="0" width="100%">
-                                        <thead>
-                                            <tr>
-                                                <th class="text-center">Nama</th>
-                                                <th class="text-center">NPM</th>
-                                                <th class="text-center">Kelas</th>
-                                                <th class="text-center">Aksi</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <!--<tr *ngFor="let praktikum of praktikums">-->
-                                            <tr>
-                                                <td>Muhammad Andika Nugraha</td>
-                                                <td class="text-center">57414084</td>
-                                                <td class="text-center">3IA17k</td>
-                                                <td class="text-center">
-                                                    <a class="btn btn-primary" id="id" (click)=showDetail($event.target.attributes.id.value)>Masuk</a>
-                                                </td>
-                                            </tr>
-                                        </tbody>
+                                        </table>
+                                    </div>
+                                </tab>
+                                <tab title="Daftar Praktikan Pengulangan">
+                                    <div class="table-responsive ">
+                                        <table class="table table-striped table-bordered " cellspacing="0" width="100%">
+                                            <thead>
+                                                <tr>
+                                                    <th class="text-center">Nama</th>
+                                                    <th class="text-center">NPM</th>
+                                                    <th class="text-center">Kelas</th>
+                                                    <th class="text-center">Aksi</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <!--<tr *ngFor="let praktikum of praktikums">-->
+                                                <tr>
+                                                    <td>Muhammad Andika Nugraha</td>
+                                                    <td class="text-center">57414084</td>
+                                                    <td class="text-center">3IA17k</td>
+                                                    <td class="text-center">
+                                                        <a class="btn btn-primary" id="id" (click)=showDetail($event.target.attributes.id.value)>Masuk</a>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
 
-                                    </table>
-                                </div>
-                            </tab>
-                        </tabset>
+                                        </table>
+                                    </div>
+                                </tab>
+                            </tabset>
+
+                        </ng-template>
+                        <ng-template #elseBlock>
+                            <h3 class="text-center">Silahka pilih pertemuan</h3>
+                        </ng-template>
+
 
 
 

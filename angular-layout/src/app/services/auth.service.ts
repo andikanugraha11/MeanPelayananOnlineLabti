@@ -26,7 +26,6 @@ export class AuthService {
   	this.authToken = token;
   	this.user = user;
   }
-
   getProfile(){
   	let headers = new Headers();
   	this.loadToken();
@@ -38,6 +37,9 @@ export class AuthService {
   	const token = localStorage.getItem('id_token');
   	this.authToken = token;
   }
+  // loadUserFromStorage(){
+  //   const user = localStorage.getItem('user');
+  // }
     loggedIn(){
     return tokenNotExpired();
   }
@@ -178,6 +180,12 @@ export class AuthService {
   getPraktikumById(id){
     let headers = new Headers();
     return this.http.get('http://localhost:8081/praktikum/getPraktikumById/'+id, {headers : headers})
+    .map(res=>res.json());
+  }
+
+  getPjDetail(id){
+    let headers = new Headers();
+    return this.http.get('http://localhost:8081/praktikum/getPraktikumByPj/'+id, {headers : headers})
     .map(res=>res.json());
   }
 

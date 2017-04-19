@@ -72,3 +72,16 @@ module.exports.updatePraktikum = (id, prakId, callback) => {
         new: true
     }).exec(callback);
 }
+
+module.exports.getPjByIdPopulate = (id, callback) => {
+    const query = { _id: id }
+    PetugasPj.findOne(query)
+        .populate('_praktikumId')
+        .exec((err, result) => {
+            if (err) {
+                console.log(err);
+            } else {
+                callback(result);
+            }
+        })
+}
