@@ -1,0 +1,143 @@
+<div class="modal-dialog">
+    <div class="modal-content">
+        <form (submit)="addPraktikumTk3()">
+            <div class="modal-header">
+                <button type="button" class="close" (click)="close()">&times;</button>
+                <h4 class="modal-title text-center">Tambah Praktikum</h4>
+            </div>
+            <div class="modal-body">
+
+                <div class="form-group">
+                    <label>Praktikum :</label>
+                    <input [(ngModel)]="nama_praktikum" class="form-control" placeholder="Nama Praktikum" name="nama_praktikum" type="text">
+                </div>
+                <div class="form-group">
+                    <label>Kelas :</label>
+                    <input [(ngModel)]="kelas" class="form-control" placeholder="Contoh : 3IA01" name="kelas" type="text">
+                </div>
+                <div class="form-group">
+                    <label>Penanggung Jawab:</label>
+                    <select [(ngModel)]="pj" name="pj" class="form-control">
+                        <option  *ngFor="let p of pjs" [ngValue]="p._pjId._id">{{p._pjId.nama.depan}} {{p._pjId.nama.belakang}}</option>
+                    </select>
+                </div>
+                <div class="row form-group">
+                    <div class="col-md-6">
+                        <label>Shift : </label>
+                        <select [(ngModel)]="shift" name="shift" class="form-control">
+                            <option *ngFor="let i of shifts" [ngValue]="i">Shift {{i}}</option>
+                        </select>
+                    </div>
+                    <div class="col-md-6">
+                        <label>Jumlah Pertemuan : </label>
+                        <select [(ngModel)]="jlh_pertemuan" name="jlh_pertemuan" #pilih (change)="onChangePertemuan(pilih.value)" class="form-control">
+                            <option value="4" [ngValue]="4">4 Pertemuan</option>
+                            <option value="8" [ngValue]="8">8 Pertemuan</option>
+                        </select>
+                    </div>
+                </div>
+                <hr/>
+                <h4 class="text-center">Jadwal</h4>
+                <div>
+                    <div class="row form-group">
+                        <div class="col-md-6">
+                            <label>Pertemuan ke : </label>
+                            <input [(ngModel)]="pertemuan1" class="form-control" disabled name="pertemuan1" type="text" value="1">
+                        </div>
+                        <div class="col-md-6">
+                            <label>Tanggal : </label>
+                            <input [(ngModel)]="tanggal1" class="form-control" name="tanggal1" type="date">
+                        </div>
+                    </div>
+                    <div class="row form-group">
+                        <div class="col-md-6">
+                            <label>Pertemuan ke : </label>
+                            <input [(ngModel)]="pertemuan2" class="form-control" disabled name="pertemuan2" type="text" value="2">
+                        </div>
+                        <div class="col-md-6">
+                            <label>Tanggal : </label>
+                            <input [(ngModel)]="tanggal2" class="form-control" name="tanggal2" type="date">
+                        </div>
+                    </div>
+                    <div class="row form-group">
+                        <div class="col-md-6">
+                            <label>Pertemuan ke : </label>
+                            <input [(ngModel)]="pertemuan3" class="form-control" disabled name="pertemuan3" type="text" value="3">
+                        </div>
+                        <div class="col-md-6">
+                            <label>Tanggal : </label>
+                            <input [(ngModel)]="tanggal3" class="form-control" name="tanggal3" type="date">
+                        </div>
+                    </div>
+                    <div class="row form-group">
+                        <div class="col-md-6">
+                            <label>Pertemuan ke : </label>
+                            <input [(ngModel)]="pertemuan4" class="form-control" disabled name="pertemuan4" type="text" value="4">
+                        </div>
+                        <div class="col-md-6">
+                            <label>Tanggal : </label>
+                            <input [(ngModel)]="tanggal4" class="form-control" name="tanggal4" type="date">
+                        </div>
+                    </div>
+                </div>
+                <div *ngIf="tampil">
+                    <div class="row form-group">
+                        <div class="col-md-6">
+                            <label>Pertemuan ke : </label>
+                            <input [(ngModel)]="pertemuan5" class="form-control" disabled name="pertemuan5" type="text" value="5">
+                        </div>
+                        <div class="col-md-6">
+                            <label>Tanggal : </label>
+                            <input [(ngModel)]="tanggal5" class="form-control" name="tanggal5" type="date">
+                        </div>
+                    </div>
+                    <div class="row form-group">
+                        <div class="col-md-6">
+                            <label>Pertemuan ke : </label>
+                            <input [(ngModel)]="pertemuan6" class="form-control" disabled name="pertemuan6" type="text" value="6">
+                        </div>
+                        <div class="col-md-6">
+                            <label>Tanggal : </label>
+                            <input [(ngModel)]="tanggal6" class="form-control" name="tanggal6" type="date">
+                        </div>
+                    </div>
+                    <div class="row form-group">
+                        <div class="col-md-6">
+                            <label>Pertemuan ke : </label>
+                            <input [(ngModel)]="pertemuan7" class="form-control" disabled name="pertemuan7" type="text" value="7">
+                        </div>
+                        <div class="col-md-6">
+                            <label>Tanggal : </label>
+                            <input [(ngModel)]="tanggal7" class="form-control" name="tanggal7" type="date">
+                        </div>
+                    </div>
+                    <div class="row form-group">
+                        <div class="col-md-6">
+                            <label>Pertemuan ke : </label>
+                            <input [(ngModel)]="pertemuan8" class="form-control" disabled name="pertemuan8" type="text" value="8">
+                        </div>
+                        <div class="col-md-6">
+                            <label>Tanggal : </label>
+                            <input [(ngModel)]="tanggal8" class="form-control" name="tanggal8" type="date">
+                        </div>
+                    </div>
+                </div>
+
+                <!--<div class="row form-group" *ngFor="let pert of jlhPertemuan">
+                    <div class="col-md-6">
+                        <label>Pertemuan ke : </label>
+                        <input [(ngModel)]="pertemuan1" class="form-control" disabled name="pertemuan{{pert+1}}" type="text" value="{{pert+1}}">
+                    </div>
+                    <div class="col-md-6">
+                        <label>Tanggal : </label>
+                        <input class="form-control" name="tanggal{{pert+1}}" type="date">
+                    </div>
+                </div>-->
+            </div>
+            <div class="modal-footer">
+                <input class="btn btn-primary" type="submit" value="Tambah">
+                <button type="button" class="btn btn-default" (click)="close()">Batal</button>
+            </div>
+        </form>
+    </div>
+</div>

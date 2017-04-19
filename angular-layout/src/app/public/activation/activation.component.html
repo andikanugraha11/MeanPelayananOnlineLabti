@@ -1,0 +1,58 @@
+<form accept-charset="UTF-8" role="form" (submit)="findPraktikan()" *ngIf="findSection">
+    <fieldset>
+
+        <div class="form-group">
+            <input [(ngModel)]="kelas" class="form-control" placeholder="Kelas" name="kelas" type="text">
+        </div>
+        <div class="form-group">
+            <input [(ngModel)]="npm" class="form-control" placeholder="NPM" name="npm" type="text">
+        </div>
+        <input class="btn btn-lg btn-success btn-block" type="submit" value="Cari">
+    </fieldset>
+    <br>
+    <div class="text-center">
+        <a [routerLink]="['/']">Masuk</a>
+    </div>
+</form>
+
+
+
+<form accept-charset="UTF-8" role="form" (submit)="completeData()" *ngIf="completeSection">
+    <div class="text-center">
+        <br/>
+        <h2>Silahkan lengkapi data anda</h2>
+        <br/>
+    </div>
+    <fieldset>
+        <!--<input [(ngModel)]="dataPraktikan.praktikan._id" class="form-control" name="_praktikanId" type="text" disabled>-->
+        <div class="form-group">
+            <input [(ngModel)]="dataPraktikan.praktikan.nama.depan" class="form-control" name="nama_depan" type="text" disabled>
+        </div>
+        <div class="form-group">
+            <input [(ngModel)]="dataPraktikan.praktikan.nama.belakang" class="form-control" name="nama_belakang" type="text" disabled>
+        </div>
+        <div class="form-group">
+            <input [(ngModel)]="dataPraktikan.praktikan.kelas" class="form-control" name="kelas" type="text" disabled>
+        </div>
+        <div class="form-group">
+            <input [(ngModel)]="dataPraktikan.praktikan.npm" class="form-control" name="npm" type="text" disabled>
+        </div>
+        <div class="form-group">
+            <input [(ngModel)]="username" class="form-control" placeholder="Username" name="username" type="text">
+        </div>
+        <div class="form-group">
+            <input [(ngModel)]="email" class="form-control" name="email" placeholder="Email" type="text">
+        </div>
+        <div class="form-group">
+            <input [(ngModel)]="password" class="form-control" name="password" placeholder="Password" type="password">
+        </div>
+        <div class="form-group">
+            <input [(ngModel)]="rePassword" class="form-control" name="rePassword" placeholder="Re-Password" type="password">
+        </div>
+        <input class="btn btn-lg btn-success btn-block" type="submit" value="Aktivasi">
+    </fieldset>
+    <br>
+    <div class="text-center">
+        <a [routerLink]="['/']">Masuk</a>
+    </div>
+</form>

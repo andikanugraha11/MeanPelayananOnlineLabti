@@ -1,0 +1,148 @@
+<div id="page-wrapper">
+
+    <div class="container-fluid">
+
+        <!-- Page Heading -->
+        <div class="row">
+            <div class="col-lg-12">
+                <h1 class="page-header">
+                    Admin Dashboard <small>User Management</small>
+                </h1>
+                <ol class="breadcrumb">
+                    <li class="active">
+                        <i class="fa fa-user"></i> User Management
+                    </li>
+                </ol>
+            </div>
+        </div>
+        <!-- /.row -->
+
+        <!--Content-->
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="panel panel-primary">
+                    <div class="panel-heading">
+                        <h3 class="panel-title"><i class="fa fa-list"></i> Daftar Praktikan</h3>
+                    </div>
+
+                    <div class="panel-body">
+                        <div class="form-group">
+                            <div class="col-md-3">
+
+                                <select class="form-control">
+                                    <option>1IA01</option>
+                                    <option>2IA01</option>
+                                    <option>3IA01</option>
+                                    <option>1IA01</option>
+                                    <option>2IA01</option>
+                                    <option>3IA01</option>
+                                    <option>1IA01</option>
+                                    <option>2IA01</option>
+                                    <option>3IA01</option>
+                                    <option>1IA01</option>
+                                    <option>2IA01</option>
+                                    <option>3IA01</option>
+                                    <option>1IA01</option>
+                                    <option>2IA01</option>
+                                    <option>3IA01</option>
+                                    <option>1IA01</option>
+                                    <option>2IA01</option>
+                                    <option>3IA01</option>
+                                    <option>1IA01</option>
+                                    <option>2IA01</option>
+                                    <option>3IA01</option>
+                                    <option>1IA01</option>
+                                    <option>2IA01</option>
+                                    <option>3IA01</option>
+                                    <option>1IA01</option>
+                                    <option>2IA01</option>
+                                    <option>3IA01</option>
+                                    <option>1IA01</option>
+                                    <option>2IA01</option>
+                                    <option>3IA01</option>
+                                    <option>1IA01</option>
+                                    <option>2IA01</option>
+                                    <option>3IA01</option>
+                                    <option>1IA01</option>
+                                    <option>2IA01</option>
+                                    <option>3IA01</option>
+                                    <option>1IA01</option>
+                                    <option>2IA01</option>
+                                    <option>3IA01</option>
+                                    <option>1IA01</option>
+                                    <option>2IA01</option>
+                                    <option>3IA01</option>
+                                    <option>1IA01</option>
+                                    <option>2IA01</option>
+                                    <option>3IA01</option>
+                                    <option>1IA01</option>
+                                    <option>2IA01</option>
+                                    <option>3IA01</option>
+                                    <option>1IA01</option>
+                                    <option>2IA01</option>
+                                    <option>3IA01</option>
+                                    <option>1IA01</option>
+                                    <option>2IA01</option>
+                                    <option>3IA01</option>
+                                    <option>1IA01</option>
+                                    <option>2IA01</option>
+                                    <option>3IA01</option>
+                                    <option>1IA01</option>
+                                    <option>2IA01</option>
+                                    <option>3IA01</option>
+                                </select>
+                            </div>
+                            <div class="text-right">
+                                <button class="btn btn-success" (click)=showConfirm()>Tambah Praktikan</button>
+                            </div>
+                        </div>
+
+
+                        <div class="table-responsive ">
+                            <table class="table table-striped table-bordered " [mfData]="data" #mf="mfDataTable" [mfRowsOnPage]="5" cellspacing="0" width="100%">
+                                <thead>
+                                    <tr>
+                                        <th>
+                                            <mfDefaultSorter by="name">Name</mfDefaultSorter>
+                                        </th>
+                                        <th>Kelas</th>
+                                        <th>Npm</th>
+                                        <th>Praktikum</th>
+                                        <th>Aktivasi</th>
+                                        <th>Detail</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr *ngFor="let praktikan of data">
+                                        <td>{{praktikan.nama.depan}} {{praktikan.nama.belakang}}</td>
+                                        <td>{{praktikan.kelas}}</td>
+                                        <td>{{praktikan.npm}}</td>
+                                        <td>Nama Prak</td>
+                                        <td>{{praktikan.aktif}}</td>
+                                        <td class="text-center">
+                                            <a class="btn btn-primary" href={{praktikan._id}}>Detail</a>
+                                            <a class="btn btn-danger" id="{{praktikan._id}}" (click)=removePraktikan($event.target.attributes.id.value)>Hapus</a>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                                <tfoot>
+                                    <tr>
+                                        <td colspan="6">
+                                            <mfBootstrapPaginator [rowsOnPageSet]="[5,10,25]"></mfBootstrapPaginator>
+                                        </td>
+                                    </tr>
+                                </tfoot>
+                            </table>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- /.row -->
+
+    </div>
+    <!-- /.container-fluid -->
+
+</div>
+<!-- /#page-wrapper -->
