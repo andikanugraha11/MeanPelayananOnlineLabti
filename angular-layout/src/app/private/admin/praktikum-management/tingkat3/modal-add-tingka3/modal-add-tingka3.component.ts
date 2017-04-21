@@ -20,7 +20,6 @@ export class ModalAddTingka3Component extends DialogComponent<ConfirmModel, bool
   shift : Number = 1;
   shifts : Number[] = [1,2,3,4,5];
   kelas : String;
-  nama_praktikum : String;
   pertemuan1 : Number;
   pertemuan2 : Number;
   pertemuan3 : Number;
@@ -41,6 +40,7 @@ export class ModalAddTingka3Component extends DialogComponent<ConfirmModel, bool
   pj : String;
   pjs : Object;
   jlh_pertemuan : Number;
+  kode_praktikum : String;
 
 
   constructor(dialogService: DialogService, private router:Router, private validation:ValidationService, private authService:AuthService) {
@@ -88,6 +88,38 @@ export class ModalAddTingka3Component extends DialogComponent<ConfirmModel, bool
     }
   }
   addPraktikumTk3(){
+    const kode = this.kode_praktikum;
+    let nama_praktikum;
+
+    switch(kode){
+      case "AK-045205":
+        nama_praktikum = "Grafik Komputer 1";
+        break;
+      case "AK-045206":
+        nama_praktikum = "Grafik Komputer 2";
+        break;
+      case "AK-045307":
+        nama_praktikum = "Interaksi Manusia & Komputer";
+        break;
+      case "AK-045308":
+        nama_praktikum = "Jaringan Komputer";
+        break;
+      case "AK-045218":
+        nama_praktikum = "Pengantar Kecerdasan Buatan";
+        break;
+      case "AK-045325":
+        nama_praktikum = "Perancangan & Analisa Algoritma";
+        break;
+      case "AK-045329":
+        nama_praktikum = "Sistem Basis Data 1";
+        break;
+      case "AK-045330":
+        nama_praktikum = "Sistem Basis Data 2";
+        break;
+      case "AK-045231":
+        nama_praktikum = "Sistem Informasi";
+        break;
+    }
     const praktikum = {
       pertemuan1 : this.pertemuan1,
       pertemuan2 : this.pertemuan2,
@@ -108,7 +140,8 @@ export class ModalAddTingka3Component extends DialogComponent<ConfirmModel, bool
       shift : this.shift,
       pj : this.pj,
       kelas : this.kelas,
-      nama_praktikum : this.nama_praktikum,
+      nama_praktikum : nama_praktikum,
+      kode : kode,
       jlh_pertemuan : this.jlh_pertemuan
     }
     

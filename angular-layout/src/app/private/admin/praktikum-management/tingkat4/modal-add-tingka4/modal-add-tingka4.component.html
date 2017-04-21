@@ -9,7 +9,13 @@
 
                 <div class="form-group">
                     <label>Praktikum :</label>
-                    <input [(ngModel)]="nama_praktikum" class="form-control" placeholder="Nama Praktikum" name="nama_praktikum" type="text">
+                    <select [(ngModel)]="kode_praktikum" name="kode_praktikum" class="form-control">
+                            <option value="AK-045209">Jaringan Komputer Lanjut</option>
+                            <option value="AK-045214">Pemrograman Jaringan</option>
+                            <option value="AK-045216">Pemrograman WEB</option>
+                            <option value="AK-045227">Rekayasa Perangkat Lunak 2</option>
+                            <option value="AK-045232">Sistem Multimedia</option>
+                    </select>
                 </div>
                 <div class="form-group">
                     <label>Kelas :</label>

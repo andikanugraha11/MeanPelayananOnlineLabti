@@ -15,6 +15,9 @@ const detailPraktikumSchema = Schema({
         type: ObjectId,
         ref: 'Praktikum'
     },
+    kode_praktikum: {
+        type: String
+    },
     pertemuan: {
         type: Number
     },

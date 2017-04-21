@@ -20,7 +20,7 @@ export class ModalAddTingka4Component extends DialogComponent<ConfirmModel, bool
   shift : Number = 1;
   shifts : Number[] = [1,2,3,4,5];
   kelas : String;
-  nama_praktikum : String;
+  kode_praktikum : String;
   pertemuan1 : Number;
   pertemuan2 : Number;
   pertemuan3 : Number;
@@ -88,6 +88,26 @@ export class ModalAddTingka4Component extends DialogComponent<ConfirmModel, bool
     }
   }
   addPraktikumTk4(){
+    const kode = this.kode_praktikum;
+    let nama_praktikum;
+
+    switch(kode){
+      case "AK-045209":
+        nama_praktikum = "Jaringan Komputer Lanjut";
+        break;
+      case "AK-045214":
+        nama_praktikum = "Pemrograman Jaringan";
+        break;
+      case "AK-045216":
+        nama_praktikum = "Pemrograman WEB";
+        break;
+      case "AK-045227":
+        nama_praktikum = "Rekayasa Perangkat Lunak 2";
+        break;
+      case "AK-045232":
+        nama_praktikum = "Sistem Multimedia";
+        break;
+    }
     const praktikum = {
       pertemuan1 : this.pertemuan1,
       pertemuan2 : this.pertemuan2,
@@ -108,8 +128,9 @@ export class ModalAddTingka4Component extends DialogComponent<ConfirmModel, bool
       shift : this.shift,
       pj : this.pj,
       kelas : this.kelas,
-      nama_praktikum : this.nama_praktikum,
-      jlh_pertemuan : this.jlh_pertemuan
+      nama_praktikum : nama_praktikum,
+      jlh_pertemuan : this.jlh_pertemuan,
+      kode : kode,
     }
     
     this.authService.addPraktikumTk4(praktikum).subscribe(data=>{

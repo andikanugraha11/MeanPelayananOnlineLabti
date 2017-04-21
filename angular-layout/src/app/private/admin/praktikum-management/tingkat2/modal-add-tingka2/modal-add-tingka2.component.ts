@@ -20,7 +20,7 @@ export class ModalAddTingka2Component extends DialogComponent<ConfirmModel, bool
  shift : Number = 1;
   shifts : Number[] = [1,2,3,4,5];
   kelas : String;
-  nama_praktikum : String;
+  kode_praktikum : String;
   pertemuan1 : Number;
   pertemuan2 : Number;
   pertemuan3 : Number;
@@ -88,6 +88,8 @@ export class ModalAddTingka2Component extends DialogComponent<ConfirmModel, bool
     }
   }
   addPraktikumTk2(){
+    const kode = this.kode_praktikum;
+    let nama_praktikum = "Sistem Informasi Akuntansi & Keuangan";
     const praktikum = {
       pertemuan1 : this.pertemuan1,
       pertemuan2 : this.pertemuan2,
@@ -108,7 +110,8 @@ export class ModalAddTingka2Component extends DialogComponent<ConfirmModel, bool
       shift : this.shift,
       pj : this.pj,
       kelas : this.kelas,
-      nama_praktikum : this.nama_praktikum,
+      nama_praktikum : nama_praktikum,
+      kode : kode,
       jlh_pertemuan : this.jlh_pertemuan
     }
     
