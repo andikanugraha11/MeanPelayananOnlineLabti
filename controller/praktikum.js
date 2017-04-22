@@ -1316,4 +1316,16 @@ router.get('/getPraktikumByPj/:id', (req, res, next) => {
     });
 });
 
+//GET PraktikumDetail by id
+router.get('/getPraktikumDetailById/:id', (req, res, next) => {
+    const id = req.params.id;
+    DetailPraktikum.getPraktikumByIdPopulate(id, (praktikum) => {
+        res.json({
+            success: true,
+            praktikum
+        })
+    });
+});
+
+
 module.exports = router;

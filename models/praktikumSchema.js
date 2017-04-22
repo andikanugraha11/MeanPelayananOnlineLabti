@@ -5,7 +5,7 @@ const User = require('./userSchema');
 const PJ = require('./petugasPjSchema');
 const Praktikan = require('./praktikanSchema');
 const DetailPraktikum = require('./detailPraktikumSchema');
-const Laporan = require('./LaporanSchema');
+
 
 const Schema = mongoose.Schema;
 const ObjectId = Schema.Types.ObjectId;

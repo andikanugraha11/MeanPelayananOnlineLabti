@@ -53,13 +53,12 @@
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                <!--<tr *ngFor="let praktikum of praktikums">-->
-                                                <tr>
-                                                    <td>Muhammad Andika Nugraha</td>
-                                                    <td class="text-center">57414084</td>
-                                                    <td class="text-center">Masuk</td>
+                                                <tr *ngFor="let praktikan of praktikans">
+                                                    <td>{{praktikan.nama.depan}} {{praktikan.nama.belakang}}</td>
+                                                    <td class="text-center">{{praktikan.npm}}</td>
+                                                    <td class="text-center">{{praktikan._id}}</td>
                                                     <td class="text-center">
-                                                        <a class="btn btn-danger" id="id" (click)=showDetail($event.target.attributes.id.value)>Tidak Masuk</a>
+                                                        <a class="btn btn-danger" id="{{praktikan._id}}" (click)=makeReport($event.target.attributes.id.value)>Tidak Masuk</a>
                                                     </td>
                                                 </tr>
                                                 <tr>
@@ -105,12 +104,8 @@
 
                         </ng-template>
                         <ng-template #elseBlock>
-                            <h3 class="text-center">Silahka pilih pertemuan</h3>
+                            <h3 class="text-center">Silahkan pilih pertemuan</h3>
                         </ng-template>
-
-
-
-
                     </div>
                 </div>
             </div>

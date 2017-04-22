@@ -14,7 +14,9 @@ export class DetailPraktikumPjComponent implements OnInit {
   praktikum = Object;
   details  : Object;
   detailPertemuan : String;
+  praktikans : Object;
   flag:Boolean = false;
+  dataPraktikum:any; //testing
   constructor(private route:ActivatedRoute,private authService:AuthService, private router:Router) { }
 
   ngOnInit() {
@@ -23,6 +25,7 @@ export class DetailPraktikumPjComponent implements OnInit {
     this.authService.getPraktikumById(idPraktikum).subscribe(data =>{
       this.praktikum = data.praktikum;
       this.details = data.praktikum._detailId;
+      console.log(data);
     },
     err => {
   		console.log(err);
@@ -32,7 +35,41 @@ export class DetailPraktikumPjComponent implements OnInit {
 
   onChangePertemuan(){
     this.flag = true;
-    console.log(this.detailPertemuan);
+    let idDetail = this.detailPertemuan;
+    this.authService.getPraktikumDetailById(idDetail).subscribe(data =>{
+      this.praktikans = data.praktikum.praktikan;
+      this.dataPraktikum = data.praktikum;
+      console.log(this.dataPraktikum);
+    },
+    err => {
+      console.log(err);
+      return false;
+    });
+    //console.log(idDetail);
+  }
+
+  makeReport(idPraktikan){
+    // console.log(idPraktikan);
+    // console.log(this.dataPraktikum);
+    let pembuat =  localStorage.getItem('user');
+    let pembuatJson = JSON.parse(pembuat);
+    let idPembuat = pembuatJson.id;
+    const report = {
+      idPraktikan : idPraktikan,
+      detailPraktikum : this.dataPraktikum._id,
+      kode_praktikum : this.dataPraktikum.kode_praktikum,
+      idPraktikum : this.dataPraktikum._praktikumId._id,
+      idPembuat : idPembuat,
+      tanggal_buat : new Date()
+    }
+    this.authService.makeReport(report).subscribe(data => {
+      if(data.success){
+        alert('Form laporan telah dibuat');
+      }else{
+        alert('gagal');
+      }
+    });
+    console.log(report);
   }
 
 }

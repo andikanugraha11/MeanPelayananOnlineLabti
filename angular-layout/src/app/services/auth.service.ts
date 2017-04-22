@@ -189,4 +189,16 @@ export class AuthService {
     .map(res=>res.json());
   }
 
+   getPraktikumDetailById(id){
+    let headers = new Headers();
+    return this.http.get('http://localhost:8081/praktikum/getPraktikumDetailById/'+id, {headers : headers})
+    .map(res=>res.json());
+  }
+
+  //Make report
+  makeReport(report){
+    let headers = new Headers();
+    return this.http.post('http://localhost:8081/laporan/add',report,{headers:headers})
+    .map(res=>res.json());
+  }
 }

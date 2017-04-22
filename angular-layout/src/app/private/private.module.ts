@@ -32,6 +32,7 @@ import { ModalDetailTingkat4Component } from './admin/praktikum-management/tingk
 import { PraktikumPjComponent } from './pj/praktikum-pj/praktikum-pj.component';
 import { DetailPraktikumPjComponent } from './pj/detail-praktikum-pj/detail-praktikum-pj.component';
 import { TabsModule } from "ng2-tabs";
+import { ModalMakeReportComponent } from './pj/detail-praktikum-pj/modal-make-report/modal-make-report.component';
 
 const appRoutes : Routes = 
 [
@@ -132,6 +133,7 @@ const appRoutes : Routes =
     ModalDetailTingkat4Component,
     PraktikumPjComponent,
     DetailPraktikumPjComponent,
+    ModalMakeReportComponent,
     ],
     entryComponents: [
       ModalAddPraktikanComponent, 

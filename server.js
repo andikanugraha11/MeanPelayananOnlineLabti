@@ -44,6 +44,10 @@ app.use('/users', users);
 const praktikum = require('./controller/praktikum');
 app.use('/praktikum', praktikum);
 
+//Laporan
+const report = require('./controller/report');
+app.use('/laporan', report);
+
 //Praktikan API
 const praktikan = require('./controller/praktikan');
 app.use('/praktikan', praktikan);
@@ -61,7 +65,6 @@ app.get('/test', (req, res) => {
 app.get('*', (req, res) => {
     res.sendFile(path.join(__dirname, 'public/index.html'));
 });
-
 
 //Start server
 app.listen(port, () => {
