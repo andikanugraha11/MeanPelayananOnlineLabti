@@ -74,3 +74,8 @@ module.exports.getReportByPraktikanId = (id, callback) => {
             }
         })
 }
+
+module.exports.getReportById = (id, callback) => {
+    //const query = { _id: id }
+    Report.findById(id, callback);
+}

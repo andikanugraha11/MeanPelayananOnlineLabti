@@ -48,4 +48,14 @@ router.get('/getReportByPraktikanId/:id', (req, res, next) => {
     });
 });
 
+router.get('/getReportById/:id', (req, res, next) => {
+    const id = req.params.id;
+    Report.getReportById(id, (err, report) => {
+        res.json({
+            success: true,
+            report,
+        })
+    });
+});
+
 module.exports = router;

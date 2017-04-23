@@ -207,4 +207,16 @@ export class AuthService {
     return this.http.get('http://localhost:8081/laporan/getReportByPraktikanId/'+id, {headers : headers})
     .map(res=>res.json());
   }
+
+  getReportById(id){
+    let headers = new Headers();
+    return this.http.get('http://localhost:8081/laporan/getReportById/'+id, {headers : headers})
+    .map(res=>res.json());
+  }
+
+  getDetailPraktikumAvailable(dateCreate,praktikumCode){
+    let headers = new Headers();
+    return this.http.get('http://localhost:8081/praktikum/getAvailablePraktikum/'+dateCreate+'/'+praktikumCode, {headers : headers})
+    .map(res=>res.json());
+  }
 }

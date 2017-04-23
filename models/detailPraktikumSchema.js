@@ -61,3 +61,12 @@ module.exports.getPraktikumByIdPopulate = (id, callback) => {
             }
         })
 }
+
+module.exports.getAvailable = (dateCreate, praktikumCode, callback) => {
+    console.log(dateCreate);
+    console.log(praktikumCode);
+    return false;
+    DetailPraktikum.aggregate([
+
+    ])
+}

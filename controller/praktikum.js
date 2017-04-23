@@ -1327,5 +1327,19 @@ router.get('/getPraktikumDetailById/:id', (req, res, next) => {
     });
 });
 
+//GET PraktikumDetail by id
+router.get('/getAvailablePraktikum/:dateCreate/:praktikumCode', (req, res, next) => {
+    const dateCreate = req.params.dateCreate;
+    const praktikumCode = req.params.praktikumCode;
+    // console.log(dateCreate);
+    // return false;
+    DetailPraktikum.getAvailable(dateCreate, praktikumCode, (praktikum) => {
+        res.json({
+            success: true,
+            praktikum
+        })
+    });
+});
+
 
 module.exports = router;

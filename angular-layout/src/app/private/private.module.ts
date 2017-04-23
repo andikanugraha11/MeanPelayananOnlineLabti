@@ -32,7 +32,7 @@ import { ModalDetailTingkat4Component } from './admin/praktikum-management/tingk
 import { PraktikumPjComponent } from './pj/praktikum-pj/praktikum-pj.component';
 import { DetailPraktikumPjComponent } from './pj/detail-praktikum-pj/detail-praktikum-pj.component';
 import { TabsModule } from "ng2-tabs";
-import { ModalMakeReportComponent } from './pj/detail-praktikum-pj/modal-make-report/modal-make-report.component';
+import { ModalMakeReportComponent } from './praktikan/laporan/make-report/modal-make-report/modal-make-report.component';
 import { MakeReportComponent } from './praktikan/laporan/make-report/make-report.component';
 import { ReportOnProgressComponent } from './praktikan/laporan/report-on-progress/report-on-progress.component';
 import { ReportCompleteComponent } from './praktikan/laporan/report-complete/report-complete.component';
@@ -164,7 +164,8 @@ const appRoutes : Routes =
       ModalDetailTingkat1Component,
       ModalDetailTingkat2Component,
       ModalDetailTingkat3Component,
-      ModalDetailTingkat4Component
+      ModalDetailTingkat4Component,
+      ModalMakeReportComponent
     ],
 })
 export class PrivateModule { }
