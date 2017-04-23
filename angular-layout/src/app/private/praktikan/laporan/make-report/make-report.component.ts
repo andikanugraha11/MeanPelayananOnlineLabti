@@ -45,7 +45,8 @@ export class MakeReportComponent implements OnInit {
     this.authService.getReportById(reportId).subscribe(data=>{
       this.tanggalBuat = data.report.tanggal_buat;
       const praktikumCode = data.report.kode_praktikum;
-      service.getDetailPraktikumAvailable(this.tanggalBuat , praktikumCode).subscribe(data=>{
+      const idPraktikum = data.report._praktikumId;
+      service.getDetailPraktikumAvailable(this.tanggalBuat , praktikumCode,idPraktikum).subscribe(data=>{
 
       });
       //this.tanggalBuat

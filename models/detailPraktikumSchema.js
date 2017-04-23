@@ -62,11 +62,66 @@ module.exports.getPraktikumByIdPopulate = (id, callback) => {
         })
 }
 
-module.exports.getAvailable = (dateCreate, praktikumCode, callback) => {
-    console.log(dateCreate);
-    console.log(praktikumCode);
-    return false;
-    DetailPraktikum.aggregate([
+module.exports.getAvailable = (dateCreate, praktikumCode, praktikumId, callback) => {
+    // console.log(dateCreate);
+    // console.log(praktikumCode);
+    // return false;
+    DetailPraktikum.aggregate([{
+            $match: {
+                kode_praktikum: praktikumCode,
+            }
+        },
+        {
+            $project: {
+                tanggal: 1,
+                shift: 1,
+                _praktikumId: 1,
+                prakId: praktikumId,
+                jlhpraktikan: {
+                    $size: '$praktikan'
+                },
+                jlhtambahan: {
+                    $size: '$praktikan_tambahan'
+                },
+                dateCreate: new Date(dateCreate),
+                deadline: { $add: [new Date(dateCreate), 1000 * 60 * 60 * 24 * 6] }
+            }
+        },
+        {
+            $project: {
+                tanggal: 1,
+                _praktikumId: 1,
+                prakId: 1,
+                deadline: 1,
+                dateCreate: 1,
+                sumOfPraktikan: { $add: ["$jlhpraktikan", "$jlhtambahan"] },
+                beforeDeadline: { $subtract: ["$deadline", "$tanggal"] },
+                afterCreated: { $subtract: ["$tanggal", "$dateCreate"] }
+            }
+        },
+        {
+            $project: {
+                tanggal: 1,
+                _praktikumId: 1,
+                deadline: 1,
+                prakId: 1,
+                dateCreate: 1,
+                kuota: { $subtract: [50, "$sumOfPraktikan"] },
+                // test: { $ne: ['$_praktikumId', ObjectId(praktikumId)] },
+                testBeforeDeadline: { $divide: ["$beforeDeadline", 1000 * 60 * 60 * 24] },
+                testAfterCreted: { $divide: ["$afterCreated", 1000 * 60 * 60 * 24] },
+            }
+        },
+        {
+            $match: {
+                testBeforeDeadline: { $gte: 0 },
+                testAfterCreted: { $gte: 1 },
+                kuota: { $gt: 0 }
 
-    ])
+            }
+        }
+    ]).exec((err, result) => {
+        if (err) throw err;
+        callback(result);
+    });
 }

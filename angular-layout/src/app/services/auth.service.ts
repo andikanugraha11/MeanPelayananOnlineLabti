@@ -214,9 +214,9 @@ export class AuthService {
     .map(res=>res.json());
   }
 
-  getDetailPraktikumAvailable(dateCreate,praktikumCode){
+  getDetailPraktikumAvailable(dateCreate,praktikumCode,praktikumId){
     let headers = new Headers();
-    return this.http.get('http://localhost:8081/praktikum/getAvailablePraktikum/'+dateCreate+'/'+praktikumCode, {headers : headers})
+    return this.http.get('http://localhost:8081/praktikum/getAvailablePraktikum/'+dateCreate+'/'+praktikumCode+'/'+praktikumId, {headers : headers})
     .map(res=>res.json());
   }
 }
