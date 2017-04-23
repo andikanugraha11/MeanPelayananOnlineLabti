@@ -37,4 +37,15 @@ router.post('/add', (req, res, next) => {
 
 });
 
+//GET report by praktikan ID
+router.get('/getReportByPraktikanId/:id', (req, res, next) => {
+    const id = req.params.id;
+    Report.getReportByPraktikanId(id, (report) => {
+        res.json({
+            success: true,
+            report
+        })
+    });
+});
+
 module.exports = router;

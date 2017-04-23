@@ -3,6 +3,8 @@ const router = express.Router();
 const passport = require('passport');
 const jwt = require('jsonwebtoken');
 const config = require('../config/database');
+const fs = require('fs');
+const csv = require('fast-csv');
 
 const User = require('../models/userSchema');
 const Praktikan = require('../models/praktikanSchema');
@@ -93,4 +95,51 @@ router.delete('/removePraktikan/:id', (req, res, next) => {
     });
 });
 
+//upload csv
+router.get('/uploadcsv/:file', (req, res, next) => {
+    const path = '../public/upload' + req.params.file + '.csv';
+    fs.exists(path, (exists) => {
+        if (exists) {
+            const stream = fs.createReadStream(path);
+            csv.fromStream(stream, {
+                    header: [
+                        'depan',
+                        'belakang',
+                        'kelas',
+                        'npm'
+                    ]
+                })
+                .on('data', (data) => {
+                    const newPraktikan = new Praktikan({
+                        npm: data['npm'],
+                        nama: {
+                            depan: data['depan'],
+                            belakang: data['belakang']
+                        },
+                        kelas: data['kelas']
+                    });
+                    Praktikan.addPraktikan(newPraktikan, (err, praktikan) => {
+                        if (err) {
+                            res.json({
+                                success: false,
+                                msg: err
+                            });
+                        } else {
+                            res.json({
+                                success: true,
+                                msg: "Praktikan berhasil ditambah"
+                            });
+                        }
+                    });
+                });
+        }
+    });
+    const pathold = "./upload/" + req.params.file + ".csv";
+    const pathnew = "./upload/archived/" + req.params.file + ".csv";
+
+
+    fs.rename(pathold, pathnew, (err) => {
+        console.log('rename callback ', err);
+    })
+});
 module.exports = router;

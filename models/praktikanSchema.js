@@ -30,7 +30,7 @@ const praktikanSchema = Schema({
     },
     _userId: {
         type: ObjectId,
-        ref: User,
+        ref: 'User',
     },
     _praktikumId: [{
         type: ObjectId,

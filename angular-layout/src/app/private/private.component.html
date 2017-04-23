@@ -47,6 +47,20 @@
                 <li [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact:true}">
                     <a [routerLink]="['/dashboard']"><i class="fa fa-fw fa-dashboard"></i> Dashboard<small> praktikan</small></a>
                 </li>
+                <li>
+                    <a href="javascript:;" data-toggle="collapse" data-target="#laporan"><i class="fa fa-fw fa-newspaper-o"></i> Laporan<i class="fa fa-fw fa-caret-down"></i></a>
+                    <ul id="laporan" class="collapse">
+                        <li [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact:true}">
+                            <a [routerLink]="['/dashboard/laporan']"><i class="fa fa-file-o"></i> Buat Laporan</a>
+                        </li>
+                        <li [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact:true}">
+                            <a [routerLink]="['/dashboard/laporan/proses']"><i class="fa fa-exchange "></i> Laporan di Proses</a>
+                        </li>
+                        <li [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact:true}">
+                            <a [routerLink]="['/dashboard/laporan/selesai']"><i class="fa fa-check "></i> Laporan Selesai</a>
+                        </li>
+                    </ul>
+                </li>
                 <li [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact:true}">
                     <a [routerLink]="['/dashboard/petugas']"><i class="fa fa-fw fa-dashboard"></i> Dashboard<small> petugas</small></a>
                 </li>

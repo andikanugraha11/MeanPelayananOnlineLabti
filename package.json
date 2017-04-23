@@ -24,6 +24,7 @@
     "body-parser": "^1.17.1",
     "cors": "^2.8.1",
     "express": "^4.15.2",
+    "fast-csv": "^2.4.0",
     "jsonwebtoken": "^7.3.0",
     "mongoose": "^4.8.6",
     "passport": "^0.3.2",

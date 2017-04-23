@@ -17,6 +17,7 @@ export class DetailPraktikumPjComponent implements OnInit {
   praktikans : Object;
   flag:Boolean = false;
   dataPraktikum:any; //testing
+  pjId:String;
   constructor(private route:ActivatedRoute,private authService:AuthService, private router:Router) { }
 
   ngOnInit() {
@@ -28,6 +29,15 @@ export class DetailPraktikumPjComponent implements OnInit {
       console.log(data);
     },
     err => {
+  		console.log(err);
+  		return false;
+  	});
+
+    //get login userid
+    this.authService.getProfile().subscribe(profile => {
+      this.pjId = profile.user._pjId
+  	},
+  	err => {
   		console.log(err);
   		return false;
   	});
@@ -51,9 +61,7 @@ export class DetailPraktikumPjComponent implements OnInit {
   makeReport(idPraktikan){
     // console.log(idPraktikan);
     // console.log(this.dataPraktikum);
-    let pembuat =  localStorage.getItem('user');
-    let pembuatJson = JSON.parse(pembuat);
-    let idPembuat = pembuatJson.id;
+    let idPembuat = this.pjId;
     const report = {
       idPraktikan : idPraktikan,
       detailPraktikum : this.dataPraktikum._id,

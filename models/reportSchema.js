@@ -46,6 +46,9 @@ const reportSchema = Schema({
     tanggal_buat: {
         type: Date
     },
+    tanggal_lapor: {
+        type: Date
+    }
 
 
 });
@@ -55,4 +58,19 @@ const Report = module.exports = mongoose.model('Report', reportSchema);
 //ADD Rreport
 module.exports.addNewReport = (newReport, callback) => {
     newReport.save(callback);
+}
+module.exports.getReportByPraktikanId = (id, callback) => {
+    const query = { _praktikanId: id }
+    Report.find(query)
+        .populate('_praktikumId')
+        .populate('_praktikanId')
+        .populate('_detailPraktikumId')
+        .populate('pembuat')
+        .exec((err, result) => {
+            if (err) {
+                console.log(err);
+            } else {
+                callback(result);
+            }
+        })
 }

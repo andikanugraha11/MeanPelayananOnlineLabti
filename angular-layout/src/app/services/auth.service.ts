@@ -201,4 +201,10 @@ export class AuthService {
     return this.http.post('http://localhost:8081/laporan/add',report,{headers:headers})
     .map(res=>res.json());
   }
+
+  getReportByPraktikanId(id){
+    let headers = new Headers();
+    return this.http.get('http://localhost:8081/laporan/getReportByPraktikanId/'+id, {headers : headers})
+    .map(res=>res.json());
+  }
 }

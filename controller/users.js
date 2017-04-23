@@ -39,6 +39,7 @@ router.post('/add', (req, res, next) => {
                     });
                 } else {
                     praktikan._userId = newUser._id;
+                    praktikan.aktif = true;
                     praktikan.save((err, updatedPraktikan) => {
                         if (err) {
                             res.json({
