@@ -68,13 +68,16 @@ module.exports.getAllPJ = (callback) => {
 //SDA BUT WITH POPULATE
 module.exports.getAllPJPopulate = (callback) => {
     const query = { role: 'pj' };
-    User.find(query).populate('_pjId')
+    User.find(query).populate({
+            'path': '_pjId',
+            'populate': [{
+                'path': '_praktikumId',
+                'model': 'Praktikum'
+            }]
+        })
         .exec((err, result) => {
             if (err) throw err;
-            PetugasPj.populate(result, { 'path': '_pjId._praktikumId' }, (err, result) => {
-                if (err) throw err;
-                callback(result);
-            });
+            callback(result);
 
         });
 }
@@ -87,6 +90,28 @@ module.exports.getAllPetugasPopulate = (callback) => {
             if (err) throw err;
             callback(result);
         });
+}
+
+//set to NPM
+module.exports.setPasswordToNpm = (prakId, npm, callback) => {
+    let npmHash;
+    bcrypt.genSalt(10, (err, salt) => {
+        bcrypt.hash(npm, salt, (err, hash) => {
+            if (err) {
+                console.log(err)
+            } else {
+
+                npmHash = hash;
+                const query = { _praktikanId: prakId };
+                //console.log(npmHash);
+                User.update(query, {
+                    $set: {
+                        password: npmHash
+                    }
+                }, callback);
+            }
+        });
+    })
 }
 
 //ADD user

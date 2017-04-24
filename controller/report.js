@@ -99,6 +99,17 @@ router.get('/getReportByPraktikanId/:id', (req, res, next) => {
     });
 });
 
+//GET report by praktikan ID (On Progress)
+router.get('/getReportOnProgressByPraktikanId/:id', (req, res, next) => {
+    const id = req.params.id;
+    Report.getReportOnProgressByPraktikanId(id, (report) => {
+        res.json({
+            success: true,
+            report
+        })
+    });
+});
+
 router.get('/getReportById/:id', (req, res, next) => {
     const id = req.params.id;
     Report.getReportById(id, (err, report) => {

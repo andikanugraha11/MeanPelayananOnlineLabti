@@ -70,6 +70,12 @@ export class AuthService {
     .map(res=>res.json());
   }
 
+  getPraktikanById(id){
+    let headers = new Headers();
+    return this.http.get('http://localhost:8081/praktikan/getPraktikanById/'+id ,{headers:headers})
+    .map(res=> res.json());
+  }
+
   //GET All PJ
   getAllPJ(){
     let headers = new Headers();
@@ -93,6 +99,12 @@ export class AuthService {
     .map(res=>res.json());
   }
 
+  //setPasswordToNpm 
+  setPasswordToNpm(data){
+    let headers = new Headers();
+    return this.http.post('http://localhost:8081/users/setPasswordToNpm',data,{headers:headers})
+    .map(res=>res.json());
+  }
   //Remove Praktikan
   removePraktikan(id){
     let headers = new Headers();
@@ -207,9 +219,17 @@ export class AuthService {
     .map(res=>res.json());
   }
 
+  //Report 1 (status = dibuat )
   getReportByPraktikanId(id){
     let headers = new Headers();
     return this.http.get('http://localhost:8081/laporan/getReportByPraktikanId/'+id, {headers : headers})
+    .map(res=>res.json());
+  }
+
+  //ReportonProgress
+   getReportOnProgressByPraktikanId(id){
+    let headers = new Headers();
+    return this.http.get('http://localhost:8081/laporan/getReportOnProgressByPraktikanId/'+id, {headers : headers})
     .map(res=>res.json());
   }
 

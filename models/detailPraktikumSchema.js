@@ -125,7 +125,7 @@ module.exports.getAvailable = (praktikumDate, praktikumCode, callback) => {
         }
     ]).exec((err, result) => {
         if (err) throw err;
-        DetailPraktikum.populate(result, { 'path': '_praktikumId' }, (err, result) => {
+        DetailPraktikum.populate(result, { 'path': 'praktikum_pengganti._praktikumId' }, (err, result) => {
             if (err) throw err;
             callback(result);
         })

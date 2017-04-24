@@ -33,14 +33,14 @@
                             <table class="table table-striped table-bordered " [mfData]="data" #mf="mfDataTable" [mfRowsOnPage]="5" cellspacing="0" width="100%">
                                 <thead>
                                     <tr>
-                                        <th>
+                                        <th class="text-center">
                                             <mfDefaultSorter by="name">Name</mfDefaultSorter>
                                         </th>
-                                        <th>Username</th>
-                                        <th>NPM</th>
-                                        <th>Email</th>
-                                        <th>Praktikum</th>
-                                        <th>Aksi</th>
+                                        <th class="text-center">Username</th>
+                                        <th class="text-center">NPM</th>
+                                        <th class="text-center">Email</th>
+                                        <th class="text-center">Praktikum</th>
+                                        <th class="text-center">Aksi</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -50,7 +50,11 @@
                                         <td>{{pj._pjId.npm}}</td>
                                         <td>{{pj.email}}</td>
                                         <td class="text-center">
-                                            <a class="btn btn-primary" id="{{pj._id}}" (click)=detailPJ($event.target.attributes.id.value)>Tampilkan</a>
+                                            <ol>
+                                                <li *ngFor="let praktikum of pj._pjId._praktikumId">
+                                                    {{praktikum.nama_praktikum}} [{{praktikum.kelas}}]
+                                                </li>
+                                            </ol>
                                         </td>
                                         <td class="text-center">
                                             <a class="btn btn-danger" id="{{pj._id}}" (click)=removePJ($event.target.attributes.id.value)>Hapus</a>

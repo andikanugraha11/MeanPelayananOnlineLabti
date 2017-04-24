@@ -19,10 +19,8 @@ export class MakeReportComponent implements OnInit {
   // praktikumTersedia : object;
   constructor(private dialogService:DialogService, private route:ActivatedRoute,private authService:AuthService, private router:Router) { }
 
-  ngOnInit() {
-
-    //console.log(idPraktikan);
-    const service = this.authService;
+  ngOnInit() { 
+   const service = this.authService;
     this.authService.getProfile().subscribe(profile => {
       this.praktikanId = profile.user._praktikanId;
       service.getReportByPraktikanId(this.praktikanId).subscribe(data=>{
@@ -34,10 +32,6 @@ export class MakeReportComponent implements OnInit {
   		console.log(err);
   		return false;
   	});
-
-    // this.authService.getReportByPraktikanId(idPraktikan).subscribe(data=>{
-    //   console.log(data);
-    // });
   }
 
   makeReport(reportId){

@@ -14,6 +14,7 @@ import { ModalAddPraktikanComponent } from './modal-add-praktikan/modal-add-prak
 export class UserManagementComponent implements OnInit {
   
   data : Object;
+  praktikums : Object;
   constructor(private authService:AuthService, private router:Router, private dialogService:DialogService) {
     
   }
@@ -21,7 +22,9 @@ export class UserManagementComponent implements OnInit {
   ngOnInit() {
     this.authService.getAllPraktikan().subscribe(data => {
       this.data = data.praktikan;
+      //this.praktikums =  data.praktikan._praktikumId;
       console.log(this.data);
+      //console.log(this.praktikums)
     },
     err => {
       console.log(err);
@@ -29,25 +32,29 @@ export class UserManagementComponent implements OnInit {
     });
   }
 
-  onDetail(){
-    
+  resetPassword(id){
+    const service = this.authService;
+    this.authService.getPraktikanById(id).subscribe(data=>{
+      const dataUpdate = {
+        npm : data.praktikan.npm,
+        id
+      }
+      service.setPasswordToNpm(dataUpdate).subscribe(data=>{
+        console.log(data);
+      });
+      //console.log(npm);
+    });
   }
 
-  showConfirm() {
+  addPraktikan() {
         let disposable = this.dialogService.addDialog(ModalAddPraktikanComponent, {
             title:'Confirm title', 
             message:'Confirm message'})
             .subscribe((data)=>{
-                //We get dialog result
                 if(data) {
                     alert('Sukses');
                 }
             });
-        //We can close dialog calling disposable.unsubscribe();
-        //If dialog was not closed manually close it by timeout
-        // setTimeout(()=>{
-        //     disposable.unsubscribe();
-        // },10000);
     }
 
   removePraktikan(id){

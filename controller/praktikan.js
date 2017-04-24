@@ -80,6 +80,22 @@ router.get('/getAllPraktikan', (req, res, next) => {
 
 });
 
+router.get('/getPraktikanById/:id', (req, res, next) => {
+    const id = req.params.id;
+    Praktikan.getPraktikanById(id, (err, praktikan) => {
+        if (err) {
+            alert(err)
+        } else {
+            res.json({
+                success: true,
+                praktikan
+            });
+        }
+    });
+
+});
+
+
 //REMOVE Praktikan
 router.delete('/removePraktikan/:id', (req, res, next) => {
     const id = req.params.id;

@@ -59,8 +59,13 @@ const Report = module.exports = mongoose.model('Report', reportSchema);
 module.exports.addNewReport = (newReport, callback) => {
     newReport.save(callback);
 }
+
+//Status = Dibuat
 module.exports.getReportByPraktikanId = (id, callback) => {
-    const query = { _praktikanId: id }
+    const query = {
+        _praktikanId: id,
+        status: 'Dibuat'
+    }
     Report.find(query)
         .populate('_praktikumId')
         .populate('_praktikanId')
@@ -75,6 +80,31 @@ module.exports.getReportByPraktikanId = (id, callback) => {
         })
 }
 
+//Report on progress
+module.exports.getReportOnProgressByPraktikanId = (id, callback) => {
+    const query = {
+        _praktikanId: id,
+        status: 'Proses'
+    }
+    Report.find(query)
+        .populate('_praktikumId')
+        .populate('_praktikanId')
+        .populate('_detailPraktikumId')
+        .populate({
+            'path': 'praktikum_pengganti',
+            'populate': [{
+                'path': '_praktikumId',
+                'model': 'Praktikum'
+            }]
+        })
+        .exec((err, result) => {
+            if (err) {
+                console.log(err);
+            } else {
+                callback(result);
+            }
+        })
+}
 module.exports.getReportById = (id, callback) => {
     //const query = { _id: id }
     Report.findById(id, callback);

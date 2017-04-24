@@ -61,7 +61,27 @@ router.post('/add', (req, res, next) => {
     });
 });
 
+//setPasswordToNpm
+router.post('/setPasswordToNpm', (req, res, next) => {
 
+    const id = req.body.id;
+    const npm = req.body.npm;
+
+    User.setPasswordToNpm(id, npm, (err, user) => {
+        if (err) {
+            res.json({
+                success: false,
+                msg: err
+            });
+        } else {
+            res.json({
+                success: true,
+                msg: 'Password Berhasil di reset'
+            });
+        }
+    });
+
+});
 //users/add/admin
 router.post('/add/admin', (req, res, next) => {
 

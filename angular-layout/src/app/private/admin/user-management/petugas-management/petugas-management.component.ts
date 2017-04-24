@@ -35,11 +35,6 @@ export class PetugasManagementComponent implements OnInit {
                     alert('Sukses');
                 }
             });
-        //We can close dialog calling disposable.unsubscribe();
-        //If dialog was not closed manually close it by timeout
-        // setTimeout(()=>{
-        //     disposable.unsubscribe();
-        // },10000);
     }
     
     removePetugas(id){

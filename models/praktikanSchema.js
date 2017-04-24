@@ -64,8 +64,12 @@ module.exports.getPraktikanByNpmAndKelas = (praktikan, callback) => {
 //GET All Praktikan
 module.exports.getAllPraktikan = (callback) => {
     const query = {};
-    Praktikan.find(query, callback);
+    Praktikan.find(query)
+        .populate('_praktikumId')
+        .exec(callback);
 }
+
+
 
 //Get Praktikan by Kelas
 module.exports.enrollPraktikum = (kelas, pratikumId, callback) => {

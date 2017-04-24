@@ -27,19 +27,19 @@
                     <div class="panel-body">
 
                         <div class="form-group text-right">
-                            <button class="btn btn-success" (click)=showConfirm()>Tambah Penanggung Jawab</button>
+                            <button class="btn btn-success" (click)=showConfirm()>Tambah Petugas</button>
                         </div>
 
                         <div class="table-responsive ">
                             <table class="table table-striped table-bordered " [mfData]="data" #mf="mfDataTable" [mfRowsOnPage]="5" cellspacing="0" width="100%">
                                 <thead>
                                     <tr>
-                                        <th>
+                                        <th class="text-center">
                                             <mfDefaultSorter by="name">Name</mfDefaultSorter>
                                         </th>
-                                        <th>Username</th>
-                                        <th>Email</th>
-                                        <th>Detail</th>
+                                        <th class="text-center">Username</th>
+                                        <th class="text-center">Email</th>
+                                        <th class="text-center">Aksi</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -48,7 +48,6 @@
                                         <td>{{petugas.username}}</td>
                                         <td>{{petugas.email}}</td>
                                         <td class="text-center">
-                                            <a class="btn btn-primary" href="">Detail</a>
                                             <a class="btn btn-danger" id="{{petugas._id}}" (click)=removePetugas($event.target.attributes.id.value)>Hapus</a>
                                         </td>
                                     </tr>
