@@ -35,7 +35,7 @@ export class ModalMakeReportComponent extends DialogComponent<ConfirmModel, bool
     }
     // console.log(report);
     this.authService.praktikanDoReport(report).subscribe(data=>{
-
+      console.log(data);
     });
     //console.log(update);
 

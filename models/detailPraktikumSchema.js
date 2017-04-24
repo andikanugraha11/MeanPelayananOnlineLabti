@@ -131,3 +131,13 @@ module.exports.getAvailable = (praktikumDate, praktikumCode, callback) => {
         })
     });
 }
+
+//add praktikanREport
+module.exports.addPraktikan_tambahan = (detailId, reportId, callback) => {
+    const query = { _id: detailId };
+    DetailPraktikum.update(query, {
+        $push: { "praktikan_tambahan": reportId }
+    }, {
+        new: true,
+    }).exec(callback);
+}

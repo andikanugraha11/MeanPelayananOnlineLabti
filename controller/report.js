@@ -47,11 +47,30 @@ router.post('/praktikanDoReport', (req, res, next) => {
         status: 'Proses'
     };
     const reportId = req.body.reportId;
+    const detailPraktikumId = req.body.pengganti;
     // console.log(updateReport);
     // console.log(reportId);
     Report.praktikanDoReport(reportId, updateReport, (err, data) => {
-        if (err) throw err;
-        console.log(data);
+        if (err) {
+            res.json({
+                success: false,
+                msg: err
+            });
+        } else {
+            DetailPraktikum.addPraktikan_tambahan(detailPraktikumId, reportId, (err, data) => {
+                if (err) {
+                    res.json({
+                        success: false,
+                        msg: err
+                    });
+                } else {
+                    res.json({
+                        success: true,
+                        msg: "Laporan berhasil dibuat"
+                    });
+                }
+            });
+        }
     });
     // Report.addNewReport(newReport, (err, data) => {
     //     if (err) {
