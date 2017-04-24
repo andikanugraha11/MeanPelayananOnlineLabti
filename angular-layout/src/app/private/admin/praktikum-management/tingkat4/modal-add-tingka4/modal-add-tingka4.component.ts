@@ -41,6 +41,7 @@ export class ModalAddTingka4Component extends DialogComponent<ConfirmModel, bool
   pj : String;
   pjs : Object;
   jlh_pertemuan : Number;
+  ruang : String;
 
 
   constructor(dialogService: DialogService, private router:Router, private validation:ValidationService, private authService:AuthService) {
@@ -131,6 +132,7 @@ export class ModalAddTingka4Component extends DialogComponent<ConfirmModel, bool
       nama_praktikum : nama_praktikum,
       jlh_pertemuan : this.jlh_pertemuan,
       kode : kode,
+      ruang : this.ruang
     }
     
     this.authService.addPraktikumTk4(praktikum).subscribe(data=>{

@@ -49,10 +49,10 @@
                                         <td>{{pj.username}}</td>
                                         <td>{{pj._pjId.npm}}</td>
                                         <td>{{pj.email}}</td>
-                                        <td class="text-center">
+                                        <td>
                                             <ol>
                                                 <li *ngFor="let praktikum of pj._pjId._praktikumId">
-                                                    {{praktikum.nama_praktikum}} [{{praktikum.kelas}}]
+                                                    [{{praktikum.kelas}}] - {{praktikum.nama_praktikum}}
                                                 </li>
                                             </ol>
                                         </td>

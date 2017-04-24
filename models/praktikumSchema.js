@@ -29,6 +29,10 @@ const praktikumSchema = Schema({
     tingkat: {
         type: Number
     },
+    ruang: {
+        type: String,
+        uppercase: true
+    }
 });
 
 const Praktikum = module.exports = mongoose.model('Praktikum', praktikumSchema);

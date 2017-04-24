@@ -27,6 +27,7 @@ router.post('/add/tingkat1', (req, res, next) => {
             kelas: req.body.kelas,
             _PjId: req.body.pj,
             tingkat: 1,
+            ruang: req.body.ruang,
             _detailId: []
         });
 
@@ -337,6 +338,7 @@ router.post('/add/tingkat2', (req, res, next) => {
             kelas: req.body.kelas,
             _PjId: req.body.pj,
             tingkat: 2,
+            ruang: req.body.ruang,
             _detailId: []
         });
 
@@ -647,6 +649,7 @@ router.post('/add/tingkat3', (req, res, next) => {
             kelas: req.body.kelas,
             _PjId: req.body.pj,
             tingkat: 3,
+            ruang: req.body.ruang,
             _detailId: []
         });
 
@@ -957,6 +960,7 @@ router.post('/add/tingkat4', (req, res, next) => {
             kelas: req.body.kelas,
             _PjId: req.body.pj,
             tingkat: 4,
+            ruang: req.body.ruang,
             _detailId: []
         });
 
