@@ -34,7 +34,7 @@ const reportSchema = Schema({
         ref: 'PetugasPj'
     },
     keterangan: {
-        enum: ['Dikeluarkan', 'Sakit', 'Izin', 'Terlambat']
+        enum: ['Dikeluarkan', 'Sakit', 'Izin', 'Terlambat', 'Tanpa Keterangan']
     },
     status: {
         type: String,
@@ -43,7 +43,7 @@ const reportSchema = Schema({
     },
     proses: [],
     //Sudah melakukan pengulangan, Sudah menerima blanko, Sudah membayar
-    tanggal_buat: {
+    tanggal: {
         type: Date
     },
     tanggal_lapor: {

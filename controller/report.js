@@ -11,6 +11,7 @@ const petugasPj = require('../models/petugasPjSchema');
 const DetailPraktikum = require('../models/detailPraktikumSchema');
 const Report = require('../models/reportSchema');
 
+//make new report
 router.post('/add', (req, res, next) => {
     let newReport = new Report({
         _praktikumId: req.body.idPraktikum,
@@ -18,7 +19,7 @@ router.post('/add', (req, res, next) => {
         kode_praktikum: req.body.kode_praktikum,
         _praktikanId: req.body.idPraktikan,
         pembuat: req.body.idPembuat,
-        tanggal_buat: req.body.tanggal_buat
+        tanggal: req.body.tanggal
     });
 
     Report.addNewReport(newReport, (err, data) => {
@@ -34,6 +35,30 @@ router.post('/add', (req, res, next) => {
             });
         }
     });
+
+});
+
+//praktikan do report
+router.post('/praktikanDoReport', (req, res, next) => {
+    let updateReport = {
+        keterangan: req.body.keterangan,
+        praktikum_pengganti: req.body.pengganti,
+        tanggal_lapor: new Date()
+    };
+    console.log(updateReport)
+        // Report.addNewReport(newReport, (err, data) => {
+        //     if (err) {
+        //         res.json({
+        //             success: false,
+        //             msg: err
+        //         });
+        //     } else {
+        //         res.json({
+        //             success: true,
+        //             msg: "Laporan berhasil dibuat"
+        //         });
+        //     }
+        // });
 
 });
 

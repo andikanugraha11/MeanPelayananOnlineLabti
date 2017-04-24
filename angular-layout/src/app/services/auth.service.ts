@@ -201,6 +201,11 @@ export class AuthService {
     return this.http.post('http://localhost:8081/laporan/add',report,{headers:headers})
     .map(res=>res.json());
   }
+  praktikanDoReport(report){
+    let headers = new Headers();
+    return this.http.post('http://localhost:8081/laporan/praktikanDoReport',report,{headers:headers})
+    .map(res=>res.json());
+  }
 
   getReportByPraktikanId(id){
     let headers = new Headers();
@@ -214,9 +219,9 @@ export class AuthService {
     .map(res=>res.json());
   }
 
-  getDetailPraktikumAvailable(dateCreate,praktikumCode,praktikumId){
+  getDetailPraktikumAvailable(praktikumDate,praktikumCode){
     let headers = new Headers();
-    return this.http.get('http://localhost:8081/praktikum/getAvailablePraktikum/'+dateCreate+'/'+praktikumCode+'/'+praktikumId, {headers : headers})
+    return this.http.get('http://localhost:8081/praktikum/getAvailablePraktikum/'+praktikumDate+'/'+praktikumCode, {headers : headers})
     .map(res=>res.json());
   }
 }

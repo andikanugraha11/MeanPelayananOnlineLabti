@@ -62,7 +62,7 @@ module.exports.getPraktikumByIdPopulate = (id, callback) => {
         })
 }
 
-module.exports.getAvailable = (dateCreate, praktikumCode, praktikumId, callback) => {
+module.exports.getAvailable = (praktikumDate, praktikumCode, callback) => {
     // console.log(dateCreate);
     // console.log(praktikumCode);
     // return false;
@@ -75,36 +75,40 @@ module.exports.getAvailable = (dateCreate, praktikumCode, praktikumId, callback)
             $project: {
                 tanggal: 1,
                 shift: 1,
+                pertemuan: 1,
                 _praktikumId: 1,
-                prakId: praktikumId,
                 jlhpraktikan: {
                     $size: '$praktikan'
                 },
                 jlhtambahan: {
                     $size: '$praktikan_tambahan'
                 },
-                dateCreate: new Date(dateCreate),
-                deadline: { $add: [new Date(dateCreate), 1000 * 60 * 60 * 24 * 6] }
+                praktikumDate: new Date(praktikumDate),
+                deadline: { $add: [new Date(praktikumDate), 1000 * 60 * 60 * 24 * 6] }
             }
         },
         {
             $project: {
                 tanggal: 1,
+                pertemuan: 1,
+                shift: 1,
                 _praktikumId: 1,
-                prakId: 1,
+                praktikumDate: 1,
                 deadline: 1,
                 dateCreate: 1,
                 sumOfPraktikan: { $add: ["$jlhpraktikan", "$jlhtambahan"] },
                 beforeDeadline: { $subtract: ["$deadline", "$tanggal"] },
-                afterCreated: { $subtract: ["$tanggal", "$dateCreate"] }
+                afterCreated: { $subtract: ["$tanggal", "$praktikumDate"] }
             }
         },
         {
             $project: {
                 tanggal: 1,
+                pertemuan: 1,
+                shift: 1,
                 _praktikumId: 1,
                 deadline: 1,
-                prakId: 1,
+                praktikumDate: 1,
                 dateCreate: 1,
                 kuota: { $subtract: [50, "$sumOfPraktikan"] },
                 // test: { $ne: ['$_praktikumId', ObjectId(praktikumId)] },
@@ -115,13 +119,15 @@ module.exports.getAvailable = (dateCreate, praktikumCode, praktikumId, callback)
         {
             $match: {
                 testBeforeDeadline: { $gte: 0 },
-                testAfterCreted: { $gte: 1 },
+                testAfterCreted: { $gt: 0 },
                 kuota: { $gt: 0 }
-
             }
         }
     ]).exec((err, result) => {
         if (err) throw err;
-        callback(result);
+        DetailPraktikum.populate(result, { 'path': '_praktikumId' }, (err, result) => {
+            if (err) throw err;
+            callback(result);
+        })
     });
 }

@@ -1328,18 +1328,17 @@ router.get('/getPraktikumDetailById/:id', (req, res, next) => {
 });
 
 //GET PraktikumDetail by id
-router.get('/getAvailablePraktikum/:dateCreate/:praktikumCode/:praktikumId', (req, res, next) => {
-    const dateCreate = req.params.dateCreate;
+router.get('/getAvailablePraktikum/:praktikumDate/:praktikumCode', (req, res, next) => {
+    const praktikumDate = req.params.praktikumDate;
     const praktikumCode = req.params.praktikumCode;
-    const praktikumId = req.params.praktikumId;
     // console.log(dateCreate);
     // return false;
-    DetailPraktikum.getAvailable(dateCreate, praktikumCode, praktikumId, (data) => {
+    DetailPraktikum.getAvailable(praktikumDate, praktikumCode, (available) => {
         res.json({
             success: true,
-            data
+            available
         })
-        console.log(data);
+        console.log(available);
     });
 });
 

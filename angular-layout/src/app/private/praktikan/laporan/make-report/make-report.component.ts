@@ -15,7 +15,8 @@ export class MakeReportComponent implements OnInit {
 
   praktikanId: String;
   reports : Object;
-  tanggalBuat : Date;
+  praktikumDate : Date;
+  // praktikumTersedia : object;
   constructor(private dialogService:DialogService, private route:ActivatedRoute,private authService:AuthService, private router:Router) { }
 
   ngOnInit() {
@@ -40,26 +41,26 @@ export class MakeReportComponent implements OnInit {
   }
 
   makeReport(reportId){
-    console.log(reportId);
     const service = this.authService;
     this.authService.getReportById(reportId).subscribe(data=>{
-      this.tanggalBuat = data.report.tanggal_buat;
+      this.praktikumDate = data.report.tanggal;
       const praktikumCode = data.report.kode_praktikum;
-      const idPraktikum = data.report._praktikumId;
-      service.getDetailPraktikumAvailable(this.tanggalBuat , praktikumCode,idPraktikum).subscribe(data=>{
-
+      //const idPraktikum = data.report._praktikumId;
+      service.getDetailPraktikumAvailable(this.praktikumDate, praktikumCode)
+      .subscribe(data=>{
+        if(data.success){
+          console.log(data.available);
+          let disposable = this.dialogService.addDialog(ModalMakeReportComponent, {
+            title:'Confirm title', 
+            message:'Confirm message',
+            dataTersedia: data.available
+          });
+        }
+        
       });
       //this.tanggalBuat
     });
  
-    let disposable = this.dialogService.addDialog(ModalMakeReportComponent, {
-          title:'Confirm title', 
-          message:'Confirm message'
-        })
-        .subscribe((data)=>{
-            if(data) {
-                alert('Sukses');
-            }
-        });
+
     }
   }

@@ -68,7 +68,7 @@ export class DetailPraktikumPjComponent implements OnInit {
       kode_praktikum : this.dataPraktikum.kode_praktikum,
       idPraktikum : this.dataPraktikum._praktikumId._id,
       idPembuat : idPembuat,
-      tanggal_buat : new Date()
+      tanggal : this.dataPraktikum.tanggal,
     }
     this.authService.makeReport(report).subscribe(data => {
       if(data.success){

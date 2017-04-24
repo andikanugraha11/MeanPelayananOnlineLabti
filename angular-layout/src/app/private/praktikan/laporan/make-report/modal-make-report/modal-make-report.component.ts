@@ -6,6 +6,7 @@ import { DialogComponent, DialogService } from "ng2-bootstrap-modal";
 export interface ConfirmModel {
   title:string;
   message:string;
+  dataTersedia: any;
 }
 
 @Component({
@@ -16,8 +17,24 @@ export interface ConfirmModel {
 export class ModalMakeReportComponent extends DialogComponent<ConfirmModel, boolean> implements ConfirmModel {
   title: string;
   message: string;
+  dataTersedia: any;
+  keterangan:String;
+  pengganti: String;
   constructor(dialogService: DialogService, private router:Router, private validation:ValidationService, private authService:AuthService) { 
     super(dialogService);
+    // console.log(this.data);
+  }
+
+  updateReport(){
+    const report = {
+      keterangan : this.keterangan,
+      pengganti : this.pengganti
+    }
+    this.authService.praktikanDoReport(report).subscribe(data=>{
+
+    });
+    //console.log(update);
+
   }
   
 
