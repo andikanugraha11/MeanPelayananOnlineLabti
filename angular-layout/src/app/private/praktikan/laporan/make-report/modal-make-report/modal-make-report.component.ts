@@ -7,6 +7,7 @@ export interface ConfirmModel {
   title:string;
   message:string;
   dataTersedia: any;
+  reportId:string;
 }
 
 @Component({
@@ -18,6 +19,7 @@ export class ModalMakeReportComponent extends DialogComponent<ConfirmModel, bool
   title: string;
   message: string;
   dataTersedia: any;
+  reportId:string;
   keterangan:String;
   pengganti: String;
   constructor(dialogService: DialogService, private router:Router, private validation:ValidationService, private authService:AuthService) { 
@@ -28,8 +30,10 @@ export class ModalMakeReportComponent extends DialogComponent<ConfirmModel, bool
   updateReport(){
     const report = {
       keterangan : this.keterangan,
-      pengganti : this.pengganti
+      pengganti : this.pengganti,
+      reportId : this.reportId
     }
+    // console.log(report);
     this.authService.praktikanDoReport(report).subscribe(data=>{
 
     });

@@ -43,22 +43,29 @@ router.post('/praktikanDoReport', (req, res, next) => {
     let updateReport = {
         keterangan: req.body.keterangan,
         praktikum_pengganti: req.body.pengganti,
-        tanggal_lapor: new Date()
+        tanggal_lapor: new Date(),
+        status: 'Proses'
     };
-    console.log(updateReport)
-        // Report.addNewReport(newReport, (err, data) => {
-        //     if (err) {
-        //         res.json({
-        //             success: false,
-        //             msg: err
-        //         });
-        //     } else {
-        //         res.json({
-        //             success: true,
-        //             msg: "Laporan berhasil dibuat"
-        //         });
-        //     }
-        // });
+    const reportId = req.body.reportId;
+    // console.log(updateReport);
+    // console.log(reportId);
+    Report.praktikanDoReport(reportId, updateReport, (err, data) => {
+        if (err) throw err;
+        console.log(data);
+    });
+    // Report.addNewReport(newReport, (err, data) => {
+    //     if (err) {
+    //         res.json({
+    //             success: false,
+    //             msg: err
+    //         });
+    //     } else {
+    //         res.json({
+    //             success: true,
+    //             msg: "Laporan berhasil dibuat"
+    //         });
+    //     }
+    // });
 
 });
 

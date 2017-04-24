@@ -53,7 +53,8 @@ export class MakeReportComponent implements OnInit {
           let disposable = this.dialogService.addDialog(ModalMakeReportComponent, {
             title:'Confirm title', 
             message:'Confirm message',
-            dataTersedia: data.available
+            dataTersedia: data.available,
+            reportId : reportId
           });
         }
         

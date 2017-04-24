@@ -79,3 +79,27 @@ module.exports.getReportById = (id, callback) => {
     //const query = { _id: id }
     Report.findById(id, callback);
 }
+
+module.exports.praktikanDoReport = (reportId, updateReport, callback) => {
+    // console.log(updateReport);
+    const query = { _id: reportId };
+    Report.update(query, updateReport, {
+        new: true
+    }).exec(callback);
+}
+
+// module.exports.praktikanDoReport = (reportId, updateReport, callback) => {
+//     // console.log(updateReport);
+//     const query = { _id: reportId };
+//     Report.update(query, {
+//         $push: {
+//             "praktikum_pengganti": updateReport.praktikum_pengganti
+//         },
+//         $set: {
+//             "tanggal_lapor": updateReport.tanggal_lapor,
+//             "keterangan": updateReport.keterangan
+//         }
+//     }, {
+//         new: true
+//     }).exec(callback);
+// }
