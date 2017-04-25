@@ -19,6 +19,7 @@ export class DetailPraktikumPjComponent implements OnInit {
   flag:Boolean = false;
   dataPraktikum:any; //testing
   pjId:String;
+  jlhPertemuan:Number;
   constructor(private route:ActivatedRoute,private authService:AuthService, private router:Router) { }
 
   ngOnInit() {
@@ -47,11 +48,17 @@ export class DetailPraktikumPjComponent implements OnInit {
   onChangePertemuan(){
     this.flag = true;
     let idDetail = this.detailPertemuan;
+    //let jlhPertemuan;
+    const service = this.authService;
     this.authService.getPraktikumDetailById(idDetail).subscribe(data =>{
       this.praktikans = data.praktikum.praktikan;
       this.tambahans = data.praktikum.praktikan_tambahan;
       this.dataPraktikum = data.praktikum;
+      this.jlhPertemuan = data.praktikum._praktikumId._detailId.length;
+
+      //service.countReportPraktikan()
       console.log(this.dataPraktikum);
+
     },
     err => {
       console.log(err);
@@ -63,23 +70,83 @@ export class DetailPraktikumPjComponent implements OnInit {
   makeReport(idPraktikan){
     // console.log(idPraktikan);
     // console.log(this.dataPraktikum);
-    let idPembuat = this.pjId;
-    const report = {
-      idPraktikan : idPraktikan,
-      detailPraktikum : this.dataPraktikum._id,
-      kode_praktikum : this.dataPraktikum.kode_praktikum,
-      idPraktikum : this.dataPraktikum._praktikumId._id,
-      idPembuat : idPembuat,
-      tanggal : this.dataPraktikum.tanggal,
-    }
-    this.authService.makeReport(report).subscribe(data => {
-      if(data.success){
-        alert('Form laporan telah dibuat');
-      }else{
-        alert('gagal');
+    const service = this.authService;
+    this.authService.getReportPraktikan(idPraktikan,this.dataPraktikum._praktikumId._id).subscribe(data=>{
+      // console.log(data);
+      // console.log(data.report.length);
+      const jlhReport = data.report.length;
+      if(this.jlhPertemuan==8){
+        if(jlhReport>=2){
+          alert('delete');
+        }else{
+          let idPembuat = this.pjId;
+          const report = {
+            idPraktikan : idPraktikan,
+            detailPraktikum : this.dataPraktikum._id,
+            kode_praktikum : this.dataPraktikum.kode_praktikum,
+            idPraktikum : this.dataPraktikum._praktikumId._id,
+            idPembuat : idPembuat,
+            tanggal : this.dataPraktikum.tanggal,
+          }
+          service.makeReport(report).subscribe(data => {
+            if(data.success){
+              alert('Form laporan telah dibuat');
+            }else{
+              alert('gagal');
+            }
+          });
+          console.log(report);
+        }
+        console.log('delapan');
+      }
+      if(this.jlhPertemuan==4){
+        if(jlhReport>=1){
+          alert('delete');
+        }else{
+          let idPembuat = this.pjId;
+          const report = {
+            idPraktikan : idPraktikan,
+            detailPraktikum : this.dataPraktikum._id,
+            kode_praktikum : this.dataPraktikum.kode_praktikum,
+            idPraktikum : this.dataPraktikum._praktikumId._id,
+            idPembuat : idPembuat,
+            tanggal : this.dataPraktikum.tanggal,
+          }
+          service.makeReport(report).subscribe(data => {
+            if(data.success){
+              alert('Form laporan telah dibuat');
+            }else{
+              alert('gagal');
+            }
+          });
+          console.log(report);
+        }
+        console.log('empat');
       }
     });
-    console.log(report);
+    console.log(this.jlhPertemuan);
+    
+    return false;
+
+    // BENER LOH YANG BAWAH
+
+    // let idPembuat = this.pjId;
+    // const report = {
+    //   idPraktikan : idPraktikan,
+    //   detailPraktikum : this.dataPraktikum._id,
+    //   kode_praktikum : this.dataPraktikum.kode_praktikum,
+    //   idPraktikum : this.dataPraktikum._praktikumId._id,
+    //   idPembuat : idPembuat,
+    //   tanggal : this.dataPraktikum.tanggal,
+    // }
+    // this.authService.makeReport(report).subscribe(data => {
+    //   if(data.success){
+    //     alert('Form laporan telah dibuat');
+    //   }else{
+    //     alert('gagal');
+    //   }
+    // });
+    // console.log(report);
   }
 
 }

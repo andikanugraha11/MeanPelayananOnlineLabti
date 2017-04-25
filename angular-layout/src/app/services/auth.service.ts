@@ -207,6 +207,13 @@ export class AuthService {
     .map(res=>res.json());
   }
 
+  //count report by praktikan and praktikumId
+  getReportPraktikan(praktikanId,praktikumId){
+    let headers = new Headers();
+    return this.http.get('http://localhost:8081/laporan/getPraktikanReport/'+praktikanId+'/'+praktikumId, {headers : headers})
+    .map(res=>res.json());
+  }
+
   //Make report
   makeReport(report){
     let headers = new Headers();

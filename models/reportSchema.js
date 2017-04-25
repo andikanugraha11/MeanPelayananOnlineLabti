@@ -110,6 +110,21 @@ module.exports.getReportById = (id, callback) => {
     Report.findById(id, callback);
 }
 
+module.exports.getReportPraktikan = (praktikanId, praktikumId, callback) => {
+    const query = {
+        _praktikanId: praktikanId,
+        _praktikumId: praktikumId
+    }
+    console.log(query);
+    Report.find(query).exec((err, result) => {
+        if (err) {
+            console.log(err);
+        } else {
+            callback(result);
+        }
+    })
+}
+
 module.exports.praktikanDoReport = (reportId, updateReport, callback) => {
     // console.log(updateReport);
     const query = { _id: reportId };

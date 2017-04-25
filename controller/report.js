@@ -88,6 +88,19 @@ router.post('/praktikanDoReport', (req, res, next) => {
 
 });
 
+//get report praktikan
+router.get('/getPraktikanReport/:praktikanId/:praktikumId', (req, res, next) => {
+    const praktikanId = req.params.praktikanId;
+    const praktikumId = req.params.praktikumId;
+    //console.log(praktikanId + praktikumId);
+    Report.getReportPraktikan(praktikanId, praktikumId, (report) => {
+        res.json({
+            success: true,
+            report
+        })
+    });
+});
+
 //GET report by praktikan ID
 router.get('/getReportByPraktikanId/:id', (req, res, next) => {
     const id = req.params.id;
