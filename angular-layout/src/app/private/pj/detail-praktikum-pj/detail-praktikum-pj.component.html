@@ -86,11 +86,10 @@
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                <!--<tr *ngFor="let praktikum of praktikums">-->
-                                                <tr>
-                                                    <td>Muhammad Andika Nugraha</td>
-                                                    <td class="text-center">57414084</td>
-                                                    <td class="text-center">3IA17k</td>
+                                                <tr *ngFor="let tambahan of tambahans">
+                                                    <td>{{tambahan._praktikanId.nama.depan}} {{tambahan._praktikanId.nama.belakang}}</td>
+                                                    <td class="text-center">{{tambahan._praktikanId.npm}}</td>
+                                                    <td class="text-center">{{tambahan._praktikanId.kelas}}</td>
                                                     <td class="text-center">
                                                         <a class="btn btn-primary" id="id" (click)=showDetail($event.target.attributes.id.value)>Masuk</a>
                                                     </td>

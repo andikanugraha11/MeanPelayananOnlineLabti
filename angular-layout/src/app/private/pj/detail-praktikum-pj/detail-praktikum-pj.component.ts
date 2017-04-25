@@ -15,6 +15,7 @@ export class DetailPraktikumPjComponent implements OnInit {
   details  : Object;
   detailPertemuan : String;
   praktikans : Object;
+  tambahans : Object;
   flag:Boolean = false;
   dataPraktikum:any; //testing
   pjId:String;
@@ -48,6 +49,7 @@ export class DetailPraktikumPjComponent implements OnInit {
     let idDetail = this.detailPertemuan;
     this.authService.getPraktikumDetailById(idDetail).subscribe(data =>{
       this.praktikans = data.praktikum.praktikan;
+      this.tambahans = data.praktikum.praktikan_tambahan;
       this.dataPraktikum = data.praktikum;
       console.log(this.dataPraktikum);
     },

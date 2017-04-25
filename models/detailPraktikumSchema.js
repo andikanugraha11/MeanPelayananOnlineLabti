@@ -53,6 +53,13 @@ module.exports.getPraktikumByIdPopulate = (id, callback) => {
     DetailPraktikum.findOne(query)
         .populate('praktikan')
         .populate('_praktikumId')
+        .populate({
+            'path': 'praktikan_tambahan',
+            'populate': [{
+                'path': '_praktikanId',
+                'model': 'Praktikan'
+            }]
+        })
         .exec((err, result) => {
             if (err) {
                 console.log(err);
