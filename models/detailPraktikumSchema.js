@@ -32,7 +32,11 @@ const detailPraktikumSchema = Schema({
         type: ObjectId,
         ref: 'Praktikan'
     }],
-
+    // Buat cek ketidakhadiran
+    absen: [{
+        type: ObjectId,
+        ref: 'Praktikan'
+    }],
     //praktikan tambahan dari laporan
     praktikan_tambahan: [{
         type: ObjectId,
@@ -144,6 +148,16 @@ module.exports.addPraktikan_tambahan = (detailId, reportId, callback) => {
     const query = { _id: detailId };
     DetailPraktikum.update(query, {
         $push: { "praktikan_tambahan": reportId }
+    }, {
+        new: true,
+    }).exec(callback);
+}
+
+//add absen
+module.exports.addAbsen = (detailId, praktikanId, callback) => {
+    const query = { _id: detailId };
+    DetailPraktikum.update(query, {
+        $push: { "absen": praktikanId }
     }, {
         new: true,
     }).exec(callback);

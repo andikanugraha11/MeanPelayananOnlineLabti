@@ -22,6 +22,8 @@ router.post('/add', (req, res, next) => {
         tanggal: req.body.tanggal
     });
 
+    const detailId = req.body.detailPraktikum;
+    const praktikanId = req.body.idPraktikan;
     Report.addNewReport(newReport, (err, data) => {
         if (err) {
             res.json({
@@ -29,10 +31,19 @@ router.post('/add', (req, res, next) => {
                 msg: err
             });
         } else {
-            res.json({
-                success: true,
-                msg: "Laporan berhasil dibuat"
-            });
+            DetailPraktikum.addAbsen(detailId, praktikanId, (err, data) => {
+                if (err) {
+                    res.json({
+                        success: false,
+                        msg: err
+                    });
+                } else {
+                    res.json({
+                        success: true,
+                        msg: "Laporan berhasil dibuat"
+                    });
+                }
+            })
         }
     });
 
