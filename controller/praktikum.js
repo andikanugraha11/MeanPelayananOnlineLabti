@@ -1346,5 +1346,36 @@ router.get('/getAvailablePraktikum/:praktikumDate/:praktikumCode', (req, res, ne
     });
 });
 
+//pullpraktikan
+router.post('/pullPraktikan', (req, res, next) => {
+    //console.log('test')
+    let idPraktikan = req.body.idPraktikan;
+    let idPraktikum = req.body.idPraktikum;
+    //return false;
+    DetailPraktikum.pullPraktikan(idPraktikum, idPraktikan, (err, data) => {
+            if (err) throw err;
+            Praktikan.removePraktikum(idPraktikan, idPraktikum, (err, data) => {
+                console.log('test')
+                if (err) {
+                    res.json({
+                        success: false,
+                        msg: err
+                    });
+                } else {
+                    res.json({
+                        success: true,
+                        msg: 'Praktikan delete'
+                    });
+                }
+            })
+        })
+        // const cursor = DetailPraktikum.update({ _praktikumId: idPraktikum }, { $pull: { "praktikan": idPraktikan } }).cursor();
+        // cursor.on('data', doc => {
+        //     console.log('update');
+        // })
+        // cursor.on('end', doc => {
+
+    // })
+})
 
 module.exports = router;

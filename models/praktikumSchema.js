@@ -41,6 +41,7 @@ const Praktikum = module.exports = mongoose.model('Praktikum', praktikumSchema);
 
 //Get PJ by id
 module.exports.getPraktikumById = (id, callback) => {
+
     Praktikum.findById(id, callback);
 }
 

@@ -77,7 +77,18 @@ export class DetailPraktikumPjComponent implements OnInit {
       const jlhReport = data.report.length;
       if(this.jlhPertemuan==8){
         if(jlhReport>=2){
-          alert('delete');
+          const dataPraktikan = {
+            idPraktikan : idPraktikan,
+            idPraktikum : this.dataPraktikum._praktikumId._id
+          }
+          service.deletePraktikanFromPraktikum(dataPraktikan).subscribe(data =>{
+            if(data.success){
+              alert('Praktikan di delete karena telah melebihi batas tidak masuk');
+            }else{
+              alert('gagal');
+            }
+            console.log(data);
+          });
         }else{
           let idPembuat = this.pjId;
           const report = {
@@ -101,7 +112,18 @@ export class DetailPraktikumPjComponent implements OnInit {
       }
       if(this.jlhPertemuan==4){
         if(jlhReport>=1){
-          alert('delete');
+          const dataPraktikan = {
+            idPraktikan : idPraktikan,
+            idPraktikum : this.dataPraktikum._praktikumId._id
+          }
+          service.deletePraktikanFromPraktikum(dataPraktikan).subscribe(data =>{
+            if(data.success){
+              alert('Praktikan di delete karena telah melebihi batas tidak masuk');
+            }else{
+              alert('gagal');
+            }
+            console.log(data);
+          });
         }else{
           let idPembuat = this.pjId;
           const report = {

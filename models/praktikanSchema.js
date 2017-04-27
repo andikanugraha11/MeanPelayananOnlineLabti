@@ -83,7 +83,14 @@ module.exports.enrollPraktikum = (kelas, pratikumId, callback) => {
     }
     //DELETE Praktikan BY ID
 module.exports.removePraktikanById = (id, callback) => {
-        Praktikan.findByIdAndRemove(id, callback);
+    Praktikan.findByIdAndRemove(id, callback);
+}
+
+module.exports.removePraktikum = (id, idPraktikum, callback) => {
+        const query = { _id: id };
+        Praktikan.update(query, {
+            $pull: { "_praktikumId": idPraktikum }
+        }).exec(callback);
     }
     //Activasi berarti dari praktikan ->  userSchema (Berdasarkan NPM dan kelas)
     //Daftarin berati dari users -> pjSchema||PetugasSchema (Berdasarkan Username dan Password)

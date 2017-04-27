@@ -31,7 +31,7 @@ router.post('/add', (req, res, next) => {
                 msg: err
             });
         } else {
-            DetailPraktikum.addAbsen(detailId, praktikanId, (err, data) => {
+            DetailPraktikum.removeFromDetail(detailId, praktikanId, (err, data) => {
                 if (err) {
                     res.json({
                         success: false,

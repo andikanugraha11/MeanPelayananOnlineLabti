@@ -41,7 +41,16 @@ const reportSchema = Schema({
         enum: ['Dibuat', 'Proses', 'Selesai'],
         default: 'Dibuat'
     },
-    proses: [],
+    proses: {
+        pengulangan: {
+            type: Boolean,
+            default: false
+        },
+        pembayaran: {
+            type: Boolean,
+            default: false
+        }
+    },
     //Sudah melakukan pengulangan, Sudah menerima blanko, Sudah membayar
     tanggal: {
         type: Date
@@ -111,6 +120,7 @@ module.exports.getReportById = (id, callback) => {
 }
 
 module.exports.getReportPraktikan = (praktikanId, praktikumId, callback) => {
+    //console.log('without flag');
     const query = {
         _praktikanId: praktikanId,
         _praktikumId: praktikumId
@@ -124,6 +134,8 @@ module.exports.getReportPraktikan = (praktikanId, praktikumId, callback) => {
         }
     })
 }
+
+
 
 module.exports.praktikanDoReport = (reportId, updateReport, callback) => {
     // console.log(updateReport);

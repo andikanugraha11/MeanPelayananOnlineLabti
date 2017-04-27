@@ -53,6 +53,7 @@ module.exports.addDetail = (newDetailPraktikum, callback) => {
 
 //Get detail by id popultae
 module.exports.getPraktikumByIdPopulate = (id, callback) => {
+    console.log('without flag');
     const query = { _id: id }
     DetailPraktikum.findOne(query)
         .populate('praktikan')
@@ -72,6 +73,46 @@ module.exports.getPraktikumByIdPopulate = (id, callback) => {
             }
         })
 }
+
+//Get detail by id popultae with flag
+// module.exports.getPraktikumByIdPopulateFlag = (id, callback) => {
+//     console.log('flag');
+//     DetailPraktikum.aggregate([{
+//             $match: {
+//                 _id: mongoose.Types.ObjectId(id)
+//             }
+//         },
+//         {
+//             $project: {
+//                 praktikan: 1
+//             }
+//         }
+
+//     ]).exec((err, result) => {
+//         if (err) {
+//             console.log(err)
+//         } else {
+//             DetailPraktikum.populate(result, [{
+//                     'path': 'praktikan',
+//                 },
+//                 // {
+//                 //     'path': '_praktikumId',
+//                 // },
+//                 // {
+//                 //     'path': 'praktikan_tambahan',
+//                 //     'populate': [{
+//                 //         'path': '_praktikanId',
+//                 //         'model': 'Praktikan'
+//                 //     }]
+//                 // }
+//             ], (err, result) => {
+//                 if (err) throw err;
+//                 console.log(result);
+//                 callback(result);
+//             });
+//         }
+//     });
+// }
 
 module.exports.getAvailable = (praktikumDate, praktikumCode, callback) => {
     // console.log(dateCreate);
@@ -154,11 +195,29 @@ module.exports.addPraktikan_tambahan = (detailId, reportId, callback) => {
 }
 
 //add absen
-module.exports.addAbsen = (detailId, praktikanId, callback) => {
+module.exports.removeFromDetail = (detailId, praktikanId, callback) => {
     const query = { _id: detailId };
     DetailPraktikum.update(query, {
-        $push: { "absen": praktikanId }
-    }, {
-        new: true,
+        $pull: { "praktikan": praktikanId }
     }).exec(callback);
 }
+
+module.exports.pullPraktikan = (praktikumId, praktikanId, callback) => {
+    const query = { _praktikumId: praktikumId };
+    //console.log(detailId)
+    DetailPraktikum.update(query, {
+        $pull: { "praktikan": praktikanId }
+    }, {
+        multi: true
+    }).exec(callback);
+}
+
+// module.exports.cekAbsen = (detailId, praktikanId, callback) => {
+//     const query = {
+//         _id: detailId,
+//         absen: {
+//             $elemMatch: { $eq: praktikanId }
+//         }
+//     };
+//     DetailPraktikum.find()
+// }

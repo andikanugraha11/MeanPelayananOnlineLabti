@@ -214,6 +214,13 @@ export class AuthService {
     .map(res=>res.json());
   }
 
+  //deletePraktikumFromDetail
+  deletePraktikanFromPraktikum(data){
+    let headers = new Headers();
+    return this.http.post('http://localhost:8081/praktikum/pullPraktikan',data,{headers:headers})
+    .map(res=>res.json());
+  }
+
   //Make report
   makeReport(report){
     let headers = new Headers();
