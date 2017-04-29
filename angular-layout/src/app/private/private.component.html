@@ -70,6 +70,20 @@
                 <li [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact:true}">
                     <a [routerLink]="['/dashboard/pj/praktikum']"><i class="fa fa-fw fa-book"></i> Praktikum</a>
                 </li>
+                <li>
+                    <a href="javascript:;" data-toggle="collapse" data-target="#laporanPj"><i class="fa fa-fw fa-newspaper-o"></i> Laporan<i class="fa fa-fw fa-caret-down"></i></a>
+                    <ul id="laporanPj" class="collapse">
+                        <li [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact:true}">
+                            <a [routerLink]="['/dashboard/pj/laporan/dibuat']"><i class="fa fa-file-o"></i> Laporan Dibuat</a>
+                        </li>
+                        <li [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact:true}">
+                            <a [routerLink]="['/dashboard/pj/laporan/proses']"><i class="fa fa-exchange "></i> Laporan di Proses</a>
+                        </li>
+                        <li [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact:true}">
+                            <a [routerLink]="['/dashboard/pj/laporan/selesai']"><i class="fa fa-check "></i> Laporan Selesai</a>
+                        </li>
+                    </ul>
+                </li>
                 <li [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact:true}">
                     <a [routerLink]="['/dashboard/admin']"><i class="fa fa-fw fa-dashboard"></i> Dashboard<small> admin</small></a>
                 </li>

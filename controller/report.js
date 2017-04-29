@@ -98,8 +98,24 @@ router.post('/praktikanDoReport', (req, res, next) => {
     // });
 
 });
-
-//get report praktikan
+//updatePengulangan
+router.get('/updatePengulangan/:reportId', (req, res, next) => {
+        const reportId = req.params.reportId;
+        Report.updatePengulangan(reportId, (err, report) => {
+            if (err) {
+                res.json({
+                    success: false,
+                    message: 'Gagal'
+                })
+            } else {
+                res.json({
+                    success: true,
+                    report
+                })
+            }
+        })
+    })
+    //get report praktikan
 router.get('/getPraktikanReport/:praktikanId/:praktikumId', (req, res, next) => {
     const praktikanId = req.params.praktikanId;
     const praktikumId = req.params.praktikumId;

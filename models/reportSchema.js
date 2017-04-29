@@ -136,6 +136,9 @@ module.exports.getReportPraktikan = (praktikanId, praktikumId, callback) => {
     })
 }
 
+module.exports.updatePengulangan = (id, callback) => {
+    Report.findByIdAndUpdate(id, { $set: { "proses.pengulangan": true } }, callback);
+}
 
 
 module.exports.praktikanDoReport = (reportId, updateReport, callback) => {

@@ -36,6 +36,9 @@ import { ModalMakeReportComponent } from './praktikan/laporan/make-report/modal-
 import { MakeReportComponent } from './praktikan/laporan/make-report/make-report.component';
 import { ReportOnProgressComponent } from './praktikan/laporan/report-on-progress/report-on-progress.component';
 import { ReportCompleteComponent } from './praktikan/laporan/report-complete/report-complete.component';
+import { PjReportOnProgressComponent } from './pj/report/pj-report-on-progress/pj-report-on-progress.component';
+import { PjReportCompleteComponent } from './pj/report/pj-report-complete/pj-report-complete.component';
+import { PjReportCreatedComponent } from './pj/report/pj-report-created/pj-report-created.component';
 
 const appRoutes : Routes = 
 [
@@ -106,6 +109,18 @@ const appRoutes : Routes =
       {
         path        : 'pj/praktikum/:id_praktikum',
         component   : DetailPraktikumPjComponent
+      },
+      {
+        path        : 'pj/laporan/dibuat',
+        component   : PjReportCreatedComponent
+      },
+      {
+        path        : 'pj/laporan/proses',
+        component   : PjReportOnProgressComponent
+      },
+      {
+        path        : 'pj/laporan/selesai',
+        component   : PjReportCompleteComponent
       }
     ]
   },
@@ -152,6 +167,9 @@ const appRoutes : Routes =
     MakeReportComponent,
     ReportOnProgressComponent,
     ReportCompleteComponent,
+    PjReportOnProgressComponent,
+    PjReportCompleteComponent,
+    PjReportCreatedComponent,
     ],
     entryComponents: [
       ModalAddPraktikanComponent, 

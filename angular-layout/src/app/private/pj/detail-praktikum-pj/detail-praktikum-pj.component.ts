@@ -148,7 +148,7 @@ export class DetailPraktikumPjComponent implements OnInit {
     });
     console.log(this.jlhPertemuan);
     
-    return false;
+    
 
     // BENER LOH YANG BAWAH
 
@@ -171,4 +171,9 @@ export class DetailPraktikumPjComponent implements OnInit {
     // console.log(report);
   }
 
+  updateReport(reportId){
+    this.authService.updatePengulangan(reportId).subscribe(data=>{
+      console.log(data);
+    });
+  }
 }

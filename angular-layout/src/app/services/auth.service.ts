@@ -232,7 +232,11 @@ export class AuthService {
     return this.http.post('http://localhost:8081/laporan/praktikanDoReport',report,{headers:headers})
     .map(res=>res.json());
   }
-
+  updatePengulangan(reportId){
+    let headers = new Headers();
+    return this.http.get('http://localhost:8081/laporan/updatePengulangan/'+reportId, {headers : headers})
+    .map(res=>res.json());
+  }
   //Report 1 (status = dibuat )
   getReportByPraktikanId(id){
     let headers = new Headers();

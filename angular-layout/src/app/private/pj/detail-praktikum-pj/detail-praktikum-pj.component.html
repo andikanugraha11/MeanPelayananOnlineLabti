@@ -83,7 +83,7 @@
                                                     <td class="text-center">{{tambahan._praktikanId.npm}}</td>
                                                     <td class="text-center">{{tambahan._praktikanId.kelas}}</td>
                                                     <td class="text-center">
-                                                        <a class="btn btn-primary" id="id" (click)=showDetail($event.target.attributes.id.value)>Masuk</a>
+                                                        <a [ngClass]="{'disabled': tambahan.proses.pengulangan}" class="btn btn-primary" id="{{tambahan._id}}" (click)=updateReport($event.target.attributes.id.value)>Masuk</a>
                                                     </td>
                                                 </tr>
                                             </tbody>
