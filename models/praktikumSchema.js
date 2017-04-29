@@ -15,7 +15,8 @@ const praktikumSchema = Schema({
         type: String
     },
     kelas: {
-        type: String
+        type: String,
+        uppercase: true
     },
     //PJ
     _PjId: {

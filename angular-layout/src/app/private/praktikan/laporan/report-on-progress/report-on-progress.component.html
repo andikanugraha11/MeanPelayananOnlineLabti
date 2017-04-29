@@ -41,6 +41,8 @@
                                 <div>Lapor </div>
                                 <div>Keterangan </div>
                                 <div>Status </div>
+                                <div>Pengulangan </div>
+                                <div>Pembayaran </div>
                             </div>
                             <div class="col-md-8">
                                 <div>: {{report._praktikanId.nama.depan}} {{report._praktikanId.nama.belakang}}</div>
@@ -51,16 +53,18 @@
                                 <div>: {{report.tanggal_lapor | date:'medium'}} </div>
                                 <div>: {{report.keterangan}}</div>
                                 <div>: {{report.status}} </div>
+                                <div>: {{report.proses.pengulangan}} </div>
+                                <div>: {{report.proses.pembayaran}} </div>
                             </div>
                         </div>
                     </div>
-                    <a href="#" id="{{report._id}}" (click)="makeReport($event.target.attributes.id.value);$event.preventDefault()">
+                    <!--<a href="#" id="{{report._id}}" (click)="makeReport($event.target.attributes.id.value);$event.preventDefault()">
                         <div id="{{report._id}}" class="panel-footer">
                             <span id="{{report._id}}" class="pull-left">Lihat Detail</span>
                             <span id="{{report._id}}" class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
                             <div id="{{report._id}}" class="clearfix"></div>
                         </div>
-                    </a>
+                    </a>-->
                 </div>
             </div>
         </div>

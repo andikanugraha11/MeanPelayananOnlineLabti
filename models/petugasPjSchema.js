@@ -16,7 +16,8 @@ const petugasPjSchema = Schema({
         }
     },
     npm: {
-        type: String
+        type: String,
+        uppercase: true
     },
     _userId: {
         type: ObjectId,

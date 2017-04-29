@@ -16,7 +16,8 @@ const detailPraktikumSchema = Schema({
         ref: 'Praktikum'
     },
     kode_praktikum: {
-        type: String
+        type: String,
+        uppercase: true
     },
     pertemuan: {
         type: Number
@@ -29,11 +30,6 @@ const detailPraktikumSchema = Schema({
     },
     //Daftar praktikan
     praktikan: [{
-        type: ObjectId,
-        ref: 'Praktikan'
-    }],
-    // Buat cek ketidakhadiran
-    absen: [{
         type: ObjectId,
         ref: 'Praktikan'
     }],

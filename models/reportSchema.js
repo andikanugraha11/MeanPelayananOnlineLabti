@@ -23,7 +23,8 @@ const reportSchema = Schema({
         ref: 'DetailPraktikum'
     },
     kode_praktikum: {
-        type: String
+        type: String,
+        uppercase: true
     },
     _praktikanId: {
         type: ObjectId,

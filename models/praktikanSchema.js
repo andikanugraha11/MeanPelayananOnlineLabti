@@ -10,7 +10,8 @@ const praktikanSchema = Schema({
     npm: {
         type: String,
         required: true,
-        unique: true
+        unique: true,
+        uppercase: true
     },
     nama: {
         depan: {
@@ -22,7 +23,9 @@ const praktikanSchema = Schema({
         }
     },
     kelas: {
-        type: String
+        type: String,
+        uppercase: true,
+        trim: true
     },
     aktif: {
         type: Boolean,
