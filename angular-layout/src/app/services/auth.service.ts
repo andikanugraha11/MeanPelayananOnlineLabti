@@ -244,10 +244,23 @@ export class AuthService {
     .map(res=>res.json());
   }
 
+  //update proses & payment confirmation
+  confirmPayment(reportId){
+    let headers = new Headers();
+    return this.http.get('http://localhost:8081/laporan/confirmPayment/'+reportId, {headers : headers})
+    .map(res=>res.json());
+  }
+
   //ReportonProgress
    getReportOnProgressByPraktikanId(id){
     let headers = new Headers();
     return this.http.get('http://localhost:8081/laporan/getReportOnProgressByPraktikanId/'+id, {headers : headers})
+    .map(res=>res.json());
+  }
+
+   getReportOnProgressByPjId(id){
+    let headers = new Headers();
+    return this.http.get('http://localhost:8081/laporan/getReportOnProgressByPjId/'+id, {headers : headers})
     .map(res=>res.json());
   }
 

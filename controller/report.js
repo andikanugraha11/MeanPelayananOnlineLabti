@@ -100,22 +100,41 @@ router.post('/praktikanDoReport', (req, res, next) => {
 });
 //updatePengulangan
 router.get('/updatePengulangan/:reportId', (req, res, next) => {
-        const reportId = req.params.reportId;
-        Report.updatePengulangan(reportId, (err, report) => {
-            if (err) {
-                res.json({
-                    success: false,
-                    message: 'Gagal'
-                })
-            } else {
-                res.json({
-                    success: true,
-                    report
-                })
-            }
-        })
+    const reportId = req.params.reportId;
+    Report.updatePengulangan(reportId, (err, report) => {
+        if (err) {
+            res.json({
+                success: false,
+                message: 'Gagal'
+            })
+        } else {
+            res.json({
+                success: true,
+                report
+            })
+        }
     })
-    //get report praktikan
+})
+
+//confirm payment
+router.get('/confirmPayment/:reportId', (req, res, next) => {
+    const reportId = req.params.reportId;
+    Report.confirmPayment(reportId, (err, report) => {
+        if (err) {
+            res.json({
+                success: false,
+                message: 'Gagal'
+            })
+        } else {
+            res.json({
+                success: true,
+                report
+            })
+        }
+    })
+})
+
+//get report praktikan
 router.get('/getPraktikanReport/:praktikanId/:praktikumId', (req, res, next) => {
     const praktikanId = req.params.praktikanId;
     const praktikumId = req.params.praktikumId;
@@ -143,6 +162,17 @@ router.get('/getReportByPraktikanId/:id', (req, res, next) => {
 router.get('/getReportOnProgressByPraktikanId/:id', (req, res, next) => {
     const id = req.params.id;
     Report.getReportOnProgressByPraktikanId(id, (report) => {
+        res.json({
+            success: true,
+            report
+        })
+    });
+});
+
+//GET report by PJ ID (On Progress)
+router.get('/getReportOnProgressByPjId/:id', (req, res, next) => {
+    const PjId = req.params.id;
+    Report.getReportOnProgressByPjId(PjId, (report) => {
         res.json({
             success: true,
             report

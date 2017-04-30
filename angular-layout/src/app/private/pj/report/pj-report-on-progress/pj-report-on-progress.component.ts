@@ -19,11 +19,21 @@ export class PjReportOnProgressComponent implements OnInit {
     this.authService.getProfile().subscribe(profile => {
       this.PjId = profile.user._pjId;
       console.log(this.PjId);
+      service.getReportOnProgressByPjId(this.PjId).subscribe(data=>{
+        console.log(data.report);
+        this.reports = data.report;
+      })
     },
     err => {
       console.log(err);
       return false;
       
+    });
+  }
+
+  confirmPayment(reportId){
+    this.authService.confirmPayment(reportId).subscribe(data=>{
+      console.log(data);
     });
   }
 

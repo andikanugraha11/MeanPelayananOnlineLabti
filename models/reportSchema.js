@@ -90,7 +90,7 @@ module.exports.getReportByPraktikanId = (id, callback) => {
         })
 }
 
-//Report on progress
+//Report on progress (praktikan)
 module.exports.getReportOnProgressByPraktikanId = (id, callback) => {
     const query = {
         _praktikanId: id,
@@ -115,6 +115,33 @@ module.exports.getReportOnProgressByPraktikanId = (id, callback) => {
             }
         })
 }
+
+//Report on progress (PJ)
+module.exports.getReportOnProgressByPjId = (PjId, callback) => {
+    const query = {
+        pembuat: PjId,
+        status: 'Proses'
+    }
+    Report.find(query)
+        .populate('_praktikumId')
+        .populate('_praktikanId')
+        .populate('_detailPraktikumId')
+        .populate({
+            'path': 'praktikum_pengganti',
+            'populate': [{
+                'path': '_praktikumId',
+                'model': 'Praktikum'
+            }]
+        })
+        .exec((err, result) => {
+            if (err) {
+                console.log(err);
+            } else {
+                callback(result);
+            }
+        })
+}
+
 module.exports.getReportById = (id, callback) => {
     //const query = { _id: id }
     Report.findById(id, callback);
@@ -138,6 +165,10 @@ module.exports.getReportPraktikan = (praktikanId, praktikumId, callback) => {
 
 module.exports.updatePengulangan = (id, callback) => {
     Report.findByIdAndUpdate(id, { $set: { "proses.pengulangan": true } }, callback);
+}
+
+module.exports.confirmPayment = (id, callback) => {
+    Report.findByIdAndUpdate(id, { $set: { "proses.pembayaran": true, "status": "Selesai" } }, callback);
 }
 
 

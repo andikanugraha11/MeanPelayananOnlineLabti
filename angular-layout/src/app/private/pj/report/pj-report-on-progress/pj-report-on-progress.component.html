@@ -1,3 +1,88 @@
-<p>
-  pj-report-on-progress works!
-</p>
+<div id="page-wrapper">
+
+    <div class="container-fluid">
+
+        <!-- Page Heading -->
+        <div class="row">
+            <div class="col-lg-12">
+                <h1 class="page-header">
+                    Laporan <small>Praktikan</small>
+                </h1>
+                <ol class="breadcrumb">
+                    <li class="active">
+                        <i class="fa fa-newspaper-o"></i> Laporan sedang diproses
+                    </li>
+                </ol>
+            </div>
+        </div>
+        <!-- /.row -->
+
+        <div class="row">
+            <div *ngFor="let report of reports" class="col-md-4">
+                <div class="panel panel-green">
+                    <div class="panel-heading">
+                        <div class="row">
+                            <div class="col-md-3">
+                                <i class="fa fa-file-o fa-5x"></i>
+                            </div>
+                            <div class="col-md-9 text-right">
+                                <div class="huge">{{report.kode_praktikum}}</div>
+                                <div>{{report._praktikumId.nama_praktikum}}</div>
+                            </div>
+                        </div>
+                        <br/>
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div>Nama </div>
+                                <div>NPM </div>
+                                <div>Pertemuan</div>
+                                <div>Tanggal/Shift </div>
+                                <div>Kelas/Ruangan </div>
+                                <div>Lapor </div>
+                                <div>Keterangan </div>
+                                <div>Status </div>
+                                <div>Pengulangan </div>
+                                <div>Pembayaran </div>
+                            </div>
+                            <div class="col-md-8">
+                                <div>: {{report._praktikanId.nama.depan}} {{report._praktikanId.nama.belakang}}</div>
+                                <div>: {{report._praktikanId.npm}} </div>
+                                <div>: {{report._detailPraktikumId.pertemuan}}</div>
+                                <div>: {{report.praktikum_pengganti.tanggal | date}} / Shift {{report.praktikum_pengganti.shift}}</div>
+                                <div>: {{report.praktikum_pengganti._praktikumId.kelas}} / H407</div>
+                                <div>: {{report.tanggal_lapor | date:'medium'}} </div>
+                                <div>: {{report.keterangan}}</div>
+                                <div>: {{report.status}} </div>
+                                <div>: {{report.proses.pengulangan}} </div>
+                                <div>: {{report.proses.pembayaran}} </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div *ngIf="report.proses.pengulangan; else elseBlock">
+                        <a href="#" id="{{report._id}}" (click)="confirmPayment($event.target.attributes.id.value); $event.preventDefault()">
+                            <div id="{{report._id}}" class="panel-footer">
+                                <span id="{{report._id}}" class="pull-left">Konfirmasi Pembayaran</span>
+                                <span id="{{report._id}}" class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+                                <div id="{{report._id}}" class="clearfix"></div>
+                            </div>
+                        </a>
+                    </div>
+                    <template #elseBlock>
+                      <a>
+                        <div class="panel-footer">
+                            <span  class="pull-left text-danger">Belum melakukan pengulangan</span>
+                            <span  class="pull-right text-danger"><i class="fa fa-exclamation-triangle"></i></span>
+                            <div  class="clearfix"></div>
+                        </div>
+                    </a>
+                    </template>
+                </div>
+            </div>
+        </div>
+        <!-- /.row -->
+
+    </div>
+    <!-- /.container-fluid -->
+
+</div>
+<!-- /#page-wrapper -->
