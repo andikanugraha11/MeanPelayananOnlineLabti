@@ -158,6 +158,17 @@ router.get('/getReportByPraktikanId/:id', (req, res, next) => {
     });
 });
 
+//GET report cretaed By PJ ID
+router.get('/getReportCreatedByPjId/:id', (req, res, next) => {
+    const PjId = req.params.id;
+    Report.getReportCreatedByPjId(PjId, (report) => {
+        res.json({
+            success: true,
+            report
+        })
+    });
+});
+
 //GET report by praktikan ID (On Progress)
 router.get('/getReportOnProgressByPraktikanId/:id', (req, res, next) => {
     const id = req.params.id;
@@ -187,6 +198,35 @@ router.get('/getReportById/:id', (req, res, next) => {
             success: true,
             report,
         })
+    });
+});
+
+router.get('/removeReportOnCreate/:reportId/:praktikanId/:detailId', (req, res, next) => {
+    const reportId = req.params.reportId;
+    const praktikanId = req.params.praktikanId;
+    const detailId = req.params.detailId;
+    Report.removeReport(reportId, (err, report) => {
+        if (err) {
+            res.json({
+                success: false,
+                message: 'Gagal Menghapus Laporan',
+            })
+        } else {
+            DetailPraktikum.undoPraktikan(detailId, praktikanId, (err, data) => {
+                if (err) {
+                    res.json({
+                        success: false,
+                        message: 'Gagal Menghapus Laporan',
+                    })
+                } else {
+                    res.json({
+                        success: true,
+                        message: 'Berhasil Menghapus Laporan',
+                    })
+                }
+            })
+        }
+
     });
 });
 

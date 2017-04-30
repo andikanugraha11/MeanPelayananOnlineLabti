@@ -208,6 +208,15 @@ module.exports.pullPraktikan = (praktikumId, praktikanId, callback) => {
     }).exec(callback);
 }
 
+module.exports.undoPraktikan = (detailId, praktikanId, callback) => {
+    const query = { _id: detailId };
+    DetailPraktikum.update(query, {
+        $push: { "praktikan": praktikanId }
+    }, {
+        new: true,
+    }).exec(callback);
+}
+
 // module.exports.cekAbsen = (detailId, praktikanId, callback) => {
 //     const query = {
 //         _id: detailId,

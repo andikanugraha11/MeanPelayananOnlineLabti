@@ -90,6 +90,25 @@ module.exports.getReportByPraktikanId = (id, callback) => {
         })
 }
 
+module.exports.getReportCreatedByPjId = (PjId, callback) => {
+    const query = {
+        pembuat: PjId,
+        status: 'Dibuat'
+    }
+    Report.find(query)
+        .populate('_praktikumId')
+        .populate('_praktikanId')
+        .populate('_detailPraktikumId')
+        .populate('pembuat')
+        .exec((err, result) => {
+            if (err) {
+                console.log(err);
+            } else {
+                callback(result);
+            }
+        })
+}
+
 //Report on progress (praktikan)
 module.exports.getReportOnProgressByPraktikanId = (id, callback) => {
     const query = {
@@ -178,6 +197,11 @@ module.exports.praktikanDoReport = (reportId, updateReport, callback) => {
     Report.update(query, updateReport, {
         new: true
     }).exec(callback);
+}
+
+module.exports.removeReport = (reportId, callback) => {
+    const query = { _id: reportId };
+    Report.remove(query, callback)
 }
 
 // module.exports.praktikanDoReport = (reportId, updateReport, callback) => {

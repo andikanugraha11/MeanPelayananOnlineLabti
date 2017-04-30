@@ -220,7 +220,12 @@ export class AuthService {
     return this.http.post('http://localhost:8081/praktikum/pullPraktikan',data,{headers:headers})
     .map(res=>res.json());
   }
-
+  //Remove on create report
+  removeReportOnCreate(reportId,praktikanId,detailId){
+    let headers = new Headers();
+    return this.http.get('http://localhost:8081/laporan/removeReportOnCreate/'+reportId+'/'+praktikanId+'/'+detailId, {headers : headers})
+    .map(res=>res.json());
+  }
   //Make report
   makeReport(report){
     let headers = new Headers();
@@ -241,6 +246,12 @@ export class AuthService {
   getReportByPraktikanId(id){
     let headers = new Headers();
     return this.http.get('http://localhost:8081/laporan/getReportByPraktikanId/'+id, {headers : headers})
+    .map(res=>res.json());
+  }
+
+  getReportCreatedByPjId(id){
+    let headers = new Headers();
+    return this.http.get('http://localhost:8081/laporan/getReportCreatedByPjId/'+id, {headers : headers})
     .map(res=>res.json());
   }
 
