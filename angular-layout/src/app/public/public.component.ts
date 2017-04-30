@@ -1,17 +1,20 @@
-import { Component, OnInit } from '@angular/core';
+import { Component,ChangeDetectorRef, OnDestroy } from '@angular/core';
 
 @Component({
   selector: 'app-public',
   templateUrl: './public.component.html',
-  styleUrls: ['./public.component.css']
-})
-export class PublicComponent implements OnInit {
+  styleUrls: ['./public.component.css'],
 
-  constructor() {
+})
+export class PublicComponent implements OnDestroy {
+
+  constructor(public ref: ChangeDetectorRef) {
     document.body.className = 'public-login';
+    // setTimeout( () => this.ref.markForCheck(), 10);
    }
 
-  ngOnInit() {
-  }
+  ngOnDestroy(){
+      document.body.className = '';
+    }
 
 }

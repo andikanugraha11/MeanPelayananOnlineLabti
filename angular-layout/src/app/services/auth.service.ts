@@ -288,6 +288,18 @@ export class AuthService {
     .map(res=>res.json());
   }
 
+  getAllReportOnProgress(){
+    let headers = new Headers();
+    return this.http.get('http://localhost:8081/laporan/getAllReportOnProgress', {headers : headers})
+    .map(res=>res.json());
+  }
+
+  getAllReportComplete(){
+    let headers = new Headers();
+    return this.http.get('http://localhost:8081/laporan/getAllReportComplete', {headers : headers})
+    .map(res=>res.json());
+  }
+
   getReportById(id){
     let headers = new Headers();
     return this.http.get('http://localhost:8081/laporan/getReportById/'+id, {headers : headers})

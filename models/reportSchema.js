@@ -212,6 +212,59 @@ module.exports.getReportOnProgressByPjId = (PjId, callback) => {
         })
 }
 
+//Report All Report (OnProgress)
+module.exports.getAllReportOnProgress = (callback) => {
+    const query = {
+        status: 'Proses'
+    }
+    Report.find(query)
+        .populate('_praktikumId')
+        .populate('_praktikanId')
+        .populate('pembuat')
+        .populate('_detailPraktikumId')
+        .populate({
+            'path': 'praktikum_pengganti',
+            'populate': [{
+                'path': '_praktikumId',
+                'model': 'Praktikum'
+            }]
+        })
+        .exec((err, result) => {
+            if (err) {
+                console.log(err);
+            } else {
+                callback(err, result);
+            }
+        })
+}
+
+
+//Report All Report (complete)
+module.exports.getAllReportComplete = (callback) => {
+    const query = {
+        status: 'Selesai'
+    }
+    Report.find(query)
+        .populate('_praktikumId')
+        .populate('_praktikanId')
+        .populate('pembuat')
+        .populate('_detailPraktikumId')
+        .populate({
+            'path': 'praktikum_pengganti',
+            'populate': [{
+                'path': '_praktikumId',
+                'model': 'Praktikum'
+            }]
+        })
+        .exec((err, result) => {
+            if (err) {
+                console.log(err);
+            } else {
+                callback(err, result);
+            }
+        })
+}
+
 module.exports.getReportById = (id, callback) => {
     //const query = { _id: id }
     Report.findById(id, callback);

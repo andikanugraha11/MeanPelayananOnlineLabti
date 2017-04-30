@@ -38,14 +38,26 @@ export class LoginComponent implements OnInit {
     }
 
     this.authService.authenticateUser(user).subscribe(data => {
-
+      //console.log(data.role);
       if(data.success){ 
         this.authService.storeUserData(data.token, data.user);
         this.flashMessage.show('Login Berhasil',{
           cssClass : 'alert-success',
           timeOut : 3000
         });
-        this.router.navigate(['/dashboard']);
+        if(data.role=='praktikan'){
+          this.router.navigate(['/dashboard']);
+        }
+        else if(data.role=='admin'){
+          this.router.navigate(['/dashboard/admin']);
+        }
+        else if(data.role=='petugas'){
+          this.router.navigate(['/dashboard/petugas']);
+        }
+        else if(data.role=='pj'){
+          this.router.navigate(['/dashboard/pj']);
+        }
+        
       }else{
         this.flashMessage.show(data.msg, {
           cssClass : 'alert-danger',

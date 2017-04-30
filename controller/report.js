@@ -225,6 +225,26 @@ router.get('/getReportById/:id', (req, res, next) => {
     });
 });
 
+//GET all report (Complete)
+router.get('/getAllReportComplete', (req, res, next) => {
+    Report.getAllReportComplete((err, report) => {
+        res.json({
+            success: true,
+            report
+        })
+    });
+});
+
+//GET all report (OnProgress)
+router.get('/getAllReportOnProgress', (req, res, next) => {
+    Report.getAllReportOnProgress((err, report) => {
+        res.json({
+            success: true,
+            report
+        })
+    });
+});
+
 router.get('/removeReportOnCreate/:reportId/:praktikanId/:detailId', (req, res, next) => {
     const reportId = req.params.reportId;
     const praktikanId = req.params.praktikanId;

@@ -69,8 +69,12 @@ const appRoutes : Routes =
         component   : PetugasDashboardComponent
       },
       {
-        path        : 'pj',
-        component   : PjDashboardComponent
+        path        : 'petugas/laporan/proses',
+        component   : PetugasReportOnProgressComponent
+      },
+      {
+        path        : 'petugas/laporan/selesai',
+        component   : PetugasReportCompleteComponent
       },
       {
         path        : 'admin',
@@ -103,6 +107,10 @@ const appRoutes : Routes =
       {
         path        : 'admin/praktikum/tingkat4',
         component   : Tingkat4Component
+      },
+      {
+        path        : 'pj',
+        component   : PjDashboardComponent
       },
       {
         path        : 'pj/praktikum',

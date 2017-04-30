@@ -201,8 +201,9 @@ router.post('/auth', (req, res, next) => {
                         id: user._id,
                         nama: user.nama,
                         username: user.username,
-                        role: user.role
-                    }
+                        //role: user.role
+                    },
+                    role: user.role
                 });
             } else {
                 return res.json({
