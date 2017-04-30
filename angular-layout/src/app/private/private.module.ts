@@ -39,6 +39,8 @@ import { ReportCompleteComponent } from './praktikan/laporan/report-complete/rep
 import { PjReportOnProgressComponent } from './pj/report/pj-report-on-progress/pj-report-on-progress.component';
 import { PjReportCompleteComponent } from './pj/report/pj-report-complete/pj-report-complete.component';
 import { PjReportCreatedComponent } from './pj/report/pj-report-created/pj-report-created.component';
+import { PetugasReportOnProgressComponent } from './petugas/report/petugas-report-on-progress/petugas-report-on-progress.component';
+import { PetugasReportCompleteComponent } from './petugas/report/petugas-report-complete/petugas-report-complete.component';
 
 const appRoutes : Routes = 
 [
@@ -170,6 +172,8 @@ const appRoutes : Routes =
     PjReportOnProgressComponent,
     PjReportCompleteComponent,
     PjReportCreatedComponent,
+    PetugasReportOnProgressComponent,
+    PetugasReportCompleteComponent,
     ],
     entryComponents: [
       ModalAddPraktikanComponent, 
