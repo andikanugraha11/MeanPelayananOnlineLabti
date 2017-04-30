@@ -135,7 +135,58 @@ module.exports.getReportOnProgressByPraktikanId = (id, callback) => {
         })
 }
 
-//Report on progress (PJ)
+//Report complete (praktikan)
+module.exports.getReportCompleteByPraktikanId = (id, callback) => {
+    const query = {
+        _praktikanId: id,
+        status: 'Selesai'
+    }
+    Report.find(query)
+        .populate('_praktikumId')
+        .populate('_praktikanId')
+        .populate('_detailPraktikumId')
+        .populate({
+            'path': 'praktikum_pengganti',
+            'populate': [{
+                'path': '_praktikumId',
+                'model': 'Praktikum'
+            }]
+        })
+        .exec((err, result) => {
+            if (err) {
+                console.log(err);
+            } else {
+                callback(result);
+            }
+        })
+}
+
+//Report complete (PJ)
+module.exports.getReportCompleteByPjId = (id, callback) => {
+        const query = {
+            pembuat: id,
+            status: 'Selesai'
+        }
+        Report.find(query)
+            .populate('_praktikumId')
+            .populate('_praktikanId')
+            .populate('_detailPraktikumId')
+            .populate({
+                'path': 'praktikum_pengganti',
+                'populate': [{
+                    'path': '_praktikumId',
+                    'model': 'Praktikum'
+                }]
+            })
+            .exec((err, result) => {
+                if (err) {
+                    console.log(err);
+                } else {
+                    callback(result);
+                }
+            })
+    }
+    //Report on progress (PJ)
 module.exports.getReportOnProgressByPjId = (PjId, callback) => {
     const query = {
         pembuat: PjId,

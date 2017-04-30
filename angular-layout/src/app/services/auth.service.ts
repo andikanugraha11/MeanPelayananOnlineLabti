@@ -255,6 +255,12 @@ export class AuthService {
     .map(res=>res.json());
   }
 
+  getReportCompleteByPjId(id){
+    let headers = new Headers();
+    return this.http.get('http://localhost:8081/laporan/getReportCompleteByPjId/'+id, {headers : headers})
+    .map(res=>res.json());
+  }
+
   //update proses & payment confirmation
   confirmPayment(reportId){
     let headers = new Headers();
@@ -266,6 +272,13 @@ export class AuthService {
    getReportOnProgressByPraktikanId(id){
     let headers = new Headers();
     return this.http.get('http://localhost:8081/laporan/getReportOnProgressByPraktikanId/'+id, {headers : headers})
+    .map(res=>res.json());
+  }
+
+  //ReportonProgress
+   getReportCompleteByPraktikanId(id){
+    let headers = new Headers();
+    return this.http.get('http://localhost:8081/laporan/getReportCompleteByPraktikanId/'+id, {headers : headers})
     .map(res=>res.json());
   }
 

@@ -180,6 +180,28 @@ router.get('/getReportOnProgressByPraktikanId/:id', (req, res, next) => {
     });
 });
 
+//GET report by praktikan ID (Complete)
+router.get('/getReportCompleteByPraktikanId/:id', (req, res, next) => {
+    const id = req.params.id;
+    Report.getReportCompleteByPraktikanId(id, (report) => {
+        res.json({
+            success: true,
+            report
+        })
+    });
+});
+
+//GET report by PJ ID (Complete)
+router.get('/getReportCompleteByPjId/:id', (req, res, next) => {
+    const id = req.params.id;
+    Report.getReportCompleteByPjId(id, (report) => {
+        res.json({
+            success: true,
+            report
+        })
+    });
+});
+
 //GET report by PJ ID (On Progress)
 router.get('/getReportOnProgressByPjId/:id', (req, res, next) => {
     const PjId = req.params.id;
@@ -190,6 +212,8 @@ router.get('/getReportOnProgressByPjId/:id', (req, res, next) => {
         })
     });
 });
+
+
 
 router.get('/getReportById/:id', (req, res, next) => {
     const id = req.params.id;
