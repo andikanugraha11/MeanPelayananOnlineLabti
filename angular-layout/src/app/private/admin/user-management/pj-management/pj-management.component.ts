@@ -12,36 +12,41 @@ import { ModalAddPjComponent } from './modal-add-pj/modal-add-pj.component';
 })
 export class PjManagementComponent implements OnInit {
 
-  data:Object;
-  constructor(private authService:AuthService, private router:Router, private dialogService:DialogService) { }
+  data: Object;
+  constructor(private authService: AuthService, private router: Router, private dialogService: DialogService) { }
 
   ngOnInit() {
     this.authService.getAllPJ().subscribe(data => {
       this.data = data.pj;
-      console.log(this.data);
+      //console.log(this.data);
     },
-    err => {
-      console.log(err);
-      return false;
-    });
+      err => {
+        console.log(err);
+        return false;
+      });
   }
 
-    showConfirm() {
-        let disposable = this.dialogService.addDialog(ModalAddPjComponent, {
-            title:'Confirm title', 
-            message:'Confirm message'})
-            .subscribe((data)=>{
-                //We get dialog result
-                if(data) {
-                    alert('Sukses');
-                }
-            });
-    }
+  showConfirm() {
+    let disposable = this.dialogService.addDialog(ModalAddPjComponent, {
+      title: 'Confirm title',
+      message: 'Confirm message'
+    })
+      .subscribe((data) => {
+        //We get dialog result
+        if (data) {
+          this.authService.getAllPJ().subscribe(data => {
+            this.data = data.pj;
+          });
+        }
+      });
+  }
 
-      removePJ(id){
-    this.authService.removePJ(id).subscribe(data=>{
-      if(data.success){
-        console.log('Berhasil');
+  removePJ(id) {
+    this.authService.removePJ(id).subscribe(data => {
+      if (data.success) {
+        this.authService.getAllPJ().subscribe(data => {
+          this.data = data.pj;
+        });
       }
     })
   }

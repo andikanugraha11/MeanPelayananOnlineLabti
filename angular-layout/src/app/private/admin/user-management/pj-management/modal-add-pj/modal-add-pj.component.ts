@@ -4,8 +4,8 @@ import { Router } from '@angular/router';
 import { AuthService } from '../../../../../services/auth.service';
 import { DialogComponent, DialogService } from "ng2-bootstrap-modal";
 export interface ConfirmModel {
-  title:string;
-  message:string;
+  title: string;
+  message: string;
 }
 
 @Component({
@@ -16,36 +16,35 @@ export interface ConfirmModel {
 export class ModalAddPjComponent extends DialogComponent<ConfirmModel, boolean> implements ConfirmModel {
   title: string;
   message: string;
-  
-  npm : String;
-  depan : String;
-  belakang : String;
-  username : String;
-  email : String;
-  password : String;
-  repassword : String;
-  
-  constructor(dialogService: DialogService, private router:Router, private validation:ValidationService, private authService:AuthService) {
+
+  npm: String;
+  depan: String;
+  belakang: String;
+  username: String;
+  email: String;
+  password: String;
+  repassword: String;
+
+  constructor(dialogService: DialogService, private router: Router, private validation: ValidationService, private authService: AuthService) {
     super(dialogService);
   }
 
-  addPj(){
+  addPj() {
     const pj = {
-      npm : this.npm,
-      nama :{
-        depan :this.depan,
-        belakang : this.belakang
+      npm: this.npm,
+      nama: {
+        depan: this.depan,
+        belakang: this.belakang
       },
-      username : this.username,
-      email : this.email,
-      password : this.password
+      username: this.username,
+      email: this.email,
+      password: this.password
     }
 
-    this.authService.addPj(pj).subscribe(data=>{
-      if(data.success){
-          this.result = true;
-          this.close();
-      }else{
+    this.authService.addPj(pj).subscribe(data => {
+      if (data.success) {
+        this.result = true;
+      } else {
         alert('gagal');
       }
     });
