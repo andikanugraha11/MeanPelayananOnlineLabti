@@ -1,4 +1,4 @@
-import { Component,ChangeDetectorRef, OnDestroy } from '@angular/core';
+import { Component, OnDestroy } from '@angular/core';
 
 @Component({
   selector: 'app-public',
@@ -8,7 +8,7 @@ import { Component,ChangeDetectorRef, OnDestroy } from '@angular/core';
 })
 export class PublicComponent implements OnDestroy {
 
-  constructor(public ref: ChangeDetectorRef) {
+  constructor() {
     document.body.className = 'public-login';
     // setTimeout( () => this.ref.markForCheck(), 10);
    }
