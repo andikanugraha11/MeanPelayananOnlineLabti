@@ -4,7 +4,7 @@ import { Router } from '@angular/router';
 import { AuthService } from '../../../services/auth.service';
 import { DialogService } from "ng2-bootstrap-modal";
 import { ModalAddPraktikanComponent } from './modal-add-praktikan/modal-add-praktikan.component';
-
+import { ToasterService } from 'angular2-toaster';
 
 @Component({
   selector: 'app-user-management',
@@ -15,7 +15,7 @@ export class UserManagementComponent implements OnInit {
 
   data: Object;
   praktikums: Object;
-  constructor(private authService: AuthService, private router: Router, private dialogService: DialogService) {
+  constructor(private toasterService: ToasterService, private authService: AuthService, private router: Router, private dialogService: DialogService) {
 
   }
 
@@ -53,9 +53,12 @@ export class UserManagementComponent implements OnInit {
     })
       .subscribe((data) => {
         if (data) {
+          this.toasterService.pop('success', 'Berhasil', 'Berhasil menambah praktikan');
           this.authService.getAllPraktikan().subscribe(data => {
             this.data = data.praktikan;
           });
+        } else {
+          this.toasterService.pop('error', 'Gagal', 'Gagal menambah penanggung praktikan');
         }
       });
   }
@@ -63,9 +66,12 @@ export class UserManagementComponent implements OnInit {
   removePraktikan(id) {
     this.authService.removePraktikan(id).subscribe(data => {
       if (data.success) {
+        this.toasterService.pop('success', 'Berhasil', 'Berhasil menghapus praktikan');
         this.authService.getAllPraktikan().subscribe(data => {
           this.data = data.praktikan;
         });
+      } else {
+        this.toasterService.pop('error', 'Gagal', 'Gagal menghapus penanggung praktikan');
       }
     })
   }

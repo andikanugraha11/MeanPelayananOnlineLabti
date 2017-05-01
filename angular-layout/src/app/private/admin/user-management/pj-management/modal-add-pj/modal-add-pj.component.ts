@@ -45,7 +45,7 @@ export class ModalAddPjComponent extends DialogComponent<ConfirmModel, boolean> 
       if (data.success) {
         this.result = true;
       } else {
-        alert('gagal');
+        this.result = false;
       }
     });
     this.close();

@@ -43,7 +43,7 @@ export class ModalAddPetugasComponent extends DialogComponent<ConfirmModel, bool
       if (data.success) {
         this.result = true;
       } else {
-        alert('gagal');
+        this.result = false;
         console.log(data.msg);
       }
     });

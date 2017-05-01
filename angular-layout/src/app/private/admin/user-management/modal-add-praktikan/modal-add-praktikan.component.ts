@@ -39,9 +39,8 @@ export class ModalAddPraktikanComponent extends DialogComponent<ConfirmModel, bo
     this.authService.addPraktikan(praktikan).subscribe(data => {
       if (data.success) {
         this.result = true;
-
       } else {
-        alert('gagal');
+        this.result = false;
       }
       this.close();
     });

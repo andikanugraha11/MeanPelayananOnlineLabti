@@ -5,6 +5,7 @@ import { AuthService } from '../../../../services/auth.service';
 import { DialogService } from "ng2-bootstrap-modal";
 import { ModalAddTingka1Component } from './modal-add-tingka1/modal-add-tingka1.component';
 import { ModalDetailTingkat1Component } from './modal-detail-tingkat1/modal-detail-tingkat1.component'
+import { ToasterService } from 'angular2-toaster';
 
 @Component({
     selector: 'app-tingkat1',
@@ -14,7 +15,7 @@ import { ModalDetailTingkat1Component } from './modal-detail-tingkat1/modal-deta
 export class Tingkat1Component implements OnInit {
 
     praktikums: Object;
-    constructor(private authService: AuthService, private router: Router, private dialogService: DialogService) { }
+    constructor(private toasterService: ToasterService, private authService: AuthService, private router: Router, private dialogService: DialogService) { }
 
     ngOnInit() {
         this.authService.getAllPraktikumTk1().subscribe(data => {
@@ -49,9 +50,12 @@ export class Tingkat1Component implements OnInit {
         })
             .subscribe((data) => {
                 if (data) {
+                    this.toasterService.pop('success', 'Berhasil', 'Praktikum ditambah');
                     this.authService.getAllPraktikumTk1().subscribe(data => {
                         this.praktikums = data.praktikum;
                     });
+                } else {
+                    this.toasterService.pop('error', 'Gagal', 'Gagal menambah praktikum');
                 }
             });
     }

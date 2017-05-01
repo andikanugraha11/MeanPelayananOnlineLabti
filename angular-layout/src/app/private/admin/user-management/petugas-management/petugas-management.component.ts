@@ -4,7 +4,7 @@ import { Router } from '@angular/router';
 import { AuthService } from '../../../../services/auth.service';
 import { DialogService } from "ng2-bootstrap-modal";
 import { FlashMessagesService } from 'angular2-flash-messages';
-import {ToasterService} from 'angular2-toaster';
+import { ToasterService } from 'angular2-toaster';
 import { ModalAddPetugasComponent } from './modal-add-petugas/modal-add-petugas.component';
 
 @Component({
@@ -15,7 +15,7 @@ import { ModalAddPetugasComponent } from './modal-add-petugas/modal-add-petugas.
 
 export class PetugasManagementComponent implements OnInit {
     data: Object;
-    
+
 
     constructor(private toasterService: ToasterService, private flashMessage: FlashMessagesService, private authService: AuthService, private router: Router, private dialogService: DialogService) {
         // let flsMsg = new FlashMessage()
@@ -40,10 +40,12 @@ export class PetugasManagementComponent implements OnInit {
         })
             .subscribe((data) => {
                 if (data) {
-                    this.toasterService.pop('success', 'Sukses', 'Berhasil menambah petugas');
+                    this.toasterService.pop('success', 'Berhasil', 'Berhasil menambah petugas');
                     this.authService.getAllPetugas().subscribe(data => {
                         this.data = data.petugas;
                     })
+                } else {
+                    this.toasterService.pop('error', 'Gagal', 'Gagal menambah petugas');
                 }
             });
     }
@@ -55,6 +57,8 @@ export class PetugasManagementComponent implements OnInit {
                 this.authService.getAllPetugas().subscribe(data => {
                     this.data = data.petugas;
                 })
+            } else {
+                this.toasterService.pop('error', 'Gagal', 'Gagal menghapus petugas');
             }
         })
     }
