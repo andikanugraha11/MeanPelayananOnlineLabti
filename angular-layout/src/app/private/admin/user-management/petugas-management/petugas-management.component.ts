@@ -19,10 +19,10 @@ export class PetugasManagementComponent implements OnInit {
     ngOnInit() {
         this.authService.getAllPetugas().subscribe(data => {
             this.data = data.petugas;
-            console.log(this.data);
+            //console.log(this.data);
         },
             err => {
-                console.log(err);
+                //console.log(err);
                 return false;
             });
     }

@@ -4,8 +4,8 @@ import { Router } from '@angular/router';
 import { AuthService } from '../../../../services/auth.service';
 import { DialogComponent, DialogService } from "ng2-bootstrap-modal";
 export interface ConfirmModel {
-  title:string;
-  message:string;
+  title: string;
+  message: string;
 }
 
 @Component({
@@ -16,36 +16,37 @@ export interface ConfirmModel {
 export class ModalAddPraktikanComponent extends DialogComponent<ConfirmModel, boolean> implements ConfirmModel {
   title: string;
   message: string;
-  
-  npm : String;
-  kelas : String;
-  depan : String;
-  belakang : String;
-  constructor(dialogService: DialogService, private router:Router, private validation:ValidationService, private authService:AuthService) {
+
+  npm: String;
+  kelas: String;
+  depan: String;
+  belakang: String;
+  constructor(dialogService: DialogService, private router: Router, private validation: ValidationService, private authService: AuthService) {
     super(dialogService);
   }
 
-  addPraktikan(){
+  addPraktikan() {
     const praktikan = {
-      npm : this.npm,
-      kelas : this.kelas,
-      nama :{
-        depan :this.depan,
-        belakang : this.belakang
-      } 
+      npm: this.npm,
+      kelas: this.kelas,
+      nama: {
+        depan: this.depan,
+        belakang: this.belakang
+      }
     }
 
 
     this.authService.addPraktikan(praktikan).subscribe(data => {
-      if(data.success){
-          this.result = true;
-          this.close();
-      }else{
+      if (data.success) {
+        this.result = true;
+
+      } else {
         alert('gagal');
       }
+      this.close();
     });
-    
-    
-  
+
+
+
   }
 }
