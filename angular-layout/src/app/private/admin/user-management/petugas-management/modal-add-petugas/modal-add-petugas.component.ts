@@ -41,7 +41,7 @@ export class ModalAddPetugasComponent extends DialogComponent<ConfirmModel, bool
 
     this.authService.addPetugas(petugas).subscribe(data => {
       if (data.success) {
-        this.result = data;
+        this.result = true;
       } else {
         alert('gagal');
         console.log(data.msg);

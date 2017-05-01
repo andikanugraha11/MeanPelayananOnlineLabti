@@ -3,6 +3,8 @@ import { ValidationService } from '../../../../services/validation.service';
 import { Router } from '@angular/router';
 import { AuthService } from '../../../../services/auth.service';
 import { DialogService } from "ng2-bootstrap-modal";
+import { FlashMessagesService } from 'angular2-flash-messages';
+import {ToasterService} from 'angular2-toaster';
 import { ModalAddPetugasComponent } from './modal-add-petugas/modal-add-petugas.component';
 
 @Component({
@@ -13,8 +15,11 @@ import { ModalAddPetugasComponent } from './modal-add-petugas/modal-add-petugas.
 
 export class PetugasManagementComponent implements OnInit {
     data: Object;
+    
 
-    constructor(private authService: AuthService, private router: Router, private dialogService: DialogService) { }
+    constructor(private toasterService: ToasterService, private flashMessage: FlashMessagesService, private authService: AuthService, private router: Router, private dialogService: DialogService) {
+        // let flsMsg = new FlashMessage()
+    }
 
     ngOnInit() {
         this.authService.getAllPetugas().subscribe(data => {
@@ -33,8 +38,9 @@ export class PetugasManagementComponent implements OnInit {
             title: 'Confirm title',
             message: 'Confirm message'
         })
-            .subscribe((data: any) => {
-                if (data.success) {
+            .subscribe((data) => {
+                if (data) {
+                    this.toasterService.pop('success', 'Sukses', 'Berhasil menambah petugas');
                     this.authService.getAllPetugas().subscribe(data => {
                         this.data = data.petugas;
                     })
@@ -43,9 +49,9 @@ export class PetugasManagementComponent implements OnInit {
     }
 
     removePetugas(id) {
-
         this.authService.removePetugas(id).subscribe(data => {
             if (data.success) {
+                this.toasterService.pop('error', 'Hapus', 'Berhasil menghapus petugas');
                 this.authService.getAllPetugas().subscribe(data => {
                     this.data = data.petugas;
                 })

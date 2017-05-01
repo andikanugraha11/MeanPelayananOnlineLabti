@@ -41,6 +41,7 @@ import { PjReportCompleteComponent } from './pj/report/pj-report-complete/pj-rep
 import { PjReportCreatedComponent } from './pj/report/pj-report-created/pj-report-created.component';
 import { PetugasReportOnProgressComponent } from './petugas/report/petugas-report-on-progress/petugas-report-on-progress.component';
 import { PetugasReportCompleteComponent } from './petugas/report/petugas-report-complete/petugas-report-complete.component';
+import {ToasterModule} from 'angular2-toaster';
 
 const appRoutes : Routes = 
 [
@@ -145,7 +146,8 @@ const appRoutes : Routes =
     RouterModule.forRoot(appRoutes),
     FlashMessagesModule,
     DataTableModule,
-    TabsModule
+    TabsModule,
+    ToasterModule
   ],
   declarations: [
     PrivateComponent,
