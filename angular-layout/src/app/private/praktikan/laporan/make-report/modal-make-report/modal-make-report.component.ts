@@ -4,10 +4,10 @@ import { Router } from '@angular/router';
 import { AuthService } from '../../../../../services/auth.service';
 import { DialogComponent, DialogService } from "ng2-bootstrap-modal";
 export interface ConfirmModel {
-  title:string;
-  message:string;
+  title: string;
+  message: string;
   dataTersedia: any;
-  reportId:string;
+  reportId: string;
 }
 
 @Component({
@@ -19,28 +19,32 @@ export class ModalMakeReportComponent extends DialogComponent<ConfirmModel, bool
   title: string;
   message: string;
   dataTersedia: any;
-  reportId:string;
-  keterangan:String;
+  reportId: string;
+  keterangan: String;
   pengganti: String;
-  constructor(dialogService: DialogService, private router:Router, private validation:ValidationService, private authService:AuthService) { 
+  constructor(dialogService: DialogService, private router: Router, private validation: ValidationService, private authService: AuthService) {
     super(dialogService);
     // console.log(this.data);
   }
 
-  updateReport(){
+  updateReport() {
     const report = {
-      keterangan : this.keterangan,
-      pengganti : this.pengganti,
-      reportId : this.reportId
+      keterangan: this.keterangan,
+      pengganti: this.pengganti,
+      reportId: this.reportId
     }
     // console.log(report);
-    this.authService.praktikanDoReport(report).subscribe(data=>{
-      console.log(data);
+    this.authService.praktikanDoReport(report).subscribe(data => {
+      if (data.success) {
+        this.result = true;
+      } else {
+        this.result = false;
+      }
     });
+    this.close();
     //console.log(update);
-
   }
-  
+
 
 
 }
