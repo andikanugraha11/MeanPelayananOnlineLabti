@@ -3,6 +3,7 @@ import { ValidationService } from '../../../../../services/validation.service';
 import { Router } from '@angular/router';
 import { AuthService } from '../../../../../services/auth.service';
 import { DialogComponent, DialogService } from "ng2-bootstrap-modal";
+import { FlashMessagesService } from 'angular2-flash-messages';
 export interface ConfirmModel {
   title: string;
   message: string;
@@ -25,7 +26,7 @@ export class ModalAddPjComponent extends DialogComponent<ConfirmModel, boolean> 
   password: String;
   repassword: String;
 
-  constructor(dialogService: DialogService, private router: Router, private validation: ValidationService, private authService: AuthService) {
+  constructor(private flashMessage : FlashMessagesService, dialogService: DialogService, private router: Router, private validation: ValidationService, private authService: AuthService) {
     super(dialogService);
   }
 
@@ -38,7 +39,30 @@ export class ModalAddPjComponent extends DialogComponent<ConfirmModel, boolean> 
       },
       username: this.username,
       email: this.email,
-      password: this.password
+      password: this.password,
+      repassword : this.repassword
+    }
+    if(!this.validation.validateAddPj(pj)){
+      this.flashMessage.show('Data yang anda masukan belum lengkap',{
+        cssClass : 'alert-danger',
+        timeOut : 3000
+      });
+      return false;
+    }
+    if(!this.validation.matchPassword(pj)){
+      this.flashMessage.show('Password tidak sama',{
+        cssClass : 'alert-danger',
+        timeOut : 3000
+      });
+      return false;
+    }
+
+    if(!this.validation.validateEmail(pj)){
+      this.flashMessage.show('Email yang anda masukan salah',{
+        cssClass : 'alert-danger',
+        timeOut : 3000
+      });
+      return false;
     }
 
     this.authService.addPj(pj).subscribe(data => {

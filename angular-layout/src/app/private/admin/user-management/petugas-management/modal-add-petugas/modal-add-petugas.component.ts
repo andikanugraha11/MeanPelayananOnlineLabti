@@ -3,6 +3,7 @@ import { ValidationService } from '../../../../../services/validation.service';
 import { Router } from '@angular/router';
 import { AuthService } from '../../../../../services/auth.service';
 import { DialogComponent, DialogService } from "ng2-bootstrap-modal";
+import { FlashMessagesService } from 'angular2-flash-messages';
 export interface ConfirmModel {
   title: string;
   message: string;
@@ -24,7 +25,7 @@ export class ModalAddPetugasComponent extends DialogComponent<ConfirmModel, bool
   password: String;
   repassword: String;
 
-  constructor(dialogService: DialogService, private router: Router, private validation: ValidationService, private authService: AuthService) {
+  constructor(private flashMessage : FlashMessagesService, dialogService: DialogService, private router: Router, private validation: ValidationService, private authService: AuthService) {
     super(dialogService);
   }
 
@@ -36,15 +37,36 @@ export class ModalAddPetugasComponent extends DialogComponent<ConfirmModel, bool
       },
       username: this.username,
       email: this.email,
-      password: this.password
+      password: this.password,
+      repassword : this.repassword
+    }
+    if(!this.validation.validateAddPetugas(petugas)){
+      this.flashMessage.show('Data yang anda masukan belum lengkap',{
+        cssClass : 'alert-danger',
+        timeOut : 3000
+      });
+      return false;
+    }
+    if(!this.validation.matchPassword(petugas)){
+      this.flashMessage.show('Password tidak sama',{
+        cssClass : 'alert-danger',
+        timeOut : 3000
+      });
+      return false;
     }
 
+    if(!this.validation.validateEmail(petugas)){
+      this.flashMessage.show('Email yang anda masukan salah',{
+        cssClass : 'alert-danger',
+        timeOut : 3000
+      });
+      return false;
+    }
     this.authService.addPetugas(petugas).subscribe(data => {
       if (data.success) {
         this.result = true;
       } else {
         this.result = false;
-        console.log(data.msg);
       }
     });
     this.close();

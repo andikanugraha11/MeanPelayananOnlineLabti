@@ -57,7 +57,8 @@ export class UserManagementComponent implements OnInit {
           this.authService.getAllPraktikan().subscribe(data => {
             this.data = data.praktikan;
           });
-        } else {
+          //apabila langsung else this.close akan dihitung gagal
+        } else if (data == false) {
           this.toasterService.pop('error', 'Gagal', 'Gagal menambah penanggung praktikan');
         }
       });

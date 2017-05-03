@@ -44,7 +44,7 @@ export class PetugasManagementComponent implements OnInit {
                     this.authService.getAllPetugas().subscribe(data => {
                         this.data = data.petugas;
                     })
-                } else {
+                } else if(data == false){
                     this.toasterService.pop('error', 'Gagal', 'Gagal menambah petugas');
                 }
             });

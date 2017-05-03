@@ -38,7 +38,7 @@ export class PjManagementComponent implements OnInit {
           this.authService.getAllPJ().subscribe(data => {
             this.data = data.pj;
           });
-        }else{
+        }else if(data == false){
           this.toasterService.pop('error', 'Gagal', 'Gagal menambah penanggung jawab');
         }
       });
