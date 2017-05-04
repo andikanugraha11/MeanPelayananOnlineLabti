@@ -45,6 +45,9 @@ import { ToasterModule } from 'angular2-toaster';
 import { ValidationService } from '../services/validation.service';
 import { AuthService } from '../services/auth.service';
 import { AdminAuthGuard } from '../guards/adminAuth.guard';
+import { PetugasAuthGuard } from '../guards/petugasAuth.guard';
+import { PjAuthGuard } from '../guards/pjAuth.guard';
+import { PraktikanAuthGuard } from '../guards/praktikanAuth.guard';
 import { loginGuard } from '../guards/login.guard';
 
 const appRoutes: Routes =
@@ -56,31 +59,38 @@ const appRoutes: Routes =
       children: [
         {
           path: '',
-          component: PraktikanDashboardComponent
+          component: PraktikanDashboardComponent,
+          canActivate: [PraktikanAuthGuard]
         },
         {
           path: 'laporan',
-          component: MakeReportComponent
+          component: MakeReportComponent,
+          canActivate: [PraktikanAuthGuard]
         },
         {
           path: 'laporan/proses',
-          component: ReportOnProgressComponent
+          component: ReportOnProgressComponent,
+          canActivate: [PraktikanAuthGuard]
         },
         {
           path: 'laporan/selesai',
-          component: ReportCompleteComponent
+          component: ReportCompleteComponent,
+          canActivate: [PraktikanAuthGuard]
         },
         {
           path: 'petugas',
-          component: PetugasDashboardComponent
+          component: PetugasDashboardComponent,
+          canActivate: [PetugasAuthGuard]
         },
         {
           path: 'petugas/laporan/proses',
-          component: PetugasReportOnProgressComponent
+          component: PetugasReportOnProgressComponent,
+          canActivate: [PetugasAuthGuard]
         },
         {
           path: 'petugas/laporan/selesai',
-          component: PetugasReportCompleteComponent
+          component: PetugasReportCompleteComponent,
+          canActivate: [PetugasAuthGuard]
         },
         {
           path: 'admin',
@@ -89,55 +99,68 @@ const appRoutes: Routes =
         },
         {
           path: 'admin/praktikan',
-          component: UserManagementComponent
+          component: UserManagementComponent,
+          canActivate: [AdminAuthGuard]
         },
         {
           path: 'admin/pj',
-          component: PjManagementComponent
+          component: PjManagementComponent,
+          canActivate: [AdminAuthGuard]
         },
         {
           path: 'admin/petugas',
-          component: PetugasManagementComponent
+          component: PetugasManagementComponent,
+          canActivate: [AdminAuthGuard]
         },
         {
           path: 'admin/praktikum/tingkat1',
-          component: Tingkat1Component
+          component: Tingkat1Component,
+          canActivate: [AdminAuthGuard]
         },
         {
           path: 'admin/praktikum/tingkat2',
-          component: Tingkat2Component
+          component: Tingkat2Component,
+          canActivate: [AdminAuthGuard]
         },
         {
           path: 'admin/praktikum/tingkat3',
-          component: Tingkat3Component
+          component: Tingkat3Component,
+          canActivate: [AdminAuthGuard]
         },
         {
           path: 'admin/praktikum/tingkat4',
-          component: Tingkat4Component
+          component: Tingkat4Component,
+          canActivate: [AdminAuthGuard]
         },
         {
           path: 'pj',
-          component: PjDashboardComponent
+          component: PjDashboardComponent,
+          canActivate: [PjAuthGuard]
         },
         {
           path: 'pj/praktikum',
-          component: PraktikumPjComponent
+          component: PraktikumPjComponent,
+          canActivate: [PjAuthGuard]
         },
         {
           path: 'pj/praktikum/:id_praktikum',
-          component: DetailPraktikumPjComponent
+          component: DetailPraktikumPjComponent,
+          canActivate: [PjAuthGuard]
         },
         {
           path: 'pj/laporan/dibuat',
-          component: PjReportCreatedComponent
+          component: PjReportCreatedComponent,
+          canActivate: [PjAuthGuard]
         },
         {
           path: 'pj/laporan/proses',
-          component: PjReportOnProgressComponent
+          component: PjReportOnProgressComponent,
+          canActivate: [PjAuthGuard]
         },
         {
           path: 'pj/laporan/selesai',
-          component: PjReportCompleteComponent
+          component: PjReportCompleteComponent,
+          canActivate: [PjAuthGuard]
         }
       ]
     },
@@ -205,6 +228,6 @@ const appRoutes: Routes =
     ModalDetailTingkat4Component,
     ModalMakeReportComponent
   ],
-  providers: [ValidationService, AuthService, AdminAuthGuard, loginGuard],
+  providers: [ValidationService, AuthService, AdminAuthGuard, loginGuard, PjAuthGuard, PetugasAuthGuard, PraktikanAuthGuard],
 })
 export class PrivateModule { }

@@ -43,58 +43,8 @@
 
         <!-- Sidebar Menu Items - These collapse to the responsive navigation menu on small screens -->
         <div class="collapse navbar-collapse navbar-ex1-collapse">
-            <ul class="nav navbar-nav side-nav">
-                <li [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact:true}">
-                    <a [routerLink]="['/dashboard']"><i class="fa fa-fw fa-dashboard"></i> Dashboard<small> praktikan</small></a>
-                </li>
-                <li>
-                    <a href="javascript:;" data-toggle="collapse" data-target="#laporan"><i class="fa fa-fw fa-newspaper-o"></i> Laporan<i class="fa fa-fw fa-caret-down"></i></a>
-                    <ul id="laporan" class="collapse">
-                        <li [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact:true}">
-                            <a [routerLink]="['/dashboard/laporan']"><i class="fa fa-file-o"></i> Buat Laporan</a>
-                        </li>
-                        <li [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact:true}">
-                            <a [routerLink]="['/dashboard/laporan/proses']"><i class="fa fa-exchange "></i> Laporan di Proses</a>
-                        </li>
-                        <li [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact:true}">
-                            <a [routerLink]="['/dashboard/laporan/selesai']"><i class="fa fa-check "></i> Laporan Selesai</a>
-                        </li>
-                    </ul>
-                </li>
-                <li [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact:true}">
-                    <a [routerLink]="['/dashboard/petugas']"><i class="fa fa-fw fa-dashboard"></i> Dashboard<small> petugas</small></a>
-                </li>
-                <li>
-                    <a href="javascript:;" data-toggle="collapse" data-target="#laporanPet"><i class="fa fa-fw fa-newspaper-o"></i> Laporan<i class="fa fa-fw fa-caret-down"></i></a>
-                    <ul id="laporanPet" class="collapse">
-                        <li [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact:true}">
-                            <a [routerLink]="['/dashboard/petugas/laporan/proses']"><i class="fa fa-exchange "></i> Laporan di Proses</a>
-                        </li>
-                        <li [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact:true}">
-                            <a [routerLink]="['/dashboard/petugas/laporan/selesai']"><i class="fa fa-check "></i> Laporan Selesai</a>
-                        </li>
-                    </ul>
-                </li>
-                <li [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact:true}">
-                    <a [routerLink]="['/dashboard/pj']"><i class="fa fa-fw fa-dashboard"></i> Dashboard<small> PJ</small></a>
-                </li>
-                <li [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact:true}">
-                    <a [routerLink]="['/dashboard/pj/praktikum']"><i class="fa fa-fw fa-book"></i> Praktikum</a>
-                </li>
-                <li>
-                    <a href="javascript:;" data-toggle="collapse" data-target="#laporanPj"><i class="fa fa-fw fa-newspaper-o"></i> Laporan<i class="fa fa-fw fa-caret-down"></i></a>
-                    <ul id="laporanPj" class="collapse">
-                        <li [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact:true}">
-                            <a [routerLink]="['/dashboard/pj/laporan/dibuat']"><i class="fa fa-file-o"></i> Laporan Dibuat</a>
-                        </li>
-                        <li [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact:true}">
-                            <a [routerLink]="['/dashboard/pj/laporan/proses']"><i class="fa fa-exchange "></i> Laporan di Proses</a>
-                        </li>
-                        <li [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact:true}">
-                            <a [routerLink]="['/dashboard/pj/laporan/selesai']"><i class="fa fa-check "></i> Laporan Selesai</a>
-                        </li>
-                    </ul>
-                </li>
+            <!--admin-->
+            <ul *ngIf="roleAdmin" class="nav navbar-nav side-nav">
                 <li [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact:true}">
                     <a [routerLink]="['/dashboard/admin']"><i class="fa fa-fw fa-dashboard"></i> Dashboard<small> admin</small></a>
                 </li>
@@ -126,6 +76,70 @@
                         </li>
                         <li [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact:true}">
                             <a [routerLink]="['/dashboard/admin/praktikum/tingkat4']"><i class="fa fa-user "></i> Tingkat 4</a>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+
+            <!--Praktikan-->
+            <ul *ngIf="rolePraktikan" class="nav navbar-nav side-nav">
+                <li [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact:true}">
+                    <a [routerLink]="['/dashboard']"><i class="fa fa-fw fa-dashboard"></i> Dashboard<small> praktikan</small></a>
+                </li>
+                <li>
+                    <a href="javascript:;" data-toggle="collapse" data-target="#laporan"><i class="fa fa-fw fa-newspaper-o"></i> Laporan<i class="fa fa-fw fa-caret-down"></i></a>
+                    <ul id="laporan" class="collapse">
+                        <li [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact:true}">
+                            <a [routerLink]="['/dashboard/laporan']"><i class="fa fa-file-o"></i> Buat Laporan</a>
+                        </li>
+                        <li [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact:true}">
+                            <a [routerLink]="['/dashboard/laporan/proses']"><i class="fa fa-exchange "></i> Laporan di Proses</a>
+                        </li>
+                        <li [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact:true}">
+                            <a [routerLink]="['/dashboard/laporan/selesai']"><i class="fa fa-check "></i> Laporan Selesai</a>
+                        </li>
+                    </ul>
+                </li>
+
+            </ul>
+
+            <!--Penanggung Jawab-->
+            <ul *ngIf="rolePj" class="nav navbar-nav side-nav">
+                <li [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact:true}">
+                    <a [routerLink]="['/dashboard/pj']"><i class="fa fa-fw fa-dashboard"></i> Dashboard<small> PJ</small></a>
+                </li>
+                <li [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact:true}">
+                    <a [routerLink]="['/dashboard/pj/praktikum']"><i class="fa fa-fw fa-book"></i> Praktikum</a>
+                </li>
+                <li>
+                    <a href="javascript:;" data-toggle="collapse" data-target="#laporanPj"><i class="fa fa-fw fa-newspaper-o"></i> Laporan<i class="fa fa-fw fa-caret-down"></i></a>
+                    <ul id="laporanPj" class="collapse">
+                        <li [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact:true}">
+                            <a [routerLink]="['/dashboard/pj/laporan/dibuat']"><i class="fa fa-file-o"></i> Laporan Dibuat</a>
+                        </li>
+                        <li [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact:true}">
+                            <a [routerLink]="['/dashboard/pj/laporan/proses']"><i class="fa fa-exchange "></i> Laporan di Proses</a>
+                        </li>
+                        <li [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact:true}">
+                            <a [routerLink]="['/dashboard/pj/laporan/selesai']"><i class="fa fa-check "></i> Laporan Selesai</a>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+
+            <!--Petugas-->
+            <ul *ngIf="rolePetugas" class="nav navbar-nav side-nav">
+                <li [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact:true}">
+                    <a [routerLink]="['/dashboard/petugas']"><i class="fa fa-fw fa-dashboard"></i> Dashboard<small> petugas</small></a>
+                </li>
+                <li>
+                    <a href="javascript:;" data-toggle="collapse" data-target="#laporanPet"><i class="fa fa-fw fa-newspaper-o"></i> Laporan<i class="fa fa-fw fa-caret-down"></i></a>
+                    <ul id="laporanPet" class="collapse">
+                        <li [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact:true}">
+                            <a [routerLink]="['/dashboard/petugas/laporan/proses']"><i class="fa fa-exchange "></i> Laporan di Proses</a>
+                        </li>
+                        <li [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact:true}">
+                            <a [routerLink]="['/dashboard/petugas/laporan/selesai']"><i class="fa fa-check "></i> Laporan Selesai</a>
                         </li>
                     </ul>
                 </li>
