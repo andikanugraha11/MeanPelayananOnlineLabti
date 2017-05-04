@@ -42,7 +42,7 @@ export class ModalAddTingka1Component extends DialogComponent<ConfirmModel, bool
   tampil: Boolean;
   pj: String;
   pjs: Object;
-  jlh_pertemuan: Number =4;
+  jlh_pertemuan: Number = 4;
   ruang: String;
 
 

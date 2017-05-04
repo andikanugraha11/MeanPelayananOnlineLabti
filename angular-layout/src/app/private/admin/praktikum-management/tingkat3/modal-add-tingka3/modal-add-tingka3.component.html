@@ -6,7 +6,7 @@
                 <h4 class="modal-title text-center">Tambah Praktikum</h4>
             </div>
             <div class="modal-body">
-
+                <flash-messages></flash-messages>
                 <div class="form-group">
                     <label>Praktikum :</label>
                     <select [(ngModel)]="kode_praktikum" name="kode_praktikum" class="form-control">
@@ -65,9 +65,9 @@
                     </div>
                     <div class="col-md-6">
                         <label>Jumlah Pertemuan : </label>
-                        <select [(ngModel)]="jlh_pertemuan" name="jlh_pertemuan" #pilih (change)="onChangePertemuan(pilih.value)" class="form-control">
-                            <option value="4" [ngValue]="4">4 Pertemuan</option>
-                            <option value="8" [ngValue]="8">8 Pertemuan</option>
+                        <select name="jlh_pertemuan" #pilih (change)="onChangePertemuan(pilih.value)" class="form-control">
+                            <option value="4">4 Pertemuan</option>
+                            <option value="8">8 Pertemuan</option>
                         </select>
                     </div>
                 </div>

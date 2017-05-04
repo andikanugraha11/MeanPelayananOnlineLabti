@@ -54,7 +54,7 @@ export class Tingkat1Component implements OnInit {
                     this.authService.getAllPraktikumTk1().subscribe(data => {
                         this.praktikums = data.praktikum;
                     });
-                } else {
+                } else if(data == false) {
                     this.toasterService.pop('error', 'Gagal', 'Gagal menambah praktikum');
                 }
             });

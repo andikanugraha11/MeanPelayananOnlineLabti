@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
-import {RouterModule, Routes} from '@angular/router';
+import { RouterModule, Routes } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { PrivateComponent } from './private.component';
 import { PetugasDashboardComponent } from './petugas/petugas-dashboard/petugas-dashboard.component';
@@ -11,7 +11,7 @@ import { PjDashboardComponent } from './pj/pj-dashboard/pj-dashboard.component';
 import { PraktikanDashboardComponent } from './praktikan/praktikan-dashboard/praktikan-dashboard.component';
 import { FlashMessagesModule } from 'angular2-flash-messages/module';
 import { UserManagementComponent } from './admin/user-management/user-management.component';
-import {DataTableModule} from "angular2-datatable";
+import { DataTableModule } from "angular2-datatable";
 import { ModalAddPraktikanComponent } from './admin/user-management/modal-add-praktikan/modal-add-praktikan.component';
 import { PjManagementComponent } from './admin/user-management/pj-management/pj-management.component';
 import { ModalAddPjComponent } from './admin/user-management/pj-management/modal-add-pj/modal-add-pj.component';
@@ -41,101 +41,107 @@ import { PjReportCompleteComponent } from './pj/report/pj-report-complete/pj-rep
 import { PjReportCreatedComponent } from './pj/report/pj-report-created/pj-report-created.component';
 import { PetugasReportOnProgressComponent } from './petugas/report/petugas-report-on-progress/petugas-report-on-progress.component';
 import { PetugasReportCompleteComponent } from './petugas/report/petugas-report-complete/petugas-report-complete.component';
-import {ToasterModule} from 'angular2-toaster';
+import { ToasterModule } from 'angular2-toaster';
+import { ValidationService } from '../services/validation.service';
+import { AuthService } from '../services/auth.service';
+import { AdminAuthGuard } from '../guards/adminAuth.guard';
+import { loginGuard } from '../guards/login.guard';
 
-const appRoutes : Routes = 
-[
-  {
-    path        : 'dashboard',
-    component   : PrivateComponent,
-    children    : [
-      {
-        path        : '',
-        component   : PraktikanDashboardComponent
-      },
-      {
-        path        : 'laporan',
-        component   : MakeReportComponent
-      },
-      {
-        path        : 'laporan/proses',
-        component   : ReportOnProgressComponent
-      },
-      {
-        path        : 'laporan/selesai',
-        component   : ReportCompleteComponent
-      },
-      {
-        path        : 'petugas',
-        component   : PetugasDashboardComponent
-      },
-      {
-        path        : 'petugas/laporan/proses',
-        component   : PetugasReportOnProgressComponent
-      },
-      {
-        path        : 'petugas/laporan/selesai',
-        component   : PetugasReportCompleteComponent
-      },
-      {
-        path        : 'admin',
-        component   : AdminDashboardComponent
-      },
-      {
-        path        : 'admin/praktikan',
-        component   : UserManagementComponent
-      },
-      {
-        path        : 'admin/pj',
-        component   : PjManagementComponent
-      },
-      {
-        path        : 'admin/petugas',
-        component   : PetugasManagementComponent
-      },
-      {
-        path        : 'admin/praktikum/tingkat1',
-        component   : Tingkat1Component
-      },
-      {
-        path        : 'admin/praktikum/tingkat2',
-        component   : Tingkat2Component
-      },
-      {
-        path        : 'admin/praktikum/tingkat3',
-        component   : Tingkat3Component
-      },
-      {
-        path        : 'admin/praktikum/tingkat4',
-        component   : Tingkat4Component
-      },
-      {
-        path        : 'pj',
-        component   : PjDashboardComponent
-      },
-      {
-        path        : 'pj/praktikum',
-        component   : PraktikumPjComponent
-      },
-      {
-        path        : 'pj/praktikum/:id_praktikum',
-        component   : DetailPraktikumPjComponent
-      },
-      {
-        path        : 'pj/laporan/dibuat',
-        component   : PjReportCreatedComponent
-      },
-      {
-        path        : 'pj/laporan/proses',
-        component   : PjReportOnProgressComponent
-      },
-      {
-        path        : 'pj/laporan/selesai',
-        component   : PjReportCompleteComponent
-      }
-    ]
-  },
-]
+const appRoutes: Routes =
+  [
+    {
+      path: 'dashboard',
+      component: PrivateComponent,
+      canActivate: [loginGuard],
+      children: [
+        {
+          path: '',
+          component: PraktikanDashboardComponent
+        },
+        {
+          path: 'laporan',
+          component: MakeReportComponent
+        },
+        {
+          path: 'laporan/proses',
+          component: ReportOnProgressComponent
+        },
+        {
+          path: 'laporan/selesai',
+          component: ReportCompleteComponent
+        },
+        {
+          path: 'petugas',
+          component: PetugasDashboardComponent
+        },
+        {
+          path: 'petugas/laporan/proses',
+          component: PetugasReportOnProgressComponent
+        },
+        {
+          path: 'petugas/laporan/selesai',
+          component: PetugasReportCompleteComponent
+        },
+        {
+          path: 'admin',
+          component: AdminDashboardComponent,
+          canActivate: [AdminAuthGuard]
+        },
+        {
+          path: 'admin/praktikan',
+          component: UserManagementComponent
+        },
+        {
+          path: 'admin/pj',
+          component: PjManagementComponent
+        },
+        {
+          path: 'admin/petugas',
+          component: PetugasManagementComponent
+        },
+        {
+          path: 'admin/praktikum/tingkat1',
+          component: Tingkat1Component
+        },
+        {
+          path: 'admin/praktikum/tingkat2',
+          component: Tingkat2Component
+        },
+        {
+          path: 'admin/praktikum/tingkat3',
+          component: Tingkat3Component
+        },
+        {
+          path: 'admin/praktikum/tingkat4',
+          component: Tingkat4Component
+        },
+        {
+          path: 'pj',
+          component: PjDashboardComponent
+        },
+        {
+          path: 'pj/praktikum',
+          component: PraktikumPjComponent
+        },
+        {
+          path: 'pj/praktikum/:id_praktikum',
+          component: DetailPraktikumPjComponent
+        },
+        {
+          path: 'pj/laporan/dibuat',
+          component: PjReportCreatedComponent
+        },
+        {
+          path: 'pj/laporan/proses',
+          component: PjReportOnProgressComponent
+        },
+        {
+          path: 'pj/laporan/selesai',
+          component: PjReportCompleteComponent
+        }
+      ]
+    },
+  ]
 
 @NgModule({
   imports: [
@@ -184,20 +190,21 @@ const appRoutes : Routes =
     PjReportCreatedComponent,
     PetugasReportOnProgressComponent,
     PetugasReportCompleteComponent,
-    ],
-    entryComponents: [
-      ModalAddPraktikanComponent, 
-      ModalAddPjComponent, 
-      ModalAddPetugasComponent,
-      ModalAddTingka1Component,
-      ModalAddTingka2Component,
-      ModalAddTingka3Component,
-      ModalAddTingka4Component,
-      ModalDetailTingkat1Component,
-      ModalDetailTingkat2Component,
-      ModalDetailTingkat3Component,
-      ModalDetailTingkat4Component,
-      ModalMakeReportComponent
-    ],
+  ],
+  entryComponents: [
+    ModalAddPraktikanComponent,
+    ModalAddPjComponent,
+    ModalAddPetugasComponent,
+    ModalAddTingka1Component,
+    ModalAddTingka2Component,
+    ModalAddTingka3Component,
+    ModalAddTingka4Component,
+    ModalDetailTingkat1Component,
+    ModalDetailTingkat2Component,
+    ModalDetailTingkat3Component,
+    ModalDetailTingkat4Component,
+    ModalMakeReportComponent
+  ],
+  providers: [ValidationService, AuthService, AdminAuthGuard, loginGuard],
 })
 export class PrivateModule { }

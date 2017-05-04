@@ -3,6 +3,7 @@ import { ValidationService } from '../../../../../services/validation.service';
 import { Router } from '@angular/router';
 import { AuthService } from '../../../../../services/auth.service';
 import { DialogComponent, DialogService } from "ng2-bootstrap-modal";
+import { FlashMessagesService } from 'angular2-flash-messages';
 export interface ConfirmModel {
   title: string;
   message: string;
@@ -39,12 +40,12 @@ export class ModalAddTingka3Component extends DialogComponent<ConfirmModel, bool
   tampil: Boolean;
   pj: String;
   pjs: Object;
-  jlh_pertemuan: Number;
+  jlh_pertemuan: Number = 4;
   kode_praktikum: String;
   ruang: String;
 
 
-  constructor(dialogService: DialogService, private router: Router, private validation: ValidationService, private authService: AuthService) {
+  constructor(private flashMessage: FlashMessagesService, dialogService: DialogService, private router: Router, private validation: ValidationService, private authService: AuthService) {
     super(dialogService);
     this.pertemuan1 = 1;
     this.pertemuan2 = 2;
@@ -76,6 +77,7 @@ export class ModalAddTingka3Component extends DialogComponent<ConfirmModel, bool
       this.pertemuan6 = 6;
       this.pertemuan7 = 7;
       this.pertemuan8 = 8;
+      this.jlh_pertemuan = 8;
     } else {
       this.tampil = false;
       this.pertemuan1 = 1;
@@ -86,6 +88,7 @@ export class ModalAddTingka3Component extends DialogComponent<ConfirmModel, bool
       this.pertemuan6 = undefined;
       this.pertemuan7 = undefined;
       this.pertemuan8 = undefined;
+      this.jlh_pertemuan = 4;
     }
   }
   addPraktikumTk3() {
@@ -145,6 +148,26 @@ export class ModalAddTingka3Component extends DialogComponent<ConfirmModel, bool
       kode: kode,
       jlh_pertemuan: this.jlh_pertemuan,
       ruang: this.ruang
+    }
+
+    if (this.jlh_pertemuan == 4) {
+      //console.log(this.jlh_pertemuan);
+      if (!this.validation.validateAddPraktikum4(praktikum)) {
+        this.flashMessage.show('Data yang anda masukan belum lengkap', {
+          cssClass: 'alert-danger',
+          timeOut: 3000
+        });
+        return false;
+      }
+    } else {
+      //console.log(this.jlh_pertemuan);
+      if (!this.validation.validateAddPraktikum8(praktikum)) {
+        this.flashMessage.show('Data yang anda masukan belum lengkap', {
+          cssClass: 'alert-danger',
+          timeOut: 3000
+        });
+        return false;
+      }
     }
 
     this.authService.addPraktikumTk3(praktikum).subscribe(data => {

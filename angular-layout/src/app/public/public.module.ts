@@ -9,6 +9,7 @@ import { ActivationComponent } from './activation/activation.component';
 import { LoginComponent } from './login/login.component';
 import { ResetPasswordComponent } from './reset-password/reset-password.component';
 import { FlashMessagesModule } from 'angular2-flash-messages/module';
+import { AccessDeniedComponent } from './access-denied/access-denied.component';
 
 
 const appRoutes : Routes = 
@@ -31,6 +32,10 @@ const appRoutes : Routes =
       },
     ]
   },
+  {
+    path          : '403',
+    component     : AccessDeniedComponent
+  }
 ]
 
 @NgModule({
@@ -46,7 +51,8 @@ const appRoutes : Routes =
     PublicComponent,
     ActivationComponent,
     LoginComponent,
-    ResetPasswordComponent
+    ResetPasswordComponent,
+    AccessDeniedComponent
   ]
 })
 export class PublicModule { }

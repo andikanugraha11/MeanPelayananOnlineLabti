@@ -3,6 +3,7 @@ import { ValidationService } from '../../../../../services/validation.service';
 import { Router } from '@angular/router';
 import { AuthService } from '../../../../../services/auth.service';
 import { DialogComponent, DialogService } from "ng2-bootstrap-modal";
+import { FlashMessagesService } from 'angular2-flash-messages';
 export interface ConfirmModel {
   title: string;
   message: string;
@@ -22,7 +23,7 @@ export class ModalMakeReportComponent extends DialogComponent<ConfirmModel, bool
   reportId: string;
   keterangan: String;
   pengganti: String;
-  constructor(dialogService: DialogService, private router: Router, private validation: ValidationService, private authService: AuthService) {
+  constructor(private flashMessage: FlashMessagesService, dialogService: DialogService, private router: Router, private validation: ValidationService, private authService: AuthService) {
     super(dialogService);
     // console.log(this.data);
   }
@@ -34,6 +35,13 @@ export class ModalMakeReportComponent extends DialogComponent<ConfirmModel, bool
       reportId: this.reportId
     }
     // console.log(report);
+    if (!this.validation.validateMakeReport(report)) {
+      this.flashMessage.show('Data yang anda masukan belum lengkap', {
+        cssClass: 'alert-danger',
+        timeOut: 3000
+      });
+      return false;
+    }
     this.authService.praktikanDoReport(report).subscribe(data => {
       if (data.success) {
         this.result = true;

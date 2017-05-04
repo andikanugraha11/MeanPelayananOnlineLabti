@@ -13,6 +13,12 @@ const Petugas = require('../models/petugasPjSchema');
 router.get('/profile', passport.authenticate('jwt', { session: false }), (req, res, next) => {
     res.json({ user: req.user })
 });
+
+router.get('/role', passport.authenticate('jwt', { session: false }), (req, res, next) => {
+    res.json({ role: req.user.role })
+});
+
+
 //users/add 
 router.post('/add', (req, res, next) => {
 
