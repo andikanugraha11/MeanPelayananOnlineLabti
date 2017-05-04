@@ -28,27 +28,27 @@ export class ActivationComponent implements OnInit {
   ngOnInit() {
     this.findSection = true;
     this.completeSection = false;
-    let token = localStorage.getItem('id_token');
-    //console.log(token)
-    if (token != null) {
-      //console.log('proses')
-      this.authService.getRole().subscribe(data => {
-        //console.log(data)
-        if (data.role == 'praktikan') {
-          this.router.navigate(['/dashboard']);
-        }
-        else if (data.role == 'admin') {
-          this.router.navigate(['/dashboard/admin']);
+    // let token = localStorage.getItem('id_token');
+    // //console.log(token)
+    // if (token != null) {
+    //   //console.log('proses')
+    //   this.authService.getRole().subscribe(data => {
+    //     //console.log(data)
+    //     if (data.role == 'praktikan') {
+    //       this.router.navigate(['/dashboard']);
+    //     }
+    //     else if (data.role == 'admin') {
+    //       this.router.navigate(['/dashboard/admin']);
 
-        }
-        else if (data.role == 'petugas') {
-          this.router.navigate(['/dashboard/petugas']);
-        }
-        else if (data.role == 'pj') {
-          this.router.navigate(['/dashboard/pj']);
-        }
-      });
-    }
+    //     }
+    //     else if (data.role == 'petugas') {
+    //       this.router.navigate(['/dashboard/petugas']);
+    //     }
+    //     else if (data.role == 'pj') {
+    //       this.router.navigate(['/dashboard/pj']);
+    //     }
+    //   });
+    // }
   }
 
 

@@ -10,33 +10,35 @@ import { LoginComponent } from './login/login.component';
 import { ResetPasswordComponent } from './reset-password/reset-password.component';
 import { FlashMessagesModule } from 'angular2-flash-messages/module';
 import { AccessDeniedComponent } from './access-denied/access-denied.component';
+import { NotLoginGuard } from '../guards/notLogin.guard';
 
 
-const appRoutes : Routes = 
-[
-  {
-    path        : '',
-    component   : PublicComponent,
-    children    : [
-      {
-        path        : '',
-        component   : LoginComponent
-      },
-      {
-        path        : 'activation',
-        component   : ActivationComponent
-      },
-      {
-        path        : 'reset',
-        component   : ResetPasswordComponent
-      },
-    ]
-  },
-  {
-    path          : '403',
-    component     : AccessDeniedComponent
-  }
-]
+const appRoutes: Routes =
+  [
+    {
+      path: '',
+      component: PublicComponent,
+      canActivate: [NotLoginGuard],
+      children: [
+        {
+          path: '',
+          component: LoginComponent
+        },
+        {
+          path: 'activation',
+          component: ActivationComponent
+        },
+        {
+          path: 'reset',
+          component: ResetPasswordComponent
+        },
+      ]
+    },
+    {
+      path: '403',
+      component: AccessDeniedComponent
+    }
+  ]
 
 @NgModule({
   imports: [
@@ -53,6 +55,7 @@ const appRoutes : Routes =
     LoginComponent,
     ResetPasswordComponent,
     AccessDeniedComponent
-  ]
+  ],
+  providers: [NotLoginGuard],
 })
 export class PublicModule { }
