@@ -6,6 +6,7 @@ import { DialogService } from "ng2-bootstrap-modal";
 import { FlashMessagesService } from 'angular2-flash-messages';
 import { ToasterService } from 'angular2-toaster';
 import { ModalAddPetugasComponent } from './modal-add-petugas/modal-add-petugas.component';
+import { default as swal } from 'sweetalert2'
 
 @Component({
     selector: 'app-petugas-management',
@@ -44,22 +45,45 @@ export class PetugasManagementComponent implements OnInit {
                     this.authService.getAllPetugas().subscribe(data => {
                         this.data = data.petugas;
                     })
-                } else if(data == false){
+                } else if (data == false) {
                     this.toasterService.pop('error', 'Gagal', 'Gagal menambah petugas');
                 }
             });
     }
 
     removePetugas(id) {
-        this.authService.removePetugas(id).subscribe(data => {
-            if (data.success) {
-                this.toasterService.pop('error', 'Hapus', 'Berhasil menghapus petugas');
-                this.authService.getAllPetugas().subscribe(data => {
-                    this.data = data.petugas;
-                })
-            } else {
-                this.toasterService.pop('error', 'Gagal', 'Gagal menghapus petugas');
-            }
-        })
+
+        swal({
+            title: 'Apakah anda yakin akan mengahapus petugas?',
+            text: "Data yang sudah dihapus tidak dapat dikembalikan",
+            type: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Ya',
+            cancelButtonText: 'Tidak',
+        }).then(() => {
+
+            this.authService.removePetugas(id).subscribe(data => {
+                if (data.success) {
+                    swal(
+                        'Terhapus!',
+                        'Penanggung Jawab dihapus',
+                        'success'
+                    )
+                    this.authService.getAllPetugas().subscribe(data => {
+                        this.data = data.petugas;
+                    })
+                } else {
+                    this.toasterService.pop('error', 'Gagal', 'Gagal menghapus petugas');
+                }
+            })
+
+
+
+        });
+
+
+
     }
 }

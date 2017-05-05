@@ -50,6 +50,7 @@ import { PjAuthGuard } from '../guards/pjAuth.guard';
 import { PraktikanAuthGuard } from '../guards/praktikanAuth.guard';
 import { loginGuard } from '../guards/login.guard';
 
+
 const appRoutes: Routes =
   [
     {
@@ -228,6 +229,6 @@ const appRoutes: Routes =
     ModalDetailTingkat4Component,
     ModalMakeReportComponent
   ],
-  providers: [ValidationService, AuthService, AdminAuthGuard, loginGuard, PjAuthGuard, PetugasAuthGuard, PraktikanAuthGuard],
+  providers: [ ValidationService, AuthService, AdminAuthGuard, loginGuard, PjAuthGuard, PetugasAuthGuard, PraktikanAuthGuard],
 })
 export class PrivateModule { }

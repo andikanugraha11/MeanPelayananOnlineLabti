@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { default as swal } from 'sweetalert2'
+
 
 @Component({
   selector: 'app-admin-dashboard',
@@ -7,9 +9,22 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AdminDashboardComponent implements OnInit {
 
-  constructor() { }
+  constructor() {
+
+  }
 
   ngOnInit() {
+
   }
+
+  test() {
+    swal({
+      title: 'Error!',
+      text: 'Do you want to continue',
+      type: 'error',
+      confirmButtonText: 'Cool'
+    })
+  }
+
 
 }

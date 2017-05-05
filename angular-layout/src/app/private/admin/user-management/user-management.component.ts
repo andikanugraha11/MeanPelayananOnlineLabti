@@ -5,6 +5,8 @@ import { AuthService } from '../../../services/auth.service';
 import { DialogService } from "ng2-bootstrap-modal";
 import { ModalAddPraktikanComponent } from './modal-add-praktikan/modal-add-praktikan.component';
 import { ToasterService } from 'angular2-toaster';
+import { default as swal } from 'sweetalert2'
+
 
 @Component({
   selector: 'app-user-management',
@@ -65,15 +67,32 @@ export class UserManagementComponent implements OnInit {
   }
 
   removePraktikan(id) {
-    this.authService.removePraktikan(id).subscribe(data => {
-      if (data.success) {
-        this.toasterService.pop('success', 'Berhasil', 'Berhasil menghapus praktikan');
-        this.authService.getAllPraktikan().subscribe(data => {
-          this.data = data.praktikan;
-        });
-      } else {
-        this.toasterService.pop('error', 'Gagal', 'Gagal menghapus penanggung praktikan');
-      }
-    })
+    swal({
+      title: 'Apakah anda yakin akan mengahapus praktikan?',
+      text: "Anda tidak dapat mengembalikanya",
+      type: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Ya',
+      cancelButtonText: 'Tidak',
+    }).then(() => {
+      this.authService.removePraktikan(id).subscribe(data => {
+        if (data.success) {
+          swal(
+            'Terhapus!',
+            'Praktikan telah di hapus',
+            'success'
+          )
+          this.authService.getAllPraktikan().subscribe(data => {
+            this.data = data.praktikan;
+          });
+        } else {
+          this.toasterService.pop('error', 'Gagal', 'Gagal menghapus penanggung praktikan');
+        }
+      })
+
+    });
+
   }
 }

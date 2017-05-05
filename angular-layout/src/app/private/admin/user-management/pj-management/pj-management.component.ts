@@ -4,7 +4,8 @@ import { Router } from '@angular/router';
 import { AuthService } from '../../../../services/auth.service';
 import { DialogService } from "ng2-bootstrap-modal";
 import { ModalAddPjComponent } from './modal-add-pj/modal-add-pj.component';
-import {ToasterService} from 'angular2-toaster';
+import { ToasterService } from 'angular2-toaster';
+import { default as swal } from 'sweetalert2'
 @Component({
   selector: 'app-pj-management',
   templateUrl: './pj-management.component.html',
@@ -13,7 +14,7 @@ import {ToasterService} from 'angular2-toaster';
 export class PjManagementComponent implements OnInit {
 
   data: Object;
-  constructor(private toasterService: ToasterService,private authService: AuthService, private router: Router, private dialogService: DialogService) { }
+  constructor(private toasterService: ToasterService, private authService: AuthService, private router: Router, private dialogService: DialogService) { }
 
   ngOnInit() {
     this.authService.getAllPJ().subscribe(data => {
@@ -38,23 +39,40 @@ export class PjManagementComponent implements OnInit {
           this.authService.getAllPJ().subscribe(data => {
             this.data = data.pj;
           });
-        }else if(data == false){
+        } else if (data == false) {
           this.toasterService.pop('error', 'Gagal', 'Gagal menambah penanggung jawab');
         }
       });
   }
 
   removePJ(id) {
-    this.authService.removePJ(id).subscribe(data => {
-      if (data.success) {
-        this.toasterService.pop('success', 'Berhasil', 'Berhasil menghapus Penanggung Jawab');
-        this.authService.getAllPJ().subscribe(data => {
-          this.data = data.pj;
-        });
-      }else{
+    swal({
+      title: 'Apakah anda yakin akan mengahapus penanggung jawab?',
+      text: "Sangat tidak disarankan untuk menghapus PJ apabila sudah memiliki mata praktikum",
+      type: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Ya',
+      cancelButtonText: 'Tidak',
+    }).then(() => {
+
+      this.authService.removePJ(id).subscribe(data => {
+        if (data.success) {
+          swal(
+            'Terhapus!',
+            'Penanggung Jawab dihapus',
+            'success'
+          )
+          this.authService.getAllPJ().subscribe(data => {
+            this.data = data.pj;
+          });
+        } else {
           this.toasterService.pop('error', 'Gagal', 'Gagal mengahpus penanggung jawab');
         }
-    })
+      })
+
+    });
   }
 
 }

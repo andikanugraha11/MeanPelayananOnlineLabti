@@ -19,11 +19,13 @@
         "prefix": "app",
         "styles": [
             "styles.css",
-            "../node_modules/angular2-toaster/toaster.css"
+            "../node_modules/angular2-toaster/toaster.css",
+            "../node_modules/sweetalert2/dist/sweetalert2.css"
 
         ],
         "scripts": [
-            "../node_modules/angular2-toaster/bundles/angular2-toaster.umd.js"
+            "../node_modules/angular2-toaster/bundles/angular2-toaster.umd.js",
+            "../node_modules/sweetalert2/dist/sweetalert2.js"
         ],
         "environmentSource": "environments/environment.ts",
         "environments": {
