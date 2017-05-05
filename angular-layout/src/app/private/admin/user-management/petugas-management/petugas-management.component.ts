@@ -68,7 +68,7 @@ export class PetugasManagementComponent implements OnInit {
                 if (data.success) {
                     swal(
                         'Terhapus!',
-                        'Penanggung Jawab dihapus',
+                        'petugas dihapus',
                         'success'
                     )
                     this.authService.getAllPetugas().subscribe(data => {

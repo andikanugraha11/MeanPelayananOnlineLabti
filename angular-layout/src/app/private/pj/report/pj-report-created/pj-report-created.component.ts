@@ -21,7 +21,7 @@ export class PjReportCreatedComponent implements OnInit {
       this.PjId = profile.user._pjId;
       //console.log(this.PjId);
       service.getReportCreatedByPjId(this.PjId).subscribe(data => {
-        //console.log(data.report);
+        console.log(data.report);
         this.reports = data.report;
       })
     },

@@ -35,17 +35,35 @@ export class UserManagementComponent implements OnInit {
   }
 
   resetPassword(id) {
-    const service = this.authService;
-    this.authService.getPraktikanById(id).subscribe(data => {
-      const dataUpdate = {
-        npm: data.praktikan.npm,
-        id
-      }
-      service.setPasswordToNpm(dataUpdate).subscribe(data => {
-        //console.log(data);
+    swal({
+      title: 'Reset password praktikan',
+      text: "Set password praktikan menjadi NPM",
+      type: 'question',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Ya',
+      cancelButtonText: 'Tidak',
+    }).then(() => {
+      swal(
+        'Berhasil!',
+        'Password praktikan sudah di reset',
+        'success'
+      )
+      this.authService.getPraktikanById(id).subscribe(data => {
+        const dataUpdate = {
+          npm: data.praktikan.npm,
+          id
+        }
+        service.setPasswordToNpm(dataUpdate).subscribe(data => {
+          //console.log(data);
+        });
+        //console.log(npm);
       });
-      //console.log(npm);
+
     });
+    const service = this.authService;
+
   }
 
   addPraktikan() {

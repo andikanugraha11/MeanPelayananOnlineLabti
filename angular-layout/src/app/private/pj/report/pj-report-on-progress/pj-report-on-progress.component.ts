@@ -3,6 +3,7 @@ import { ValidationService } from '../../../../services/validation.service';
 import { Router } from '@angular/router';
 import { AuthService } from '../../../../services/auth.service';
 import { ToasterService } from 'angular2-toaster';
+import { default as swal } from 'sweetalert2'
 
 @Component({
   selector: 'app-pj-report-on-progress',
@@ -33,21 +34,41 @@ export class PjReportOnProgressComponent implements OnInit {
   }
 
   confirmPayment(reportId) {
-    this.authService.confirmPayment(reportId).subscribe(data => {
-      if (data.success) {
-        this.toasterService.pop('success', 'Berhasil', 'Pembayaran telah di konfirmasi');
-        const service = this.authService;
-        this.authService.getProfile().subscribe(profile => {
-          this.PjId = profile.user._pjId;
-          service.getReportOnProgressByPjId(this.PjId).subscribe(data => {
-            this.reports = data.report;
-          })
-        });
-      } else {
-        this.toasterService.pop('error', 'Gagal', 'Gagal melakukan konfirmasi');
-      }
-      // console.log(data);
+    swal({
+      title: 'Konfirmasi pembayaran',
+      text: "Praktikan sudah membayar biaya pengulangan?",
+      type: 'question',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Ya',
+      cancelButtonText: 'Tidak',
+    }).then(() => {
+
+      this.authService.confirmPayment(reportId).subscribe(data => {
+        if (data.success) {
+          swal(
+                        'Berhasil!',
+                        'Praktikan yang bersangkutan sudah menyelesaikan semua tahap',
+                        'success'
+                    )
+          const service = this.authService;
+          this.authService.getProfile().subscribe(profile => {
+            this.PjId = profile.user._pjId;
+            service.getReportOnProgressByPjId(this.PjId).subscribe(data => {
+              this.reports = data.report;
+            })
+          });
+        } else {
+          this.toasterService.pop('error', 'Gagal', 'Gagal melakukan konfirmasi');
+        }
+        // console.log(data);
+      });
+
+
+
     });
+
   }
 
 }

@@ -4,6 +4,7 @@ import { ValidationService } from '../../../services/validation.service';
 import { Router } from '@angular/router';
 import { AuthService } from '../../../services/auth.service';
 import { ToasterService } from 'angular2-toaster';
+import { default as swal } from 'sweetalert2'
 
 @Component({
   selector: 'app-detail-praktikum-pj',
@@ -77,129 +78,210 @@ export class DetailPraktikumPjComponent implements OnInit {
       const jlhReport = data.report.length;
       if (this.jlhPertemuan == 8) {
         if (jlhReport >= 2) {
-          const dataPraktikan = {
-            idPraktikan: idPraktikan,
-            idPraktikum: this.dataPraktikum._praktikumId._id
-          }
-          service.deletePraktikanFromPraktikum(dataPraktikan).subscribe(data => {
-            if (data.success) {
-              this.toasterService.pop('warning', 'Peringatan', 'Praktikan di hapus karena telah melebihi batas tidak masuk');
-              let idDetail = this.detailPertemuan;
-              //let jlhPertemuan;
-              //const service = this.authService;
-              this.authService.getPraktikumDetailById(idDetail).subscribe(data => {
-                this.praktikans = data.praktikum.praktikan;
-                this.tambahans = data.praktikum.praktikan_tambahan;
-                this.dataPraktikum = data.praktikum;
-                this.jlhPertemuan = data.praktikum._praktikumId._detailId.length;
+          swal({
+            title: 'Praktikan yang bersangkutan telah melebihi batas ketidak hadiran !',
+            text: "Praktikan akan di hapus dari praktikum : " + this.dataPraktikum._praktikumId.nama_praktikum,
+            type: 'error',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Ya',
+            cancelButtonText: 'Tidak',
+          }).then(() => {
 
-                //service.countReportPraktikan()
-                //console.log(this.dataPraktikum);
-
-              });
-              //alert('Praktikan di delete karena telah melebihi batas tidak masuk');
-            } else {
-              this.toasterService.pop('error', 'Gagal', 'Form lamporan gagal dibuat');
-              //alert('gagal');
+            const dataPraktikan = {
+              idPraktikan: idPraktikan,
+              idPraktikum: this.dataPraktikum._praktikumId._id
             }
-            //console.log(data);
+            service.deletePraktikanFromPraktikum(dataPraktikan).subscribe(data => {
+              if (data.success) {
+                swal(
+                  'Terhapus!',
+                  'Praktikan telah dikeluarkan dari praktikum ' + this.dataPraktikum._praktikumId.nama_praktikum,
+                  'success'
+                )
+                //alert('Praktikan di delete karena telah melebihi batas tidak masuk');
+                let idDetail = this.detailPertemuan;
+                //let jlhPertemuan;
+                //const service = this.authService;
+                this.authService.getPraktikumDetailById(idDetail).subscribe(data => {
+                  this.praktikans = data.praktikum.praktikan;
+                  this.tambahans = data.praktikum.praktikan_tambahan;
+                  this.dataPraktikum = data.praktikum;
+                  this.jlhPertemuan = data.praktikum._praktikumId._detailId.length;
+
+                  //service.countReportPraktikan()
+                  //console.log(this.dataPraktikum);
+
+                });
+              } else {
+                this.toasterService.pop('error', 'Gagal', 'Form lamporan gagal dibuat');
+                //alert('gagal');
+              }
+              //console.log(data);
+            });
+
+
+
           });
         } else {
-          let idPembuat = this.pjId;
-          const report = {
-            idPraktikan: idPraktikan,
-            detailPraktikum: this.dataPraktikum._id,
-            kode_praktikum: this.dataPraktikum.kode_praktikum,
-            idPraktikum: this.dataPraktikum._praktikumId._id,
-            idPembuat: idPembuat,
-            tanggal: this.dataPraktikum.tanggal,
-          }
-          service.makeReport(report).subscribe(data => {
-            if (data.success) {
-              this.toasterService.pop('success', 'Berhasil', 'Form lamporan telah dibuat');
-              let idDetail = this.detailPertemuan;
-              //let jlhPertemuan;
-              //const service = this.authService;
-              this.authService.getPraktikumDetailById(idDetail).subscribe(data => {
-                this.praktikans = data.praktikum.praktikan;
-                this.tambahans = data.praktikum.praktikan_tambahan;
-                this.dataPraktikum = data.praktikum;
-                this.jlhPertemuan = data.praktikum._praktikumId._detailId.length;
+          swal({
+            title: 'Apakah praktikan yang bersangkutan tidak menghadiri praktikan?',
+            text: "Buat form laporan untuk praktikan yang bersangkutan",
+            type: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Ya',
+            cancelButtonText: 'Tidak',
+          }).then(() => {
 
-                //service.countReportPraktikan()
-                //console.log(this.dataPraktikum);
-
-              });
-              //alert('Form laporan telah dibuat');
-            } else {
-              this.toasterService.pop('error', 'Gagal', 'Form lamporan gagal dibuat');
-              //alert('gagal');
+            let idPembuat = this.pjId;
+            const report = {
+              idPraktikan: idPraktikan,
+              detailPraktikum: this.dataPraktikum._id,
+              kode_praktikum: this.dataPraktikum.kode_praktikum,
+              idPraktikum: this.dataPraktikum._praktikumId._id,
+              idPembuat: idPembuat,
+              tanggal: this.dataPraktikum.tanggal,
             }
+            service.makeReport(report).subscribe(data => {
+              if (data.success) {
+                swal(
+                  'Berhasil !',
+                  'Form laporan telah terbuat',
+                  'success'
+                )
+                let idDetail = this.detailPertemuan;
+                //let jlhPertemuan;
+                //const service = this.authService;
+                this.authService.getPraktikumDetailById(idDetail).subscribe(data => {
+                  this.praktikans = data.praktikum.praktikan;
+                  this.tambahans = data.praktikum.praktikan_tambahan;
+                  this.dataPraktikum = data.praktikum;
+                  this.jlhPertemuan = data.praktikum._praktikumId._detailId.length;
+
+                  //service.countReportPraktikan()
+                  //console.log(this.dataPraktikum);
+
+                });
+                //alert('Form laporan telah dibuat');
+              } else {
+                this.toasterService.pop('error', 'Gagal', 'Form lamporan gagal dibuat');
+                //alert('gagal');
+              }
+            });
+
+
+
           });
+
           //console.log(report);
         }
         //console.log('delapan');
       }
       if (this.jlhPertemuan == 4) {
+
         if (jlhReport >= 1) {
-          const dataPraktikan = {
-            idPraktikan: idPraktikan,
-            idPraktikum: this.dataPraktikum._praktikumId._id
-          }
-          service.deletePraktikanFromPraktikum(dataPraktikan).subscribe(data => {
-            if (data.success) {
-              this.toasterService.pop('warning', 'Peringatan', 'Praktikan di hapus karena telah melebihi batas tidak masuk');
-              //alert('Praktikan di delete karena telah melebihi batas tidak masuk');
-              let idDetail = this.detailPertemuan;
-              //let jlhPertemuan;
-              //const service = this.authService;
-              this.authService.getPraktikumDetailById(idDetail).subscribe(data => {
-                this.praktikans = data.praktikum.praktikan;
-                this.tambahans = data.praktikum.praktikan_tambahan;
-                this.dataPraktikum = data.praktikum;
-                this.jlhPertemuan = data.praktikum._praktikumId._detailId.length;
+          swal({
+            title: 'Praktikan yang bersangkutan telah melebihi batas ketidak hadiran !',
+            text: "Praktikan akan di hapus dari praktikum : " + this.dataPraktikum._praktikumId.nama_praktikum,
+            type: 'error',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Ya',
+            cancelButtonText: 'Tidak',
+          }).then(() => {
 
-                //service.countReportPraktikan()
-                //console.log(this.dataPraktikum);
-
-              });
-            } else {
-              this.toasterService.pop('error', 'Gagal', 'Form lamporan gagal dibuat');
-              //alert('gagal');
+            const dataPraktikan = {
+              idPraktikan: idPraktikan,
+              idPraktikum: this.dataPraktikum._praktikumId._id
             }
-            //console.log(data);
+            service.deletePraktikanFromPraktikum(dataPraktikan).subscribe(data => {
+              if (data.success) {
+                swal(
+                  'Terhapus!',
+                  'Praktikan telah dikeluarkan dari praktikum ' + this.dataPraktikum._praktikumId.nama_praktikum,
+                  'success'
+                )
+                //alert('Praktikan di delete karena telah melebihi batas tidak masuk');
+                let idDetail = this.detailPertemuan;
+                //let jlhPertemuan;
+                //const service = this.authService;
+                this.authService.getPraktikumDetailById(idDetail).subscribe(data => {
+                  this.praktikans = data.praktikum.praktikan;
+                  this.tambahans = data.praktikum.praktikan_tambahan;
+                  this.dataPraktikum = data.praktikum;
+                  this.jlhPertemuan = data.praktikum._praktikumId._detailId.length;
+
+                  //service.countReportPraktikan()
+                  //console.log(this.dataPraktikum);
+
+                });
+              } else {
+                this.toasterService.pop('error', 'Gagal', 'Form lamporan gagal dibuat');
+                //alert('gagal');
+              }
+              //console.log(data);
+            });
+
+
+
           });
+
+
         } else {
-          let idPembuat = this.pjId;
-          const report = {
-            idPraktikan: idPraktikan,
-            detailPraktikum: this.dataPraktikum._id,
-            kode_praktikum: this.dataPraktikum.kode_praktikum,
-            idPraktikum: this.dataPraktikum._praktikumId._id,
-            idPembuat: idPembuat,
-            tanggal: this.dataPraktikum.tanggal,
-          }
-          service.makeReport(report).subscribe(data => {
-            if (data.success) {
-              this.toasterService.pop('success', 'Berhasil', 'Form lamporan telah dibuat');
-              let idDetail = this.detailPertemuan;
-              //let jlhPertemuan;
-              //const service = this.authService;
-              this.authService.getPraktikumDetailById(idDetail).subscribe(data => {
-                this.praktikans = data.praktikum.praktikan;
-                this.tambahans = data.praktikum.praktikan_tambahan;
-                this.dataPraktikum = data.praktikum;
-                this.jlhPertemuan = data.praktikum._praktikumId._detailId.length;
+          swal({
+            title: 'Apakah praktikan yang bersangkutan tidak menghadiri praktikan?',
+            text: "Buat form laporan untuk praktikan yang bersangkutan",
+            type: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Ya',
+            cancelButtonText: 'Tidak',
+          }).then(() => {
 
-                //service.countReportPraktikan()
-                //console.log(this.dataPraktikum);
-
-              });
-            } else {
-              this.toasterService.pop('error', 'Gagal', 'Form lamporan gagal dibuat');
+            let idPembuat = this.pjId;
+            const report = {
+              idPraktikan: idPraktikan,
+              detailPraktikum: this.dataPraktikum._id,
+              kode_praktikum: this.dataPraktikum.kode_praktikum,
+              idPraktikum: this.dataPraktikum._praktikumId._id,
+              idPembuat: idPembuat,
+              tanggal: this.dataPraktikum.tanggal,
             }
+            service.makeReport(report).subscribe(data => {
+              if (data.success) {
+                swal(
+                  'Berhasil !',
+                  'Form laporan telah terbuat',
+                  'success'
+                )
+                let idDetail = this.detailPertemuan;
+                //let jlhPertemuan;
+                //const service = this.authService;
+                this.authService.getPraktikumDetailById(idDetail).subscribe(data => {
+                  this.praktikans = data.praktikum.praktikan;
+                  this.tambahans = data.praktikum.praktikan_tambahan;
+                  this.dataPraktikum = data.praktikum;
+                  this.jlhPertemuan = data.praktikum._praktikumId._detailId.length;
+
+                  //service.countReportPraktikan()
+                  //console.log(this.dataPraktikum);
+
+                });
+                //alert('Form laporan telah dibuat');
+              } else {
+                this.toasterService.pop('error', 'Gagal', 'Form lamporan gagal dibuat');
+                //alert('gagal');
+              }
+            });
+
+
+
           });
-          //console.log(report);
         }
         //console.log('empat');
       }
