@@ -17,6 +17,9 @@ export class UserManagementComponent implements OnInit {
 
   data: Object;
   praktikums: Object;
+  serachByName: String = "";
+  serachByNpm: String = "";
+  searchByClass : String = "";
   constructor(private toasterService: ToasterService, private authService: AuthService, private router: Router, private dialogService: DialogService) {
 
   }

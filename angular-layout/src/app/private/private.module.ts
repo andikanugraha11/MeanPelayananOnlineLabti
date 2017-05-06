@@ -49,7 +49,9 @@ import { PetugasAuthGuard } from '../guards/petugasAuth.guard';
 import { PjAuthGuard } from '../guards/pjAuth.guard';
 import { PraktikanAuthGuard } from '../guards/praktikanAuth.guard';
 import { loginGuard } from '../guards/login.guard';
-
+import { amSearchByName } from './pipe/admin-module/am-searchByName.pipe';
+import { amSearchByNpm } from './pipe/admin-module/am-searchByNpm.pipe';
+import { amSearchByClass } from './pipe/admin-module/am-searchByClass.pipe';
 
 const appRoutes: Routes =
   [
@@ -177,7 +179,7 @@ const appRoutes: Routes =
     FlashMessagesModule,
     DataTableModule,
     TabsModule,
-    ToasterModule
+    ToasterModule,
   ],
   declarations: [
     PrivateComponent,
@@ -214,6 +216,9 @@ const appRoutes: Routes =
     PjReportCreatedComponent,
     PetugasReportOnProgressComponent,
     PetugasReportCompleteComponent,
+    amSearchByName,
+    amSearchByNpm,
+    amSearchByClass
   ],
   entryComponents: [
     ModalAddPraktikanComponent,
