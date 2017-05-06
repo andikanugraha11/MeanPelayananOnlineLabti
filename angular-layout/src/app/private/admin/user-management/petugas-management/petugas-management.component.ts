@@ -7,7 +7,7 @@ import { FlashMessagesService } from 'angular2-flash-messages';
 import { ToasterService } from 'angular2-toaster';
 import { ModalAddPetugasComponent } from './modal-add-petugas/modal-add-petugas.component';
 import { default as swal } from 'sweetalert2'
-// import { Subject } from 'rxjs/Rx';
+import { Subject } from 'rxjs/Rx';
 
 @Component({
     selector: 'app-petugas-management',
@@ -17,18 +17,27 @@ import { default as swal } from 'sweetalert2'
 
 export class PetugasManagementComponent implements OnInit {
     data: Object;
-    // dtOptions: DataTables.Settings = {};
-    // dtTrigger: Subject<any> = new Subject();
+    dtOptions: any;
+    dtTrigger: Subject<any> = new Subject();
 
     constructor(private toasterService: ToasterService, private flashMessage: FlashMessagesService, private authService: AuthService, private router: Router, private dialogService: DialogService) {
         // let flsMsg = new FlashMessage()
     }
 
     ngOnInit() {
-        
+        this.dtOptions = {
+            dom: 'Bfrtip',
+            pagingType: 'full_numbers',
+            buttons: [
+                'print',
+                'excel',
+                'pdf'
+            ]
+        };
+
         this.authService.getAllPetugas().subscribe(data => {
             this.data = data.petugas;
-            // this.dtTrigger.next();
+            this.dtTrigger.next();
             //console.log(this.data);
         },
             err => {
@@ -48,6 +57,7 @@ export class PetugasManagementComponent implements OnInit {
                     this.toasterService.pop('success', 'Berhasil', 'Berhasil menambah petugas');
                     this.authService.getAllPetugas().subscribe(data => {
                         this.data = data.petugas;
+                        // this.dtTrigger.next();
                     })
                 } else if (data == false) {
                     this.toasterService.pop('error', 'Gagal', 'Gagal menambah petugas');

@@ -52,7 +52,7 @@ import { loginGuard } from '../guards/login.guard';
 import { amSearchByName } from './pipe/admin-module/am-searchByName.pipe';
 import { amSearchByNpm } from './pipe/admin-module/am-searchByNpm.pipe';
 import { amSearchByClass } from './pipe/admin-module/am-searchByClass.pipe';
-// import { DataTablesModule } from 'angular-datatables';
+import { DataTablesModule } from 'angular-datatables';
 
 
 const appRoutes: Routes =
@@ -182,7 +182,7 @@ const appRoutes: Routes =
     DataTableModule,
     TabsModule,
     ToasterModule,
-    //  DataTablesModule
+    DataTablesModule.forRoot()
   ],
   declarations: [
     PrivateComponent,
