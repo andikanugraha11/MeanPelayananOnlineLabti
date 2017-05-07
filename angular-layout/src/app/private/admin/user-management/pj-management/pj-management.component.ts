@@ -15,19 +15,19 @@ import { Subject } from 'rxjs/Rx';
 export class PjManagementComponent implements OnInit {
 
   data: Object;
-      dtOptions: any;
-    dtTrigger: Subject<any> = new Subject();
+  dtOptions: any;
+  dtTrigger: Subject<any> = new Subject();
   constructor(private toasterService: ToasterService, private authService: AuthService, private router: Router, private dialogService: DialogService) { }
 
   ngOnInit() {
     this.dtOptions = {
-            // dom: 'Bfrtip',
-            // buttons: [
-            //     'print',
-            //     'excel',
-            //     'pdf'
-            // ]
-        };
+      // dom: 'Bfrtip',
+      // buttons: [
+      //     'print',
+      //     'excel',
+      //     'pdf'
+      // ]
+    };
     this.authService.getAllPJ().subscribe(data => {
       this.data = data.pj;
       this.dtTrigger.next();

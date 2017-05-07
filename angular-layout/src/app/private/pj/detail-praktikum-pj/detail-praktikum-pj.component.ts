@@ -22,6 +22,7 @@ export class DetailPraktikumPjComponent implements OnInit {
   pjId: String;
   jlhPertemuan: Number;
   searchByName: String = "";
+  searchByNpm: String = "";
   constructor(private toasterService: ToasterService, private route: ActivatedRoute, private authService: AuthService, private router: Router) { }
 
   ngOnInit() {

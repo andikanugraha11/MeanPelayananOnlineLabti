@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ValidationService } from '../../../../services/validation.service';
 import { Router } from '@angular/router';
 import { AuthService } from '../../../../services/auth.service';
-
+import { Subject } from 'rxjs/Rx';
 @Component({
   selector: 'app-pj-report-complete',
   templateUrl: './pj-report-complete.component.html',
@@ -12,16 +12,25 @@ export class PjReportCompleteComponent implements OnInit {
 
   PjId: String;
   reports : Object;
+  dtOptions: any;
+  dtTrigger: Subject<any> = new Subject();
   constructor(private authService:AuthService, private router:Router) { }
 
   ngOnInit() {
+    this.dtOptions = {
+      dom: 'Bfrtip',
+      buttons: [
+          'print',
+          'excel',
+          'pdf'
+      ]
+    };
     const service = this.authService;
     this.authService.getProfile().subscribe(profile => {
       this.PjId = profile.user._pjId;
-      console.log(this.PjId);
       service.getReportCompleteByPjId(this.PjId).subscribe(data=>{
-        console.log(data.report);
         this.reports = data.report;
+        this.dtTrigger.next();
       })
     },
     err => {

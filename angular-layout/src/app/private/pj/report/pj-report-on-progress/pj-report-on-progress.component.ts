@@ -14,6 +14,7 @@ export class PjReportOnProgressComponent implements OnInit {
 
   PjId: String;
   reports: Object;
+  reportAvailable: Boolean =false;
   constructor(private toasterService: ToasterService, private authService: AuthService, private router: Router) { }
 
   ngOnInit() {
@@ -24,6 +25,9 @@ export class PjReportOnProgressComponent implements OnInit {
       service.getReportOnProgressByPjId(this.PjId).subscribe(data => {
         //console.log(data.report);
         this.reports = data.report;
+        if(data.report.length > 0){
+          this.reportAvailable = true;
+        }
       })
     },
       err => {
