@@ -27,12 +27,13 @@ export class UserManagementComponent implements OnInit {
 
   ngOnInit() {
     this.dtOptions = {
-      dom: 'Bfrtip',
-      buttons: [
-        'print',
-        'excel',
-        'pdf'
-      ]
+      // dom: 'Bfrtip',
+      // lengthMenu: [[10, 25, 50, -1], [10, 25, 50, "All"]],
+      // buttons: [
+      //   'print',
+      //   'excel',
+      //   'pdf'
+      // ]
     };
     this.authService.getAllPraktikan().subscribe(data => {
       this.data = data.praktikan;

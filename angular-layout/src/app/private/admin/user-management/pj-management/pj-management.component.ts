@@ -21,12 +21,12 @@ export class PjManagementComponent implements OnInit {
 
   ngOnInit() {
     this.dtOptions = {
-            dom: 'Bfrtip',
-            buttons: [
-                'print',
-                'excel',
-                'pdf'
-            ]
+            // dom: 'Bfrtip',
+            // buttons: [
+            //     'print',
+            //     'excel',
+            //     'pdf'
+            // ]
         };
     this.authService.getAllPJ().subscribe(data => {
       this.data = data.pj;

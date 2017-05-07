@@ -28,8 +28,15 @@
                         <h3 class="text-center">{{praktikum.nama_praktikum}} - {{praktikum.kelas}}</h3>
                         <br/>
                         <div class="row">
-
-                            <div class="col-md-offset-8 col-md-4">
+                            <div class="col-md-3">
+                                <label>Cari Berdasar Nama :</label>
+                                <input [(ngModel)]="searchByName" class="form-control" />
+                            </div>
+                            <div class="col-md-3">
+                                <label>Cari Berdasar Npm :</label>
+                                <input [(ngModel)]="searchByNpm" class="form-control" />
+                            </div>
+                            <div class="col-md-offset-2 col-md-4">
                                 <label>Pilih Pertemuan :</label>
                                 <select [(ngModel)]="detailPertemuan" name="detailPertemuan" (change)="onChangePertemuan()" class="form-control">
                                   <option *ngFor="let detail of details" [ngValue]="detail._id">Pertemuan {{detail.pertemuan}}</option>
@@ -48,15 +55,15 @@
                                                 <tr>
                                                     <th class="text-center">Nama</th>
                                                     <th class="text-center">NPM</th>
-                                                    <th class="text-center">Keterangan</th>
+                                                    <th class="text-center">Pertemuan ke</th>
                                                     <th class="text-center">Aksi</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                <tr *ngFor="let praktikan of praktikans">
+                                                <tr *ngFor="let praktikan of praktikans | amSearchByName:searchByName | amSearchByNpm:searchByNpm">
                                                     <td>{{praktikan.nama.depan}} {{praktikan.nama.belakang}}</td>
                                                     <td class="text-center">{{praktikan.npm}}</td>
-                                                    <td class="text-center">{{praktikan._id}}</td>
+                                                    <td class="text-center">{{dataPraktikum.pertemuan}}</td>
                                                     <td class="text-center">
                                                         <a class="btn btn-danger" id="{{praktikan._id}}" (click)=makeReport($event.target.attributes.id.value)>Buat Form Laporan</a>
                                                     </td>
@@ -78,7 +85,7 @@
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                <tr *ngFor="let tambahan of tambahans">
+                                                <tr *ngFor="let tambahan of tambahans | amSearchByName:searchByName | amSearchByNpm:searchByNpm">
                                                     <td>{{tambahan._praktikanId.nama.depan}} {{tambahan._praktikanId.nama.belakang}}</td>
                                                     <td class="text-center">{{tambahan._praktikanId.npm}}</td>
                                                     <td class="text-center">{{tambahan._praktikanId.kelas}}</td>

@@ -22,12 +22,12 @@ export class Tingkat1Component implements OnInit {
 
     ngOnInit() {
         this.dtOptions = {
-            dom: 'Bfrtip',
-            buttons: [
-                'print',
-                'excel',
-                'pdf'
-            ]
+            // dom: 'Bfrtip',
+            // buttons: [
+            //     'print',
+            //     'excel',
+            //     'pdf'
+            // ]
         };
         this.authService.getAllPraktikumTk1().subscribe(data => {
             this.praktikums = data.praktikum;
