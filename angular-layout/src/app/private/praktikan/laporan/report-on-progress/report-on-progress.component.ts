@@ -12,6 +12,7 @@ import { AuthService } from '../../../../services/auth.service';
 export class ReportOnProgressComponent implements OnInit {
   praktikanId: String;
   reports : Object;
+  reportAvailable: Boolean =false;
   constructor(private route:ActivatedRoute,private authService:AuthService, private router:Router) { }
 
   ngOnInit() {
@@ -20,7 +21,9 @@ export class ReportOnProgressComponent implements OnInit {
       this.praktikanId = profile.user._praktikanId;
       service.getReportOnProgressByPraktikanId(this.praktikanId).subscribe(data=>{
         this.reports = data.report;
-        console.log(data.report);
+        if(data.report.length > 0){
+          this.reportAvailable = true;
+        }
       });
   	},
   	err => {

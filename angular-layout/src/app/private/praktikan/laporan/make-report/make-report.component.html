@@ -18,47 +18,60 @@
         <!-- /.row -->
 
         <div class="row">
-            <div *ngFor="let report of reports" class="col-md-4">
-                <div class="panel panel-red">
-                    <div class="panel-heading">
-                        <div class="row">
-                            <div class="col-md-3">
-                                <i class="fa fa-file-o fa-5x"></i>
+            <div *ngIf="reportAvailable; else elseBlock">
+                <div *ngFor="let report of reports" class="col-md-4">
+                    <div class="panel panel-red">
+                        <div class="panel-heading">
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <i class="fa fa-file-o fa-5x"></i>
+                                </div>
+                                <div class="col-md-9 text-right">
+                                    <div class="huge">{{report.kode_praktikum}}</div>
+                                    <div>{{report._praktikumId.nama_praktikum}}</div>
+                                </div>
                             </div>
-                            <div class="col-md-9 text-right">
-                                <div class="huge">{{report.kode_praktikum}}</div>
-                                <div>{{report._praktikumId.nama_praktikum}}</div>
+                            <br/>
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <div>Nama </div>
+                                    <div>Kelas </div>
+                                    <div>NPM </div>
+                                    <div>Pertemuan</div>
+                                    <div>PJ </div>
+                                    <div>Status </div>
+                                </div>
+                                <div class="col-md-8">
+                                    <div>: {{report._praktikanId.nama.depan}} {{report._praktikanId.nama.belakang}}</div>
+                                    <div>: {{report._praktikanId.kelas}} </div>
+                                    <div>: {{report._praktikanId.npm}} </div>
+                                    <div>: {{report._detailPraktikumId.pertemuan}}</div>
+                                    <div>: {{report.pembuat.nama.depan}} {{report.pembuat.nama.belakang}}</div>
+                                    <div>: {{report.status}} </div>
+                                </div>
                             </div>
                         </div>
-                        <br/>
-                        <div class="row">
-                            <div class="col-md-4">
-                                <div>Nama </div>
-                                <div>Kelas </div>
-                                <div>NPM </div>
-                                <div>Pertemuan</div>
-                                <div>PJ </div>
-                                <div>Status </div>
+                        <a href="#" id="{{report._id}}" (click)="makeReport($event.target.attributes.id.value);$event.preventDefault()">
+                            <div id="{{report._id}}" class="panel-footer">
+                                <span id="{{report._id}}" class="pull-left">Buat Laporan</span>
+                                <span id="{{report._id}}" class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+                                <div id="{{report._id}}" class="clearfix"></div>
                             </div>
-                            <div class="col-md-8">
-                                <div>: {{report._praktikanId.nama.depan}} {{report._praktikanId.nama.belakang}}</div>
-                                <div>: {{report._praktikanId.kelas}} </div>
-                                <div>: {{report._praktikanId.npm}} </div>
-                                <div>: {{report._detailPraktikumId.pertemuan}}</div>
-                                <div>: {{report.pembuat.nama.depan}} {{report.pembuat.nama.belakang}}</div>
-                                <div>: {{report.status}} </div>
-                            </div>
-                        </div>
+                        </a>
                     </div>
-                    <a href="#" id="{{report._id}}" (click)="makeReport($event.target.attributes.id.value);$event.preventDefault()">
-                        <div id="{{report._id}}" class="panel-footer">
-                            <span id="{{report._id}}" class="pull-left">Buat Laporan</span>
-                            <span id="{{report._id}}" class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
-                            <div id="{{report._id}}" class="clearfix"></div>
-                        </div>
-                    </a>
                 </div>
             </div>
+            <ng-template #elseBlock>
+                <div class="text-center">
+                    <h1>Saat ini anda tidak memiliki laporan yang harus di buat</h1>
+                    <p class="text-danger">Apabila seharusnya anda memiliki laporan yang harus dibuat silahkan kontak penanggung jawab anda secepatnya</p>
+                    <br>
+                    <br>
+                </div>
+
+            </ng-template>
+
+
         </div>
         <!-- /.row -->
 

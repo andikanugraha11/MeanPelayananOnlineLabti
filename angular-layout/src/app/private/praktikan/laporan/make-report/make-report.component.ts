@@ -17,6 +17,7 @@ export class MakeReportComponent implements OnInit {
   praktikanId: String;
   reports: Object;
   praktikumDate: Date;
+  reportAvailable: Boolean =false;
   // praktikumTersedia : object;
   constructor(private toasterService: ToasterService, private dialogService: DialogService, private route: ActivatedRoute, private authService: AuthService, private router: Router) { }
 
@@ -26,7 +27,10 @@ export class MakeReportComponent implements OnInit {
       this.praktikanId = profile.user._praktikanId;
       service.getReportByPraktikanId(this.praktikanId).subscribe(data => {
         this.reports = data.report;
-        //console.log(data.report);
+        if(data.report.length > 0){
+          this.reportAvailable = true;
+        }
+        // console.log(data.report.length);
       });
     },
       err => {
