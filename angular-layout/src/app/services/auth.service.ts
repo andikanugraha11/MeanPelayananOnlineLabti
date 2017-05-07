@@ -106,6 +106,20 @@ export class AuthService {
       .map(res => res.json());
   }
 
+  //Add Praktikan
+  uploadPraktikan(file) {
+    let headers = new Headers({ 'Content-Type': 'application/json' });
+    return this.http.post('http://localhost:8081/praktikan/uploadcsv', file, { headers: headers })
+      .map(res => res.json());
+  }
+
+  uploadCsv(files) {
+    const formData: any = new FormData();
+    formData.append("uploads[]", files[0], files[0]['name']);
+    return this.http.post('http://localhost:8081/praktikan/uploadcsvfile', formData)
+      .map(res => res.json());
+  }
+
   //setPasswordToNpm 
   setPasswordToNpm(data) {
     let headers = new Headers();

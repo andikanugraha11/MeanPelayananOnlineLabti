@@ -5,6 +5,7 @@ const cors = require('cors');
 const passport = require('passport');
 const mongoose = require('mongoose');
 const config = require('./config/database');
+const multer = require('multer');
 
 
 const app = express();
@@ -35,6 +36,8 @@ require('./config/passport')(passport);
 
 //static folder
 app.use(express.static(path.join(__dirname, 'public')));
+
+
 
 //User API
 const users = require('./controller/users');

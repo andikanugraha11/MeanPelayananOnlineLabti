@@ -53,6 +53,7 @@ import { amSearchByName } from './pipe/admin-module/am-searchByName.pipe';
 import { amSearchByNpm } from './pipe/admin-module/am-searchByNpm.pipe';
 import { amSearchByClass } from './pipe/admin-module/am-searchByClass.pipe';
 import { DataTablesModule } from 'angular-datatables';
+import { ModalAddUploadPraktikanComponent } from './admin/user-management/modal-add-upload-praktikan/modal-add-upload-praktikan.component';
 
 
 const appRoutes: Routes =
@@ -221,7 +222,8 @@ const appRoutes: Routes =
     PetugasReportCompleteComponent,
     amSearchByName,
     amSearchByNpm,
-    amSearchByClass
+    amSearchByClass,
+    ModalAddUploadPraktikanComponent
   ],
   entryComponents: [
     ModalAddPraktikanComponent,
@@ -235,7 +237,8 @@ const appRoutes: Routes =
     ModalDetailTingkat2Component,
     ModalDetailTingkat3Component,
     ModalDetailTingkat4Component,
-    ModalMakeReportComponent
+    ModalMakeReportComponent,
+    ModalAddUploadPraktikanComponent
   ],
   providers: [ ValidationService, AuthService, AdminAuthGuard, loginGuard, PjAuthGuard, PetugasAuthGuard, PraktikanAuthGuard],
 })

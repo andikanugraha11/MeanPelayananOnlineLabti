@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { AuthService } from '../../../services/auth.service';
 import { DialogService } from "ng2-bootstrap-modal";
 import { ModalAddPraktikanComponent } from './modal-add-praktikan/modal-add-praktikan.component';
+import { ModalAddUploadPraktikanComponent } from './modal-add-upload-praktikan/modal-add-upload-praktikan.component';
 import { ToasterService } from 'angular2-toaster';
 import { default as swal } from 'sweetalert2'
 
@@ -19,7 +20,7 @@ export class UserManagementComponent implements OnInit {
   praktikums: Object;
   serachByName: String = "";
   serachByNpm: String = "";
-  searchByClass : String = "";
+  searchByClass: String = "";
   constructor(private toasterService: ToasterService, private authService: AuthService, private router: Router, private dialogService: DialogService) {
 
   }
@@ -85,6 +86,23 @@ export class UserManagementComponent implements OnInit {
           this.toasterService.pop('error', 'Gagal', 'Gagal menambah penanggung praktikan');
         }
       });
+  }
+
+  uploadPraktikan() {
+    let disposable = this.dialogService.addDialog(ModalAddUploadPraktikanComponent, {
+      title: 'Confirm title',
+      message: 'Confirm message'
+    }).subscribe((data) => {
+      if (data) {
+        this.toasterService.pop('success', 'Berhasil', 'Berhasil menambah praktikan');
+        this.authService.getAllPraktikan().subscribe(data => {
+          this.data = data.praktikan;
+        });
+        //apabila langsung else this.close akan dihitung gagal
+      } else if (data == false) {
+        this.toasterService.pop('error', 'Gagal', 'Gagal menambah penanggung praktikan');
+      }
+    });
   }
 
   removePraktikan(id) {
