@@ -26,12 +26,10 @@
                     </div>
                     <div class="panel-body">
                         <div class="table-responsive ">
-                            <table class="table table-striped table-bordered " [mfData]="data" #mf="mfDataTable" [mfRowsOnPage]="5" cellspacing="0" width="100%">
+                            <table class="table table-striped table-bordered " datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" cellspacing="0" width="100%">
                                 <thead>
                                     <tr>
-                                        <th class="text-center">
-                                            <mfDefaultSorter by="name">Nama</mfDefaultSorter>
-                                        </th>
+                                        <th class="text-center">Nama</th>
                                         <th class="text-center">Kelas</th>
                                         <th class="text-center">NPM</th>
                                         <th class="text-center">Praktikum / Pertemuan</th>
@@ -58,13 +56,6 @@
                                         <td>Pengulangan : {{report.proses.pengulangan}} <br/> Pembayaran : {{report.proses.pembayaran}}</td>
                                     </tr>
                                 </tbody>
-                                <tfoot>
-                                    <tr>
-                                        <td colspan="6">
-                                            <mfBootstrapPaginator [rowsOnPageSet]="[5,10,25]"></mfBootstrapPaginator>
-                                        </td>
-                                    </tr>
-                                </tfoot>
                             </table>
                         </div>
 
