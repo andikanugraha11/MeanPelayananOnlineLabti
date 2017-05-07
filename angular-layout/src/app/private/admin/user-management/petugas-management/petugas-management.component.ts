@@ -27,7 +27,6 @@ export class PetugasManagementComponent implements OnInit {
     ngOnInit() {
         this.dtOptions = {
             dom: 'Bfrtip',
-            pagingType: 'full_numbers',
             buttons: [
                 'print',
                 'excel',

@@ -6,6 +6,7 @@ import { DialogService } from "ng2-bootstrap-modal";
 import { ModalAddTingka4Component } from './modal-add-tingka4/modal-add-tingka4.component';
 import { ModalDetailTingkat4Component } from './modal-detail-tingkat4/modal-detail-tingkat4.component'
 import { ToasterService } from 'angular2-toaster';
+import { Subject } from 'rxjs/Rx';
 
 @Component({
     selector: 'app-tingkat4',
@@ -15,11 +16,22 @@ import { ToasterService } from 'angular2-toaster';
 export class Tingkat4Component implements OnInit {
 
     praktikums: Object;
+    dtOptions: any;
+    dtTrigger: Subject<any> = new Subject();
     constructor(private toasterService: ToasterService, private authService: AuthService, private router: Router, private dialogService: DialogService) { }
 
     ngOnInit() {
+        this.dtOptions = {
+            dom: 'Bfrtip',
+            buttons: [
+                'print',
+                'excel',
+                'pdf'
+            ]
+        };
         this.authService.getAllPraktikumTk4().subscribe(data => {
             this.praktikums = data.praktikum;
+            this.dtTrigger.next();
             //console.log(this.praktikums);
         },
             err => {
@@ -54,7 +66,7 @@ export class Tingkat4Component implements OnInit {
                     this.authService.getAllPraktikumTk4().subscribe(data => {
                         this.praktikums = data.praktikum;
                     });
-                } else if(data == false) {
+                } else if (data == false) {
                     this.toasterService.pop('error', 'Gagal', 'Gagal menambah praktikum');
                 }
             });

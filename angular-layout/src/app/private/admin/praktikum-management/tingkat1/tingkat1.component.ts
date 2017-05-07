@@ -6,6 +6,7 @@ import { DialogService } from "ng2-bootstrap-modal";
 import { ModalAddTingka1Component } from './modal-add-tingka1/modal-add-tingka1.component';
 import { ModalDetailTingkat1Component } from './modal-detail-tingkat1/modal-detail-tingkat1.component'
 import { ToasterService } from 'angular2-toaster';
+import { Subject } from 'rxjs/Rx';
 
 @Component({
     selector: 'app-tingkat1',
@@ -15,11 +16,22 @@ import { ToasterService } from 'angular2-toaster';
 export class Tingkat1Component implements OnInit {
 
     praktikums: Object;
+    dtOptions: any;
+    dtTrigger: Subject<any> = new Subject();
     constructor(private toasterService: ToasterService, private authService: AuthService, private router: Router, private dialogService: DialogService) { }
 
     ngOnInit() {
+        this.dtOptions = {
+            dom: 'Bfrtip',
+            buttons: [
+                'print',
+                'excel',
+                'pdf'
+            ]
+        };
         this.authService.getAllPraktikumTk1().subscribe(data => {
             this.praktikums = data.praktikum;
+            this.dtTrigger.next();
             //console.log(this.praktikums);
         },
             err => {

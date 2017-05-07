@@ -6,6 +6,7 @@ import { DialogService } from "ng2-bootstrap-modal";
 import { ModalAddPjComponent } from './modal-add-pj/modal-add-pj.component';
 import { ToasterService } from 'angular2-toaster';
 import { default as swal } from 'sweetalert2'
+import { Subject } from 'rxjs/Rx';
 @Component({
   selector: 'app-pj-management',
   templateUrl: './pj-management.component.html',
@@ -14,11 +15,22 @@ import { default as swal } from 'sweetalert2'
 export class PjManagementComponent implements OnInit {
 
   data: Object;
+      dtOptions: any;
+    dtTrigger: Subject<any> = new Subject();
   constructor(private toasterService: ToasterService, private authService: AuthService, private router: Router, private dialogService: DialogService) { }
 
   ngOnInit() {
+    this.dtOptions = {
+            dom: 'Bfrtip',
+            buttons: [
+                'print',
+                'excel',
+                'pdf'
+            ]
+        };
     this.authService.getAllPJ().subscribe(data => {
       this.data = data.pj;
+      this.dtTrigger.next();
       //console.log(this.data);
     },
       err => {

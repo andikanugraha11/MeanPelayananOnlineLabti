@@ -26,48 +26,23 @@
                     </div>
 
                     <div class="panel-body">
-                        <div class="row">
-                            <div class="form-group">
-                                <div class="col-md-offset-6">
-                                    <button class="btn btn-success" (click)=uploadPraktikan()>Upload Praktikan</button>
-                                </div>
-                                <div class="col-md-3">
-                                    <button class="btn btn-success" (click)=addPraktikan()>Tambah Praktikan</button>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <div class="col-md-4">
-                                    <input [(ngModel)]="searchByClass" type="text" class="form-control" placeholder="Cari berdasarkan kelas" />
-                                </div>
-                                <div class="col-md-4">
-                                    <input [(ngModel)]="searchByName" type="text" class="form-control" placeholder="Cari berdasarkan nama" />
-                                </div>
-                                <div class="col-md-4">
-                                    <input [(ngModel)]="searchByNpm" type="text" class="form-control" placeholder="Cari berdasarkan NPM" />
-                                </div>
-                            </div>
+                        <div class="form-group text-right">
+                            <button class="btn btn-success" (click)=addPraktikan()>Tambah Praktikan</button>
                         </div>
-                        <br/>
                         <div class="table-responsive ">
-                            <table class="table table-striped table-bordered " [mfData]="data | amSearchByName : searchByName | amSearchByNpm : searchByNpm | amSearchByClass : searchByClass " #mf="mfDataTable" [mfRowsOnPage]="5" cellspacing="0" width="100%">
+                            <table class="table table-striped table-bordered " datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger">
                                 <thead>
                                     <tr>
-                                        <th class="text-center">
-                                            <mfDefaultSorter by="nama.depan">Name</mfDefaultSorter>
-                                        </th>
-                                        <th class="text-center">
-                                            <mfDefaultSorter by="kelas">Kelas</mfDefaultSorter>
-                                        </th>
+                                        <th class="text-center">Nama</th>
+                                        <th class="text-center">Kelas</th>
                                         <th class="text-center">Npm</th>
                                         <th class="text-center">Praktikum</th>
-                                        <th class="text-center">
-                                            <mfDefaultSorter by="aktif">Aktivasi</mfDefaultSorter>
-                                        </th>
+                                        <th class="text-center">Aktivasi</th>
                                         <th class="text-center">Aksi</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr *ngFor="let praktikan of mf.data">
+                                    <tr *ngFor="let praktikan of data">
                                         <td>{{praktikan.nama.depan}} {{praktikan.nama.belakang}}</td>
                                         <td>{{praktikan.kelas}}</td>
                                         <td>{{praktikan.npm}}</td>
@@ -91,13 +66,7 @@
                                         </td>
                                     </tr>
                                 </tbody>
-                                <tfoot>
-                                    <tr>
-                                        <td colspan="6">
-                                            <mfBootstrapPaginator [rowsOnPageSet]="[5,10,25,50]"></mfBootstrapPaginator>
-                                        </td>
-                                    </tr>
-                                </tfoot>
+
                             </table>
                         </div>
 

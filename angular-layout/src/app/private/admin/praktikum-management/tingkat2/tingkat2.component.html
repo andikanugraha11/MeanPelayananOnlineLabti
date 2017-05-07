@@ -31,12 +31,10 @@
                         </div>
 
                         <div class="table-responsive ">
-                            <table class="table table-striped table-bordered " [mfData]="data" #mf="mfDataTable" [mfRowsOnPage]="5" cellspacing="0" width="100%">
+                            <table class="table table-striped table-bordered " datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" cellspacing="0" width="100%">
                                 <thead>
                                     <tr>
-                                        <th class="text-center">
-                                            <mfDefaultSorter by="name">Nama Praktikum</mfDefaultSorter>
-                                        </th>
+                                        <th class="text-center">Nama Praktikum</th>
                                         <th class="text-center">Kelas</th>
                                         <th class="text-center">Jumlah Pertemuan</th>
                                         <th class="text-center">Penanggung Jawab</th>
@@ -54,13 +52,7 @@
                                         </td>
                                     </tr>
                                 </tbody>
-                                <tfoot>
-                                    <tr>
-                                        <td colspan="6">
-                                            <mfBootstrapPaginator [rowsOnPageSet]="[5,10,25]"></mfBootstrapPaginator>
-                                        </td>
-                                    </tr>
-                                </tfoot>
+
                             </table>
                         </div>
 

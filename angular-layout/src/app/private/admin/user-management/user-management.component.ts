@@ -7,6 +7,7 @@ import { ModalAddPraktikanComponent } from './modal-add-praktikan/modal-add-prak
 import { ModalAddUploadPraktikanComponent } from './modal-add-upload-praktikan/modal-add-upload-praktikan.component';
 import { ToasterService } from 'angular2-toaster';
 import { default as swal } from 'sweetalert2'
+import { Subject } from 'rxjs/Rx';
 
 
 @Component({
@@ -18,16 +19,24 @@ export class UserManagementComponent implements OnInit {
 
   data: Object;
   praktikums: Object;
-  serachByName: String = "";
-  serachByNpm: String = "";
-  searchByClass: String = "";
+  dtOptions: any;
+  dtTrigger: Subject<any> = new Subject();
   constructor(private toasterService: ToasterService, private authService: AuthService, private router: Router, private dialogService: DialogService) {
 
   }
 
   ngOnInit() {
+    this.dtOptions = {
+      dom: 'Bfrtip',
+      buttons: [
+        'print',
+        'excel',
+        'pdf'
+      ]
+    };
     this.authService.getAllPraktikan().subscribe(data => {
       this.data = data.praktikan;
+      this.dtTrigger.next();
       //this.praktikums =  data.praktikan._praktikumId;
       //console.log(this.data);
       //console.log(this.praktikums)
