@@ -39,6 +39,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 
 
+
 //User API
 const users = require('./controller/users');
 app.use('/users', users);

@@ -3,6 +3,8 @@ const router = express.Router();
 const passport = require('passport');
 const jwt = require('jsonwebtoken');
 const config = require('../config/database');
+const nodemailer = require('nodemailer');
+const myMail = require('../config/mail');
 
 const User = require('../models/userSchema');
 const Praktikan = require('../models/praktikanSchema');
@@ -18,6 +20,39 @@ router.get('/role', passport.authenticate('jwt', { session: false }), (req, res,
     res.json({ role: req.user.role })
 });
 
+//verivication
+
+//mailer
+const smtpTransport = nodemailer.createTransport({
+    service: "Gmail",
+    auth: {
+        user: myMail.emailId,
+        pass: myMail.emailPassword
+    }
+});
+
+router.get('/sendActivation', (req, res) => {
+    const rand = Math.floor((Math.random() * 100) + 54);
+    const host = req.get('host');
+    const link = "http://" + host + "/verify?id=" + rand;
+    const mailOption = {
+        to: "dev.andika.nugraha@gmail.com", //query
+        subject: "Aktivasi Email - Laboratorium Teknik Informatika",
+        html: "Hallo ANNDIKA(QUERY), <br> Silahkan aktivasi email anda dengan membuka email berikut. <br> <a href=" + link + ">Alamat aktivasi</a>"
+    }
+
+    console.log(mailOption);
+
+    smtpTransport.sendMail(mailOption, (err, res) => {
+        if (err) {
+            console.log(err);
+            res.end("error");
+        } else {
+            console.log("Message sent: " + res.messageId, res.response);
+            res.end("sent");
+        }
+    })
+})
 
 //users/add 
 router.post('/add', (req, res, next) => {
