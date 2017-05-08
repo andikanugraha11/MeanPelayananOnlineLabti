@@ -5,7 +5,7 @@ const jwt = require('jsonwebtoken');
 const config = require('../config/database');
 const nodemailer = require('nodemailer');
 const myMail = require('../config/mail');
-
+const path = require('path');
 const User = require('../models/userSchema');
 const Praktikan = require('../models/praktikanSchema');
 const Pj = require('../models/petugasPjSchema');
@@ -72,15 +72,20 @@ router.get('/verifikasi/:id/:key', (req, res, next) => {
                 msg: err
             });
         } else {
-            res.json({
-                success: true,
-                msg: 'Aktivasi email berhasil'
-            });
+            res.redirect('/suskses');
+            // res.json({
+            //     success: true,
+            //     msg: 'Aktivasi email berhasil'
+            // });
         }
     });
 });
 
-
+router.get('/test', (req, res, next) => {
+    // console.log(__dirname);
+    // console.log(path.join(__dirname + "../test"));
+    res.redirect('/suskses');
+});
 //users/add 
 router.post('/add', (req, res, next) => {
     const activationCode = Math.random().toString(36).slice(-8);

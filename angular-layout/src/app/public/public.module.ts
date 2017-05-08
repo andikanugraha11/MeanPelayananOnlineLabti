@@ -11,6 +11,7 @@ import { ResetPasswordComponent } from './reset-password/reset-password.componen
 import { FlashMessagesModule } from 'angular2-flash-messages/module';
 import { AccessDeniedComponent } from './access-denied/access-denied.component';
 import { NotLoginGuard } from '../guards/notLogin.guard';
+import { ActivationSuccessComponent } from './activation-success/activation-success.component';
 
 
 const appRoutes: Routes =
@@ -32,12 +33,17 @@ const appRoutes: Routes =
           path: 'reset',
           component: ResetPasswordComponent
         },
+        {
+          path: 'sukses',
+          component: ActivationSuccessComponent
+        }
       ]
     },
     {
       path: '403',
       component: AccessDeniedComponent
-    }
+    },
+
   ]
 
 @NgModule({
@@ -54,7 +60,8 @@ const appRoutes: Routes =
     ActivationComponent,
     LoginComponent,
     ResetPasswordComponent,
-    AccessDeniedComponent
+    AccessDeniedComponent,
+    ActivationSuccessComponent
   ],
   providers: [NotLoginGuard],
 })
