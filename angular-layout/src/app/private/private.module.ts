@@ -49,8 +49,8 @@ import { PetugasAuthGuard } from '../guards/petugasAuth.guard';
 import { PjAuthGuard } from '../guards/pjAuth.guard';
 import { PraktikanAuthGuard } from '../guards/praktikanAuth.guard';
 import { loginGuard } from '../guards/login.guard';
-import { amSearchByName } from './pipe/admin-module/am-searchByName.pipe';
-import { amSearchByNpm } from './pipe/admin-module/am-searchByNpm.pipe';
+import { amSearchByName, amSearchByNamePengulangan } from './pipe/admin-module/am-searchByName.pipe';
+import { amSearchByNpm, amSearchByNpmPengulangan } from './pipe/admin-module/am-searchByNpm.pipe';
 import { amSearchByClass } from './pipe/admin-module/am-searchByClass.pipe';
 import { DataTablesModule } from 'angular-datatables';
 import { ModalAddUploadPraktikanComponent } from './admin/user-management/modal-add-upload-praktikan/modal-add-upload-praktikan.component';
@@ -223,6 +223,8 @@ const appRoutes: Routes =
     amSearchByName,
     amSearchByNpm,
     amSearchByClass,
+    amSearchByNpmPengulangan,
+    amSearchByNamePengulangan,
     ModalAddUploadPraktikanComponent
   ],
   entryComponents: [

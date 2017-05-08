@@ -85,7 +85,7 @@
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                <tr *ngFor="let tambahan of tambahans | amSearchByName:searchByName | amSearchByNpm:searchByNpm">
+                                                <tr *ngFor="let tambahan of tambahans | amSearchByNamePengulangan:searchByName | amSearchByNpmPengulangan:searchByNpm">
                                                     <td>{{tambahan._praktikanId.nama.depan}} {{tambahan._praktikanId.nama.belakang}}</td>
                                                     <td class="text-center">{{tambahan._praktikanId.npm}}</td>
                                                     <td class="text-center">{{tambahan._praktikanId.kelas}}</td>

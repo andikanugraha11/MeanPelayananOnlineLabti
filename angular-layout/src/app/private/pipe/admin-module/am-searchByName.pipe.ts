@@ -11,3 +11,14 @@ export class amSearchByName implements PipeTransform {
         return array;
     }
 }
+
+@Pipe({name: 'amSearchByNamePengulangan'})
+export class amSearchByNamePengulangan implements PipeTransform {
+  transform(array: any[], query: string): any {
+        if (query) {
+            let qUpper = query.toUpperCase();
+            return _.filter(array, row=>row._praktikanId.nama.depan.indexOf(qUpper) > -1);
+        }
+        return array;
+    }
+}
