@@ -26,6 +26,9 @@ const userSchema = Schema({
         type: Boolean,
         default: false
     },
+    key: {
+        type: String
+    },
     role: {
         type: String,
         enum: ['admin', 'praktikan', 'petugas', 'pj'],
@@ -117,19 +120,36 @@ module.exports.setPasswordToNpm = (prakId, npm, callback) => {
 
 //ADD user
 module.exports.addUser = (newUser, callback) => {
-        bcrypt.genSalt(10, (err, salt) => {
-            bcrypt.hash(newUser.password, salt, (err, hash) => {
-                if (err) {
-                    console.log(err)
-                } else {
-                    newUser.password = hash;
-                    newUser.save(callback);
-                }
+    bcrypt.genSalt(10, (err, salt) => {
+        bcrypt.hash(newUser.password, salt, (err, hash) => {
+            if (err) {
+                console.log(err)
+            } else {
+                newUser.password = hash;
+                newUser.save(callback);
+            }
 
-            })
-        });
+        })
+    });
+}
+
+//activation
+module.exports.activation = (data, callback) => {
+    const query = {
+        _id: data.userId,
+        key: data.key
     }
-    //ADD PJ
+    User.update(query, {
+        $set: {
+            isVerified: true
+        },
+        $unset: {
+            key: 1
+        }
+    }, callback);
+}
+
+//ADD PJ
 module.exports.addPj = (newPj, callback) => {
     bcrypt.genSalt(10, (err, salt) => {
         bcrypt.hash(newPj.password, salt, (err, hash) => {

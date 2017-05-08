@@ -3,6 +3,7 @@ import { ValidationService } from '../../services/validation.service';
 import { Router } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
 import { FlashMessagesService } from 'angular2-flash-messages';
+import { default as swal } from 'sweetalert2'
 
 @Component({
   selector: 'app-activation',
@@ -28,34 +29,13 @@ export class ActivationComponent implements OnInit {
   ngOnInit() {
     this.findSection = true;
     this.completeSection = false;
-    // let token = localStorage.getItem('id_token');
-    // //console.log(token)
-    // if (token != null) {
-    //   //console.log('proses')
-    //   this.authService.getRole().subscribe(data => {
-    //     //console.log(data)
-    //     if (data.role == 'praktikan') {
-    //       this.router.navigate(['/dashboard']);
-    //     }
-    //     else if (data.role == 'admin') {
-    //       this.router.navigate(['/dashboard/admin']);
-
-    //     }
-    //     else if (data.role == 'petugas') {
-    //       this.router.navigate(['/dashboard/petugas']);
-    //     }
-    //     else if (data.role == 'pj') {
-    //       this.router.navigate(['/dashboard/pj']);
-    //     }
-    //   });
-    // }
   }
 
 
   findPraktikan() {
     const praktikan = {
-      kelas: this.kelas,
-      npm: this.npm
+      kelas: this.kelas.toUpperCase(),
+      npm: this.npm.toUpperCase()
     }
 
     //Validation
@@ -92,15 +72,26 @@ export class ActivationComponent implements OnInit {
       username: this.username,
       email: this.email,
       password: this.password,
-      npm: this.npm
+      npm: this.npm,
+      firstName: this.dataPraktikan.praktikan.nama.depan,
+      lastName: this.dataPraktikan.praktikan.nama.belakang
     }
 
     this.authService.userRegister(praktikan).subscribe(data => {
       if (data.success) {
-        alert('Berhasil, silahkan konfirmasi email');
+        swal(
+          'Konfirmasi berhasil',
+          'Silahkan buka tautan pada email anda, periksa folder spam apabila tautan tidak ditemukan',
+          'success'
+        ).then(() => {
+          this.router.navigate(["/"]);
+        })
       } else {
-        alert('gagal');
-        console.log(data.msg);
+        swal(
+          'Konfirmasi gagal',
+          'Silahkan coba kembali dengan email dan username yang belum pernah digunakan',
+          'error'
+        )
       }
     });
 

@@ -31,40 +31,76 @@ const smtpTransport = nodemailer.createTransport({
     }
 });
 
-router.get('/sendActivation', (req, res) => {
-    const rand = Math.floor((Math.random() * 100) + 54);
-    const host = req.get('host');
-    const link = "http://" + host + "/verify?id=" + rand;
-    const mailOption = {
-        to: "dev.andika.nugraha@gmail.com", //query
-        subject: "Aktivasi Email - Laboratorium Teknik Informatika",
-        html: "Hallo ANNDIKA(QUERY), <br> Silahkan aktivasi email anda dengan membuka email berikut. <br> <a href=" + link + ">Alamat aktivasi</a>"
+// router.get('/sendActivation', (req, res) => {
+//     const rand = Math.floor((Math.random() * 100) + 54);
+//     const host = req.get('host');
+//     const link = "http://" + host + "/verify?id=" + rand;
+//     const mailOption = {
+//         to: "dev.andika.nugraha@gmail.com", //query
+//         subject: "Aktivasi Email - Laboratorium Teknik Informatika",
+//         html: "Hallo ANNDIKA(QUERY), <br> Silahkan aktivasi email anda dengan membuka email berikut. <br> <a href=" + link + ">Alamat aktivasi</a>"
+//     }
+
+//     console.log(mailOption);
+
+//     smtpTransport.sendMail(mailOption, (err, res) => {
+//         if (err) {
+//             console.log(err);
+//             res.end("error");
+//         } else {
+//             console.log("Message sent: " + res.messageId, res.response);
+//             res.end("sent");
+//         }
+//     })
+// })
+
+//Verivikasi
+router.get('/verifikasi/:id/:key', (req, res, next) => {
+    // console.log(req.params.id);
+    // console.log(req.params.key);
+    const userId = req.params.id;
+    const key = req.params.key;
+    const data = {
+        userId,
+        key
     }
-
-    console.log(mailOption);
-
-    smtpTransport.sendMail(mailOption, (err, res) => {
+    User.activation(data, (err, user) => {
         if (err) {
             console.log(err);
-            res.end("error");
+            res.json({
+                success: false,
+                msg: err
+            });
         } else {
-            console.log("Message sent: " + res.messageId, res.response);
-            res.end("sent");
+            res.json({
+                success: true,
+                msg: 'Aktivasi email berhasil'
+            });
         }
-    })
-})
+    });
+});
+
 
 //users/add 
 router.post('/add', (req, res, next) => {
-
+    const activationCode = Math.random().toString(36).slice(-8);
     let newUser = new User({
         _praktikanId: req.body._praktikanId,
         username: req.body.username,
         password: req.body.password,
         email: req.body.email,
-
+        key: activationCode
     });
     const npm = req.body.npm;
+
+    const host = req.get('host');
+    const link = "http://" + host + "/users/verifikasi/" + newUser._id + "/" + activationCode;
+    const mailOption = {
+        from: '<Labolatorium Teknik Informatika>',
+        to: req.body.email, //query
+        subject: "Aktivasi Email - Laboratorium Teknik Informatika",
+        html: "Hallo " + req.body.firstName + " " + req.body.lastName + " , <br> Silahkan aktivasi email anda dengan membuka alamat berikut. <br> <a href=" + link + ">Alamat aktivasi</a>"
+    }
     User.addUser(newUser, (err, user) => {
         if (err) {
             res.json({
@@ -92,11 +128,18 @@ router.post('/add', (req, res, next) => {
                                 success: true,
                                 msg: 'User berhasil ditambah'
                             });
+                            smtpTransport.sendMail(mailOption, (err, res) => {
+                                if (err) {
+                                    console.log(err);
+                                }
+                            })
+
                         }
 
                     });
                 }
             });
+
 
         }
     });
