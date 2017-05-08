@@ -30,6 +30,9 @@ const userSchema = Schema({
     key: {
         type: String
     },
+    resetkey: {
+        type: String
+    },
     role: {
         type: String,
         enum: ['admin', 'praktikan', 'petugas', 'pj'],
@@ -155,7 +158,46 @@ module.exports.activation = (data, callback) => {
     }, callback);
 }
 
-//ADD PJ
+
+//passwordkey
+module.exports.addResetKey = (data, callback) => {
+    const query = {
+        email: data.email
+    }
+    User.update(query, {
+        $set: {
+            resetkey: data.key
+        }
+    }, callback);
+}
+
+//resetpaswordbykey
+module.exports.resetByKey = (data, callback) => {
+
+        let passwordHash;
+        bcrypt.genSalt(10, (err, salt) => {
+            bcrypt.hash(data.password, salt, (err, hash) => {
+                if (err) {
+                    console.log(err);
+                } else {
+                    passwordHash = hash;
+                    const query = {
+                        email: data.email,
+                        resetkey: data.resetkey
+                    }
+                    User.update(query, {
+                        $set: {
+                            password: passwordHash
+                        },
+                        $unset: {
+                            resetkey: 1
+                        }
+                    }, callback);
+                }
+            })
+        })
+    }
+    //ADD PJ
 module.exports.addPj = (newPj, callback) => {
     bcrypt.genSalt(10, (err, salt) => {
         bcrypt.hash(newPj.password, salt, (err, hash) => {

@@ -133,7 +133,7 @@ router.post('/add', (req, res, next) => {
                                 success: true,
                                 msg: 'User berhasil ditambah'
                             });
-                            smtpTransport.sendMail(mailOption, (err, res) => {
+                            smtpTransport.sendMail(mailOption, (err, data) => {
                                 if (err) {
                                     console.log(err);
                                 }
@@ -261,13 +261,119 @@ router.get('/getAllPetugas', (req, res, next) => {
     });
 });
 
+router.post('/sendKey', (req, res, next) => {
+    const email = req.body.email;
+    const key = Math.random().toString().slice(2, 8);
+    User.getUserByEmail(email, (err, user) => {
+        if (err) {
+            return res.json({
+                success: false,
+                msg: 'Terjadi kesalahan'
+            });
+        }
+        if (!user) {
+            return res.json({
+                success: false,
+                msg: 'User dengan email tersebut tidak ditemukan'
+            });
+        }
+        if (user.isVerified == false) {
+            return res.json({
+                success: false,
+                msg: 'Anda belum melakukan verifikasi email'
+            })
+        }
+
+        const mailOption = {
+            from: '<Labolatorium Teknik Informatika>',
+            to: req.body.email, //query
+            subject: "Lupa Kata Sandi - Laboratorium Teknik Informatika",
+            html: "Hallo " + user.username + " , <br> Berikut adalah kunci rahasia anda. <br> <h1>" + key + "</h1>"
+        }
+        const data = {
+            email: email,
+            key: key
+        }
+
+        User.addResetKey(data, (err, user) => {
+            if (err) {
+                res.json({
+                    success: false,
+                    msg: err
+                });
+            } else {
+                res.json({
+                    success: true,
+                    msg: 'Email terkirim'
+                })
+                smtpTransport.sendMail(mailOption, (err, data) => {
+                    if (err) {
+                        console.log(err);
+                    }
+                })
+            }
+        })
+
+    })
+});
+
+//check key
+router.post('/keyCheck', (req, res, next) => {
+    const email = req.body.email;
+    const resetkey = req.body.resetKey;
+    console.log(resetkey);
+    User.getUserByEmail(email, (err, user) => {
+        if (err) {
+            return res.json({
+                success: false,
+                msg: 'Terjadi kesalahan'
+            });
+        }
+        if (user.resetkey == resetkey) {
+            res.json({
+                success: true,
+                msg: 'Kunci cocok'
+            });
+        } else {
+            res.json({
+                success: false,
+                msg: 'Kunci tidak cocok'
+            });
+        }
+    });
+});
+//resetpasswordbykey
+router.post('/resetByKey', (req, res, next) => {
+    const data = {
+        email: req.body.email,
+        resetkey: req.body.resetKey,
+        password: req.body.password
+    }
+
+    User.resetByKey(data, (err, user) => {
+        if (err) {
+            res.json({
+                success: false,
+                msg: 'Terjadi kesalahan'
+            });
+        } else {
+            res.json({
+                success: true,
+                msg: 'Kata sandi berhasil diperbarui'
+            });
+        }
+    })
+});
 
 //user/resend
 router.post('/resendActivation', (req, res, next) => {
     const email = req.body.email;
     User.getUserByEmail(email, (err, user) => {
         if (err) {
-            console.log(err)
+            return res.json({
+                success: false,
+                msg: 'Terjadi kesalahan'
+            });
         }
         if (!user) {
             return res.json({

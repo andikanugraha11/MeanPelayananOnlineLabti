@@ -340,4 +340,22 @@ export class AuthService {
     return this.http.post('http://localhost:8081/users/resendActivation', data, { headers: headers })
       .map(res => res.json());
   }
+
+  sendKey(data) {
+    let headers = new Headers();
+    return this.http.post('http://localhost:8081/users/sendKey', data, { headers: headers })
+      .map(res => res.json());
+  }
+
+  keyCheck(data) {
+    let headers = new Headers();
+    return this.http.post('http://localhost:8081/users/keyCheck', data, { headers: headers })
+      .map(res => res.json());
+  }
+
+  resetPasswordByKey(data) {
+    let headers = new Headers();
+    return this.http.post('http://localhost:8081/users/resetByKey', data, { headers: headers })
+      .map(res => res.json());
+  }
 }
