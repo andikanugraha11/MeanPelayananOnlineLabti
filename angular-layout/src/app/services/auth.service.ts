@@ -33,6 +33,8 @@ export class AuthService {
     return this.http.get('http://localhost:8081/users/profile', { headers: headers })
       .map(res => res.json());
   }
+
+
   getRole() {
     let headers = new Headers();
     this.loadToken();
@@ -330,6 +332,12 @@ export class AuthService {
   getDetailPraktikumAvailable(praktikumDate, praktikumCode) {
     let headers = new Headers();
     return this.http.get('http://localhost:8081/praktikum/getAvailablePraktikum/' + praktikumDate + '/' + praktikumCode, { headers: headers })
+      .map(res => res.json());
+  }
+
+  resendActivation(data) {
+    let headers = new Headers();
+    return this.http.post('http://localhost:8081/users/resendActivation', data, { headers: headers })
       .map(res => res.json());
   }
 }

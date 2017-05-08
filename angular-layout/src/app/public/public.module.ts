@@ -12,6 +12,7 @@ import { FlashMessagesModule } from 'angular2-flash-messages/module';
 import { AccessDeniedComponent } from './access-denied/access-denied.component';
 import { NotLoginGuard } from '../guards/notLogin.guard';
 import { ActivationSuccessComponent } from './activation-success/activation-success.component';
+import { ResendActivationComponent } from './resend-activation/resend-activation.component';
 
 
 const appRoutes: Routes =
@@ -36,6 +37,10 @@ const appRoutes: Routes =
         {
           path: 'sukses',
           component: ActivationSuccessComponent
+        },
+        {
+          path : 'resendActivation',
+          component : ResendActivationComponent
         }
       ]
     },
@@ -61,7 +66,8 @@ const appRoutes: Routes =
     LoginComponent,
     ResetPasswordComponent,
     AccessDeniedComponent,
-    ActivationSuccessComponent
+    ActivationSuccessComponent,
+    ResendActivationComponent
   ],
   providers: [NotLoginGuard],
 })

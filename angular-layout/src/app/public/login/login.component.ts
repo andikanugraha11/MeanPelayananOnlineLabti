@@ -48,7 +48,7 @@ export class LoginComponent implements OnInit {
 
   loginSubmit() {
     const user = {
-      username: this.username,
+      username: this.username.toLowerCase(),
       password: this.password
     }
 
@@ -86,7 +86,7 @@ export class LoginComponent implements OnInit {
       } else {
         this.flashMessage.show(data.msg, {
           cssClass: 'alert-danger',
-          timeOut: 3000
+          timeOut: 5000
         });
         this.router.navigate(['']);
       }

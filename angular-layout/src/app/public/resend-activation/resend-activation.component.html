@@ -1,0 +1,12 @@
+<form (submit)="resend()">
+    <fieldset>
+        <div class="form-group">
+            <input [(ngModel)]="email" class="form-control" placeholder="E-Mail" name="email" type="text">
+        </div>
+        <input class="btn btn-lg btn-primary btn-block" type="submit" value="Kirim">
+    </fieldset>
+    <br>
+    <div class="text-center">
+        <a [routerLink]="['/']">Masuk</a>
+    </div>
+</form>

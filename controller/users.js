@@ -261,6 +261,49 @@ router.get('/getAllPetugas', (req, res, next) => {
     });
 });
 
+
+//user/resend
+router.post('/resendActivation', (req, res, next) => {
+    const email = req.body.email;
+    User.getUserByEmail(email, (err, user) => {
+        if (err) {
+            console.log(err)
+        }
+        if (!user) {
+            return res.json({
+                success: false,
+                msg: 'User dengan email tersebut tidak ditemukan'
+            });
+        }
+        if (user.isVerified == true) {
+            return res.json({
+                success: false,
+                msg: 'Anda sudah melakukan verifikasi email'
+            })
+        }
+
+        const host = req.get('host');
+        const link = "http://" + host + "/users/verifikasi/" + user._id + "/" + user.key;
+        const mailOption = {
+            from: '<Laboratorium Teknik Informatika>',
+            to: email, //query
+            subject: "Resend Aktivasi Email - Laboratorium Teknik Informatika",
+            html: "Hallo " + user.username + " , <br> Silahkan aktivasi email anda dengan membuka alamat berikut. <br> <a href=" + link + ">Alamat aktivasi</a>"
+        }
+
+        smtpTransport.sendMail(mailOption, (err, data) => {
+            if (err) {
+                console.log(err);
+            } else {
+                res.json({
+                    success: true,
+                    msg: 'Email terkirim'
+                })
+            }
+        })
+    });
+});
+
 //users/auth
 router.post('/auth', (req, res, next) => {
     const username = req.body.username;
@@ -275,6 +318,12 @@ router.post('/auth', (req, res, next) => {
                 success: false,
                 msg: 'User tidak ditemukan'
             });
+        }
+        if (user.isVerified == false) {
+            return res.json({
+                success: false,
+                msg: 'Anda belum melakukan verifikasi email'
+            })
         }
 
         User.comparePassword(password, user.password, (err, isMatch) => {

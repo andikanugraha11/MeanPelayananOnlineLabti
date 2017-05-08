@@ -20,7 +20,8 @@ const userSchema = Schema({
     email: {
         type: String,
         required: true,
-        unique: true
+        unique: true,
+        lowercase: true
     },
     isVerified: {
         type: Boolean,
@@ -60,6 +61,11 @@ module.exports.getUserById = (id, callback) => {
 //GET user by username
 module.exports.getUserByUsername = (username, callback) => {
     const query = { username: username };
+    User.findOne(query, callback);
+}
+
+module.exports.getUserByEmail = (email, callback) => {
+    const query = { email: email };
     User.findOne(query, callback);
 }
 
