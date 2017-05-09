@@ -55,6 +55,7 @@ import { amSearchByClass } from './pipe/admin-module/am-searchByClass.pipe';
 import { DataTablesModule } from 'angular-datatables';
 import { ModalAddUploadPraktikanComponent } from './admin/user-management/modal-add-upload-praktikan/modal-add-upload-praktikan.component';
 import { AccountComponent } from './account/account.component';
+import { ModalDetailPraktikumComponent } from './praktikan/praktikan-dashboard/modal-detail-praktikum/modal-detail-praktikum.component';
 
 
 const appRoutes: Routes =
@@ -231,7 +232,8 @@ const appRoutes: Routes =
     amSearchByNpmPengulangan,
     amSearchByNamePengulangan,
     ModalAddUploadPraktikanComponent,
-    AccountComponent
+    AccountComponent,
+    ModalDetailPraktikumComponent
   ],
   entryComponents: [
     ModalAddPraktikanComponent,

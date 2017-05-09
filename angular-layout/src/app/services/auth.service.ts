@@ -85,6 +85,12 @@ export class AuthService {
       .map(res => res.json());
   }
 
+  getPraktikanByIdPopulate(id) {
+    let headers = new Headers();
+    return this.http.get('http://localhost:8081/praktikan/getPraktikanByIdPopulate/' + id, { headers: headers })
+      .map(res => res.json());
+  }
+
   //GET All PJ
   getAllPJ() {
     let headers = new Headers();

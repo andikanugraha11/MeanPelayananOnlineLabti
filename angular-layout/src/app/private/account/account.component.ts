@@ -25,7 +25,6 @@ export class AccountComponent implements OnInit {
 
     this.authService.getProfile().subscribe(profile => {
       this.userData = profile.user;
-      console.log(profile.user);
     })
   }
 

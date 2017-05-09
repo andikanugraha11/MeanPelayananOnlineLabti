@@ -84,13 +84,24 @@ router.get('/getPraktikanById/:id', (req, res, next) => {
     const id = req.params.id;
     Praktikan.getPraktikanById(id, (err, praktikan) => {
         if (err) {
-            alert(err)
+            console.log(err)
         } else {
             res.json({
                 success: true,
                 praktikan
             });
         }
+    });
+
+});
+
+router.get('/getPraktikanByIdPopulate/:id', (req, res, next) => {
+    const id = req.params.id;
+    Praktikan.getPraktikanByIdPopulate(id, (data) => {
+        res.json({
+            success: true,
+            data
+        })
     });
 
 });

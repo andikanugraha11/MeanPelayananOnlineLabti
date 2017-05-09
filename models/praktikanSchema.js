@@ -52,8 +52,25 @@ module.exports.addPraktikan = (newPraktikan, callback) => {
 module.exports.getPraktikanById = (id, callback) => {
     Praktikan.findById(id, callback);
 }
-
-//GET praktikan by NPM
+module.exports.getPraktikanByIdPopulate = (id, callback) => {
+        const query = { _id: id }
+        Praktikan.findOne(query)
+            .populate({
+                'path': '_praktikumId',
+                'populate': [{
+                    'path': '_PjId',
+                    'model': 'PetugasPj'
+                }]
+            })
+            .exec((err, result) => {
+                if (err) {
+                    console.log(err);
+                } else {
+                    callback(result);
+                }
+            })
+    }
+    //GET praktikan by NPM
 module.exports.getPraktikanByNPM = (npm, callback) => {
     const query = { npm: npm };
     Praktikan.findOne(query, callback);
