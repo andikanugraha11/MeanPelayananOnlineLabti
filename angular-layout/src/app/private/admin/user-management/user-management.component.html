@@ -53,7 +53,15 @@
                                                 </li>
                                             </ol>
                                         </td>
-                                        <td>{{praktikan.aktif}}</td>
+                                        <td>
+                                            <div *ngIf="praktikan.aktif; then sudah; else belum"></div>
+                                            <ng-template #sudah>
+                                                Sudah
+                                            </ng-template>
+                                            <ng-template #belum>
+                                                Belum
+                                            </ng-template>
+                                        </td>
                                         <td class="text-center">
                                             <div *ngIf="praktikan.aktif; then primaryBlock; else secondaryBlock"></div>
                                             <ng-template #primaryBlock>

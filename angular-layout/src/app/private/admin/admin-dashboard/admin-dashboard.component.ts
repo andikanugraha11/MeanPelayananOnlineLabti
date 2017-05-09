@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { default as swal } from 'sweetalert2'
-
+import { Router } from '@angular/router';
+import { AuthService } from '../../../services/auth.service';
 
 @Component({
   selector: 'app-admin-dashboard',
@@ -9,22 +9,30 @@ import { default as swal } from 'sweetalert2'
 })
 export class AdminDashboardComponent implements OnInit {
 
-  constructor() {
+
+  allPraktikan: Number;
+  praktikanActive: Number;
+  praktikanNotActive: Number;
+  pj: Number;
+  constructor(private authService: AuthService, private router: Router) {
 
   }
 
   ngOnInit() {
-
-  }
-
-  test() {
-    swal({
-      title: 'Error!',
-      text: 'Do you want to continue',
-      type: 'error',
-      confirmButtonText: 'Cool'
+    this.authService.getAllPraktikan().subscribe(data => {
+      this.allPraktikan = data.praktikan.length;
+    });
+    this.authService.getAllPraktikanActive().subscribe(data => {
+      this.praktikanActive = data.praktikan.length;
+    });
+    this.authService.getAllPraktikanNotActive().subscribe(data => {
+      this.praktikanNotActive = data.praktikan.length;
+    });
+    this.authService.getAllPJ().subscribe(data=>{
+      this.pj =  data.pj.length;
     })
   }
+
 
 
 }

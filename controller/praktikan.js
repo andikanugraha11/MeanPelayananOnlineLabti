@@ -69,7 +69,35 @@ router.post('/getPraktikanByNpmAndKelas', (req, res, next) => {
 router.get('/getAllPraktikan', (req, res, next) => {
     Praktikan.getAllPraktikan((err, praktikan) => {
         if (err) {
-            alert(err)
+            console.log(err)
+        } else {
+            res.json({
+                success: true,
+                praktikan
+            });
+        }
+    });
+
+});
+
+router.get('/getAllPraktikanActive', (req, res, next) => {
+    Praktikan.getAllPraktikanActive((err, praktikan) => {
+        if (err) {
+            console.log(err)
+        } else {
+            res.json({
+                success: true,
+                praktikan
+            });
+        }
+    });
+
+});
+
+router.get('/getAllPraktikanNotActive', (req, res, next) => {
+    Praktikan.getAllPraktikanNotActive((err, praktikan) => {
+        if (err) {
+            console.log(err)
         } else {
             res.json({
                 success: true,

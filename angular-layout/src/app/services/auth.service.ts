@@ -79,6 +79,18 @@ export class AuthService {
       .map(res => res.json());
   }
 
+  getAllPraktikanActive() {
+    let headers = new Headers();
+    return this.http.get('http://localhost:8081/praktikan/getAllPraktikanActive', { headers: headers })
+      .map(res => res.json());
+  }
+
+  getAllPraktikanNotActive() {
+    let headers = new Headers();
+    return this.http.get('http://localhost:8081/praktikan/getAllPraktikanNotActive', { headers: headers })
+      .map(res => res.json());
+  }
+
   getPraktikanById(id) {
     let headers = new Headers();
     return this.http.get('http://localhost:8081/praktikan/getPraktikanById/' + id, { headers: headers })
@@ -316,7 +328,16 @@ export class AuthService {
     return this.http.get('http://localhost:8081/laporan/getReportOnProgressByPjId/' + id, { headers: headers })
       .map(res => res.json());
   }
-
+  getAllReport() {
+    let headers = new Headers();
+    return this.http.get('http://localhost:8081/laporan/getAllReport', { headers: headers })
+      .map(res => res.json());
+  }
+  getAllReportCreated() {
+    let headers = new Headers();
+    return this.http.get('http://localhost:8081/laporan/getAllReportCreated', { headers: headers })
+      .map(res => res.json());
+  }
   getAllReportOnProgress() {
     let headers = new Headers();
     return this.http.get('http://localhost:8081/laporan/getAllReportOnProgress', { headers: headers })

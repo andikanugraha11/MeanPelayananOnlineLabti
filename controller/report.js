@@ -224,6 +224,25 @@ router.get('/getReportById/:id', (req, res, next) => {
         })
     });
 });
+//GET all report 
+router.get('/getAllReport', (req, res, next) => {
+    Report.getAllReport((err, report) => {
+        res.json({
+            success: true,
+            report
+        })
+    });
+});
+
+//GET all report (Created)
+router.get('/getAllReportCreated', (req, res, next) => {
+    Report.getAllReportCreated((err, report) => {
+        res.json({
+            success: true,
+            report
+        })
+    });
+});
 
 //GET all report (Complete)
 router.get('/getAllReportComplete', (req, res, next) => {

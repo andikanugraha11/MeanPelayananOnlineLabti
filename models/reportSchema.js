@@ -188,26 +188,53 @@ module.exports.getReportCompleteByPjId = (id, callback) => {
     }
     //Report on progress (PJ)
 module.exports.getReportOnProgressByPjId = (PjId, callback) => {
-    const query = {
-        pembuat: PjId,
-        status: 'Proses'
+        const query = {
+            pembuat: PjId,
+            status: 'Proses'
+        }
+        Report.find(query)
+            .populate('_praktikumId')
+            .populate('_praktikanId')
+            .populate('_detailPraktikumId')
+            .populate({
+                'path': 'praktikum_pengganti',
+                'populate': [{
+                    'path': '_praktikumId',
+                    'model': 'Praktikum'
+                }]
+            })
+            .exec((err, result) => {
+                if (err) {
+                    console.log(err);
+                } else {
+                    callback(result);
+                }
+            })
     }
+    //Report All Report 
+module.exports.getAllReport = (callback) => {
+    const query = {}
     Report.find(query)
-        .populate('_praktikumId')
-        .populate('_praktikanId')
-        .populate('_detailPraktikumId')
-        .populate({
-            'path': 'praktikum_pengganti',
-            'populate': [{
-                'path': '_praktikumId',
-                'model': 'Praktikum'
-            }]
-        })
         .exec((err, result) => {
             if (err) {
                 console.log(err);
             } else {
-                callback(result);
+                callback(err, result);
+            }
+        })
+}
+
+//Report All Created 
+module.exports.getAllReportCreated = (callback) => {
+    const query = {
+        status: 'Dibuat'
+    }
+    Report.find(query)
+        .exec((err, result) => {
+            if (err) {
+                console.log(err);
+            } else {
+                callback(err, result);
             }
         })
 }

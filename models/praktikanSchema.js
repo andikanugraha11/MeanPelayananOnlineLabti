@@ -85,6 +85,23 @@ module.exports.getPraktikanByNpmAndKelas = (praktikan, callback) => {
 module.exports.getAllPraktikan = (callback) => {
     const query = {};
     Praktikan.find(query)
+        .populate('_userId')
+        .populate('_praktikumId')
+        .exec(callback);
+}
+
+module.exports.getAllPraktikanActive = (callback) => {
+    const query = { aktif: true };
+    Praktikan.find(query)
+        .populate('_userId')
+        .populate('_praktikumId')
+        .exec(callback);
+}
+
+module.exports.getAllPraktikanNotActive = (callback) => {
+    const query = { aktif: false };
+    Praktikan.find(query)
+        .populate('_userId')
         .populate('_praktikumId')
         .exec(callback);
 }

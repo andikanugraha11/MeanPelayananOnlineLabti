@@ -36,6 +36,7 @@ export class UserManagementComponent implements OnInit {
       // ]
     };
     this.authService.getAllPraktikan().subscribe(data => {
+      console.log(data)
       this.data = data.praktikan;
       this.dtTrigger.next();
       //this.praktikums =  data.praktikan._praktikumId;
