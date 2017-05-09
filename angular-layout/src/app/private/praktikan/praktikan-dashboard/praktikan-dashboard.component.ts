@@ -43,7 +43,7 @@ export class PraktikanDashboardComponent implements OnInit {
       });
       this.authService.getPraktikanByIdPopulate(praktikanId).subscribe(data => {
         this.praktikumData = data.data._praktikumId;
-        console.log(this.praktikumData)
+        
       });
     })
   }

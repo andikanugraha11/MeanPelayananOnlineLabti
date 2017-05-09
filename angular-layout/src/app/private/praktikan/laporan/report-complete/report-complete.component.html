@@ -24,7 +24,7 @@
                         <div class="panel-heading">
                             <div class="row">
                                 <div class="col-md-3">
-                                    <i class="fa fa-file-o fa-5x"></i>
+                                    <i class="fa fa-check fa-5x"></i>
                                 </div>
                                 <div class="col-md-9 text-right">
                                     <div class="huge">{{report.kode_praktikum}}</div>
@@ -54,8 +54,10 @@
                                     <div>: {{report.tanggal_lapor | date:'medium'}} </div>
                                     <div>: {{report.keterangan}}</div>
                                     <div>: {{report.status}} </div>
-                                    <div>: {{report.proses.pengulangan}} </div>
-                                    <div>: {{report.proses.pembayaran}} </div>
+                                    <div *ngIf="report.proses.pengulangan; else belumpengulangan">: Sudah</div>
+                                    <template #belumpengulangan><div>: Belum</div></template>
+                                    <div *ngIf="report.proses.pembayaran; else belumpembayaran">: Sudah</div>
+                                    <template #belumpembayaran><div>: Belum</div></template>
                                 </div>
                             </div>
                         </div>
