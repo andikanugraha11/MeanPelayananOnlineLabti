@@ -220,6 +220,29 @@ module.exports.comparePassword = (candidatePassword, hash, callback) => {
     });
 }
 
+//changepassword
+module.exports.changePassword = (data, callback) => {
+
+    let passwordHash;
+    bcrypt.genSalt(10, (err, salt) => {
+        bcrypt.hash(data.password, salt, (err, hash) => {
+            if (err) {
+                console.log(err);
+            } else {
+                passwordHash = hash;
+                const query = {
+                    _id: data.userId
+                }
+                User.update(query, {
+                    $set: {
+                        password: passwordHash
+                    }
+                }, callback);
+            }
+        })
+    })
+}
+
 //RemovePJ
 module.exports.removePJId = (id, callback) => {
     User.findByIdAndRemove(id, callback);

@@ -54,6 +54,7 @@ import { amSearchByNpm, amSearchByNpmPengulangan } from './pipe/admin-module/am-
 import { amSearchByClass } from './pipe/admin-module/am-searchByClass.pipe';
 import { DataTablesModule } from 'angular-datatables';
 import { ModalAddUploadPraktikanComponent } from './admin/user-management/modal-add-upload-praktikan/modal-add-upload-praktikan.component';
+import { AccountComponent } from './account/account.component';
 
 
 const appRoutes: Routes =
@@ -167,6 +168,10 @@ const appRoutes: Routes =
           path: 'pj/laporan/selesai',
           component: PjReportCompleteComponent,
           canActivate: [PjAuthGuard]
+        },
+        {
+          path : 'account',
+          component : AccountComponent
         }
       ]
     },
@@ -225,7 +230,8 @@ const appRoutes: Routes =
     amSearchByClass,
     amSearchByNpmPengulangan,
     amSearchByNamePengulangan,
-    ModalAddUploadPraktikanComponent
+    ModalAddUploadPraktikanComponent,
+    AccountComponent
   ],
   entryComponents: [
     ModalAddPraktikanComponent,

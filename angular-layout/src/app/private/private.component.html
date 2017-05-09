@@ -79,6 +79,10 @@
                         </li>
                     </ul>
                 </li>
+                <!--account global-->
+                <li [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact:true}">
+                    <a [routerLink]="['/dashboard/account']"><i class="fa fa-fw fa-cog"></i> Akun</a>
+                </li>
             </ul>
 
             <!--Praktikan-->
@@ -99,6 +103,10 @@
                             <a [routerLink]="['/dashboard/laporan/selesai']"><i class="fa fa-check "></i> Laporan Selesai</a>
                         </li>
                     </ul>
+                </li>
+                <!--account global-->
+                <li [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact:true}">
+                    <a [routerLink]="['/dashboard/account']"><i class="fa fa-fw fa-cog"></i> Akun</a>
                 </li>
 
             </ul>
@@ -125,6 +133,10 @@
                         </li>
                     </ul>
                 </li>
+                <!--account global-->
+                <li [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact:true}">
+                    <a [routerLink]="['/dashboard/account']"><i class="fa fa-fw fa-cog"></i> Akun</a>
+                </li>
             </ul>
 
             <!--Petugas-->
@@ -143,7 +155,13 @@
                         </li>
                     </ul>
                 </li>
+                <!--account global-->
+                <li [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact:true}">
+                    <a [routerLink]="['/dashboard/account']"><i class="fa fa-fw fa-cog"></i> Akun</a>
+                </li>
             </ul>
+
+
         </div>
         <!-- /.navbar-collapse -->
     </nav>

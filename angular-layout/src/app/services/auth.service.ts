@@ -358,4 +358,16 @@ export class AuthService {
     return this.http.post('http://localhost:8081/users/resetByKey', data, { headers: headers })
       .map(res => res.json());
   }
+
+  cekPassword(data) {
+    let headers = new Headers();
+    return this.http.post('http://localhost:8081/users/cekPassword', data, { headers: headers })
+      .map(res => res.json());
+  }
+
+  changePassword(data) {
+    let headers = new Headers();
+    return this.http.post('http://localhost:8081/users/changePassword', data, { headers: headers })
+      .map(res => res.json());
+  }
 }

@@ -410,6 +410,51 @@ router.post('/resendActivation', (req, res, next) => {
     });
 });
 
+//cekpassword
+router.post('/cekPassword', (req, res, next) => {
+    const inputPassword = req.body.inputPassword;
+    const realPassword = req.body.realPassword;
+    // console.log(inputPassword);
+    // console.log(realPassword);
+    User.comparePassword(inputPassword, realPassword, (err, isMatch) => {
+        if (err) {
+            console.log(err);
+        }
+        if (isMatch) {
+            res.json({
+                success: true,
+                msg: 'Kata sandi cocok'
+            })
+        } else {
+            res.json({
+                success: false,
+                msg: 'Kata sandi tidak cocok'
+            })
+        }
+    });
+});
+
+//changepassword
+router.post('/changePassword', (req, res, next) => {
+    const data = {
+        userId: req.body.userId,
+        password: req.body.password
+    }
+    User.changePassword(data, (err, user) => {
+        if (err) {
+            res.json({
+                success: false,
+                msg: 'Terjadi kesalahan'
+            })
+        } else {
+            res.json({
+                success: true,
+                msg: 'Kata sandi berhasil di perbarui'
+            })
+        }
+    });
+});
+
 //users/auth
 router.post('/auth', (req, res, next) => {
     const username = req.body.username;
@@ -433,7 +478,9 @@ router.post('/auth', (req, res, next) => {
         }
 
         User.comparePassword(password, user.password, (err, isMatch) => {
-            if (err) throw err;
+            if (err) {
+                console.log(err);
+            }
             if (isMatch) {
                 const token = jwt.sign(user, config.secret, {
                     expiresIn: 604800 // 1 week
