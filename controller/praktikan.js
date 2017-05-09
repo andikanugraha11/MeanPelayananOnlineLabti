@@ -37,8 +37,8 @@ router.post('/add', (req, res, next) => {
 //getPraktikanBy
 router.post('/getPraktikanByNpmAndKelas', (req, res, next) => {
     let findPraktikan = {
-        npm: req.body.npm,
-        kelas: req.body.kelas,
+        npm: req.body.npm.toUpperCase(),
+        kelas: req.body.kelas.toUpperCase(),
         aktif: false
     }
     Praktikan.getPraktikanByNpmAndKelas(findPraktikan, (err, praktikan) => {

@@ -14,6 +14,7 @@ export class ResetPasswordComponent implements OnInit {
   email: String;
   resetKey: String;
   password: String;
+  repassword: String;
   step1: Boolean = true;
   step2: Boolean = false;
   step3: Boolean = false;
@@ -26,9 +27,30 @@ export class ResetPasswordComponent implements OnInit {
 
   sendKey() {
     const data = {
-      email: this.email.toLowerCase()
+      email: this.email
+    }
+    if (!this.validation.resendAndReset(data)) {
+      this.flashMessage.show('Harap isi email', {
+        cssClass: 'alert-danger',
+        timeOut: 3000
+      });
+      return false;
+    }
+    if (!this.validation.validateEmail(data)) {
+      this.flashMessage.show('Harap isi email dengan benar', {
+        cssClass: 'alert-danger',
+        timeOut: 3000
+      });
+      return false;
     }
     this.authService.sendKey(data).subscribe(data => {
+      if (data.success == false) {
+        this.flashMessage.show(data.msg, {
+          cssClass: 'alert-danger',
+          timeOut: 3000
+        });
+        return false;
+      }
       if (data.success) {
         swal(
           'Kode verifikasi telah dikirim',
@@ -49,6 +71,13 @@ export class ResetPasswordComponent implements OnInit {
       email: this.email.toLowerCase(),
       resetKey: this.resetKey
     }
+    if (!this.validation.keyPassword(data)) {
+      this.flashMessage.show('Harap mengisi kunci', {
+        cssClass: 'alert-danger',
+        timeOut: 3000
+      });
+      return false;
+    }
     this.authService.keyCheck(data).subscribe(data => {
       if (data.success) {
         this.step1 = false;
@@ -68,7 +97,23 @@ export class ResetPasswordComponent implements OnInit {
     const data = {
       email: this.email.toLowerCase(),
       resetKey: this.resetKey,
-      password: this.password
+      password: this.password,
+      repassword: this.repassword
+    }
+    if (!this.validation.resetStep(data)) {
+      this.flashMessage.show('Harap isi data dengan lengkap', {
+        cssClass: 'alert-danger',
+        timeOut: 3000
+      });
+      return false;
+    }
+
+    if (!this.validation.matchPassword(data)) {
+      this.flashMessage.show('Password tidak sama', {
+        cssClass: 'alert-danger',
+        timeOut: 3000
+      });
+      return false;
     }
     this.authService.resetPasswordByKey(data).subscribe(data => {
       if (data.success) {

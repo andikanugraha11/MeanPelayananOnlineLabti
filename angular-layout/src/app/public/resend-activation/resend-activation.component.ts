@@ -22,11 +22,24 @@ export class ResendActivationComponent implements OnInit {
 
   resend() {
     const data = {
-      email: this.email.toLowerCase()
+      email: this.email
     }
-    
+    if (!this.validation.resendAndReset(data)) {
+      this.flashMessage.show('Harap isi email', {
+        cssClass: 'alert-danger',
+        timeOut: 3000
+      });
+      return false;
+    }
+    if (!this.validation.validateEmail(data)) {
+      this.flashMessage.show('Harap isi email dengan benar', {
+        cssClass: 'alert-danger',
+        timeOut: 3000
+      });
+      return false;
+    }
     this.authService.resendActivation(data).subscribe(data => {
-      console.log(data)
+      console.log(data);
       if (data.success) {
         swal(
           data.msg,

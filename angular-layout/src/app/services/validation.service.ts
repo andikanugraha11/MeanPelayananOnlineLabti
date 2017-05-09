@@ -17,6 +17,30 @@ export class ValidationService {
     return re.test(data.email);
   }
 
+  resendAndReset(data){
+    if (data.email == undefined) {
+      return false;
+    } else {
+      return true;
+    }
+  }
+
+  keyPassword(data){
+    if (data.resetKey == undefined) {
+      return false;
+    } else {
+      return true;
+    }
+  }
+
+  resetStep(data){
+    if (data.password == undefined || data.repassword == undefined) {
+      return false;
+    } else {
+      return true;
+    }
+  }
+
   validateLogin(user) {
     if (user.username == undefined || user.password == undefined) {
       return false;
@@ -33,6 +57,15 @@ export class ValidationService {
       return true;
     }
   }
+
+  validateActivationStep2(praktikan) {
+    if (praktikan.username == undefined || praktikan.email == undefined || praktikan.password == undefined || praktikan.repassword == undefined) {
+      return false;
+    } else {
+      return true;
+    }
+  }
+
 
   validateAddPraktikan(praktikan) {
     if (praktikan.npm == undefined || praktikan.kelas == undefined || praktikan.nama.depan == undefined) {

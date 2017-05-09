@@ -34,8 +34,8 @@ export class ActivationComponent implements OnInit {
 
   findPraktikan() {
     const praktikan = {
-      kelas: this.kelas.toUpperCase(),
-      npm: this.npm.toUpperCase()
+      kelas: this.kelas,
+      npm: this.npm
     }
 
     //Validation
@@ -68,6 +68,7 @@ export class ActivationComponent implements OnInit {
 
   completeData() {
     const praktikan = {
+      repassword : this.rePassword,
       _praktikanId: this.dataPraktikan.praktikan._id,
       username: this.username,
       email: this.email,
@@ -75,6 +76,30 @@ export class ActivationComponent implements OnInit {
       npm: this.npm,
       firstName: this.dataPraktikan.praktikan.nama.depan,
       lastName: this.dataPraktikan.praktikan.nama.belakang
+    }
+
+    if (!this.validation.validateActivationStep2(praktikan)) {
+      this.flashMessage.show('Data yang anda masukan belum lengkap', {
+        cssClass: 'alert-danger',
+        timeOut: 3000
+      });
+      return false;
+    }
+
+    if (!this.validation.matchPassword(praktikan)) {
+      this.flashMessage.show('Password tidak sama', {
+        cssClass: 'alert-danger',
+        timeOut: 3000
+      });
+      return false;
+    }
+
+    if (!this.validation.validateEmail(praktikan)) {
+      this.flashMessage.show('Harap isi email dengan benar', {
+        cssClass: 'alert-danger',
+        timeOut: 3000
+      });
+      return false;
     }
 
     this.authService.userRegister(praktikan).subscribe(data => {

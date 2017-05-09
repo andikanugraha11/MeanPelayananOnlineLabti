@@ -262,7 +262,7 @@ router.get('/getAllPetugas', (req, res, next) => {
 });
 
 router.post('/sendKey', (req, res, next) => {
-    const email = req.body.email;
+    const email = req.body.email.toLowerCase();
     const key = Math.random().toString().slice(2, 8);
     User.getUserByEmail(email, (err, user) => {
         if (err) {
@@ -367,7 +367,7 @@ router.post('/resetByKey', (req, res, next) => {
 
 //user/resend
 router.post('/resendActivation', (req, res, next) => {
-    const email = req.body.email;
+    const email = req.body.email.toLowerCase();
     User.getUserByEmail(email, (err, user) => {
         if (err) {
             return res.json({
@@ -457,7 +457,7 @@ router.post('/changePassword', (req, res, next) => {
 
 //users/auth
 router.post('/auth', (req, res, next) => {
-    const username = req.body.username;
+    const username = req.body.username.toLowerCase();
     const password = req.body.password;
 
     User.getUserByUsername(username, (err, user) => {
