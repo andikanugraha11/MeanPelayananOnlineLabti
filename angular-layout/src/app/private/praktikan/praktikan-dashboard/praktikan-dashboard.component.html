@@ -142,7 +142,7 @@
                                         <td class="text-center">{{praktikum._detailId.length}}</td>
                                         <td>{{praktikum._PjId.nama.depan}} {{praktikum._PjId.nama.belakang}}</td>
                                         <td class="text-center">
-                                            <a class="btn btn-primary" id="" (click)=showDetail($event.target.attributes.id.value)>Detail</a>
+                                            <a class="btn btn-primary" id="{{praktikum._id}}" (click)=showDetail($event.target.attributes.id.value)>Detail</a>
                                         </td>
                                     </tr>
                                 </tbody>

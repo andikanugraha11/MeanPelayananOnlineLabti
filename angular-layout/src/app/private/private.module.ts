@@ -248,7 +248,8 @@ const appRoutes: Routes =
     ModalDetailTingkat3Component,
     ModalDetailTingkat4Component,
     ModalMakeReportComponent,
-    ModalAddUploadPraktikanComponent
+    ModalAddUploadPraktikanComponent,
+    ModalDetailPraktikumComponent
   ],
   providers: [ ValidationService, AuthService, AdminAuthGuard, loginGuard, PjAuthGuard, PetugasAuthGuard, PraktikanAuthGuard],
 })
