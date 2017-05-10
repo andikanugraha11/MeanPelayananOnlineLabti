@@ -10,6 +10,7 @@ export class AccessDeniedComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
+    document.body.className = 'silver';
   }
 
 }
