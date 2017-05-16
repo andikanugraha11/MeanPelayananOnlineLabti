@@ -619,6 +619,24 @@ router.post('/isEmailExist', (req, res, next) => {
     });
 });
 
+router.post('/isNpmExist', (req, res, next) => {
+    const npm = req.body.npm.toLowerCase();
+    // console.log(username);
+    User.getUserByNpm(npm, (err, data) => {
+        if (data) {
+            res.json({
+                exist: true,
+            })
+        }
+        if (!data) {
+            res.json({
+                exist: false,
+            })
+        }
+
+    });
+});
+
 router.get('/getUserByPraktikanId/:idPraktikan', (req, res, next) => {
     const praktikanId = req.params.idPraktikan;
     User.getUserByPraktikanId(praktikanId, (err, data) => {

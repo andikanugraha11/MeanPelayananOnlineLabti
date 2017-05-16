@@ -16,11 +16,16 @@
                     </div>
 
                 </div>
-                <div class="form-group">
+                <div *ngIf="kelas?.length != 5 && kelas != undefined" class="text-danger">Panjang Kelas Harus 5. Contoh : 3IA01</div>
+                <div [ngClass]="{ 'has-error' : kelas?.length != 5 && kelas != undefined }" class="form-group has-feedback">
                     <input [(ngModel)]="kelas" class="form-control" placeholder="Kelas" name="kelas" type="text">
+                    <span class="glyphicon  form-control-feedback" [ngClass]="{ 'glyphicon-remove':  kelas?.length != 5 && kelas != undefined }"></span>
                 </div>
-                <div class="form-group">
-                    <input [(ngModel)]="npm" class="form-control" placeholder="NPM" name="npm" type="text">
+                <div *ngIf="npm?.length != 8 && npm != undefined" class="text-danger">Panjang NPM harus 8. Contoh : 57414084</div>
+                <div *ngIf="npmExist" class="text-danger">NPM : {{npm}} Sudah Terdaftar</div>
+                <div [ngClass]="{ 'has-error' : (npm?.length != 8 && npm != undefined) || npmExist }" class="form-group has-feedback">
+                    <input (keyup)="isNpmExist($event)" [(ngModel)]="npm" class="form-control" placeholder="NPM" name="npm" type="text">
+                    <span class="glyphicon  form-control-feedback" [ngClass]="{ 'glyphicon-remove': (npm?.length != 8 && npm != undefined) || npmExist }"></span>
                 </div>
 
 

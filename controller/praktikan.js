@@ -150,6 +150,24 @@ router.delete('/removePraktikan/:id', (req, res, next) => {
     });
 });
 
+router.post('/isNpmExist', (req, res, next) => {
+    const npm = req.body.npm.toLowerCase();
+    // console.log(username);
+    Praktikan.getPraktikanByNpm(npm, (err, data) => {
+        if (data) {
+            res.json({
+                exist: true,
+            })
+        }
+        if (!data) {
+            res.json({
+                exist: false,
+            })
+        }
+
+    });
+});
+
 // //Multer
 // const storage = multer.diskStorage({
 //     // destino del fichero

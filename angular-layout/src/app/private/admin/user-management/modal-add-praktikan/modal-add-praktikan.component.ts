@@ -22,8 +22,20 @@ export class ModalAddPraktikanComponent extends DialogComponent<ConfirmModel, bo
   kelas: String;
   depan: String;
   belakang: String;
+  npmExist: Boolean = false;
   constructor(dialogService: DialogService, private router: Router, private validation: ValidationService, private authService: AuthService, private flashMessage : FlashMessagesService) {
     super(dialogService);
+  }
+
+  isNpmExist(e) {
+    if (this.npm != null) {
+      let npm = this.npm;
+      //console.log(username);
+      this.validation.isNpmExist(npm).subscribe(data => {
+        this.npmExist = data.exist;
+      });
+    }
+
   }
 
   addPraktikan() {
@@ -44,6 +56,30 @@ export class ModalAddPraktikanComponent extends DialogComponent<ConfirmModel, bo
       return false;
     }
 
+    if(this.npm.length != 8){
+      this.flashMessage.show('Panjang NPM Harus 8',{
+        cssClass : 'alert-danger',
+        timeOut : 3000
+      });
+      return false;
+    }
+
+    if(this.kelas.length != 5){
+      this.flashMessage.show('Panjang Kelas Harus 5',{
+        cssClass : 'alert-danger',
+        timeOut : 3000
+      });
+      return false;
+    }
+
+    if(this.npmExist){
+      this.flashMessage.show('NPM Sudah Terdaftar Sebelumnya',{
+        cssClass : 'alert-danger',
+        timeOut : 3000
+      });
+      return false;
+    }
+
     this.authService.addPraktikan(praktikan).subscribe(data => {
       if (data.success) {
         this.result = true;
@@ -52,8 +88,5 @@ export class ModalAddPraktikanComponent extends DialogComponent<ConfirmModel, bo
       }
       this.close();
     });
-
-
-
   }
 }

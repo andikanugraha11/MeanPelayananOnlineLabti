@@ -71,7 +71,7 @@ module.exports.getPraktikanByIdPopulate = (id, callback) => {
             })
     }
     //GET praktikan by NPM
-module.exports.getPraktikanByNPM = (npm, callback) => {
+module.exports.getPraktikanByNpm = (npm, callback) => {
     const query = { npm: npm };
     Praktikan.findOne(query, callback);
 }

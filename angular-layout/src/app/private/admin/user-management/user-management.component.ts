@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { ValidationService } from '../../../services/validation.service';
 import { Router } from '@angular/router';
 import { AuthService } from '../../../services/auth.service';
@@ -8,7 +8,9 @@ import { ModalAddUploadPraktikanComponent } from './modal-add-upload-praktikan/m
 import { ModalDetailPraktikanComponent } from './modal-detail-praktikan/modal-detail-praktikan.component';
 import { ToasterService } from 'angular2-toaster';
 import { default as swal } from 'sweetalert2'
+import { DataTableDirective } from 'angular-datatables';
 import { Subject } from 'rxjs/Rx';
+
 
 
 @Component({
@@ -17,7 +19,8 @@ import { Subject } from 'rxjs/Rx';
   styleUrls: ['./user-management.component.css'],
 })
 export class UserManagementComponent implements OnInit {
-
+ @ViewChild(DataTableDirective)
+  dtElement: DataTableDirective;
   data: Object;
   praktikums: Object;
   dtOptions: any;
@@ -95,6 +98,12 @@ export class UserManagementComponent implements OnInit {
           this.toasterService.pop('success', 'Berhasil', 'Berhasil menambah praktikan');
           this.authService.getAllPraktikan().subscribe(data => {
             this.data = data.praktikan;
+            this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
+              // Destroy the table first
+              dtInstance.destroy();
+              // Call the dtTrigger to rerender again
+              this.dtTrigger.next();
+            });
           });
           //apabila langsung else this.close akan dihitung gagal
         } else if (data == false) {
@@ -138,7 +147,7 @@ export class UserManagementComponent implements OnInit {
 
   removePraktikan(id) {
     swal({
-      title: 'Apakah anda yakin akan mengahapus praktikan?',
+      title: 'Apakah anda yakin akan menghapus praktikan?',
       text: "Anda tidak dapat mengembalikanya",
       type: 'warning',
       showCancelButton: true,
