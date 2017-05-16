@@ -25,9 +25,33 @@ export class ModalAddPjComponent extends DialogComponent<ConfirmModel, boolean> 
   email: String;
   password: String;
   repassword: String;
+  emailExist:Boolean = false;
+  usernameExist:Boolean = false;
 
-  constructor(private flashMessage : FlashMessagesService, dialogService: DialogService, private router: Router, private validation: ValidationService, private authService: AuthService) {
+  constructor(private flashMessage: FlashMessagesService, dialogService: DialogService, private router: Router, private validation: ValidationService, private authService: AuthService) {
     super(dialogService);
+  }
+
+  isEmailExist(e) {
+    if (this.email != null) {
+      let email = this.email;
+      //console.log(username);
+      this.validation.isEmailExist(email).subscribe(data => {
+        this.emailExist = data.exist;
+      });
+    }
+
+  }
+
+  isUsernameExist(e) {
+    if (this.username != null) {
+      let username = this.username;
+      //console.log(username);
+      this.validation.isUsernameExist(username).subscribe(data => {
+        this.usernameExist = data.exist;
+      });
+    }
+
   }
 
   addPj() {
@@ -40,27 +64,59 @@ export class ModalAddPjComponent extends DialogComponent<ConfirmModel, boolean> 
       username: this.username,
       email: this.email,
       password: this.password,
-      repassword : this.repassword
+      repassword: this.repassword
     }
-    if(!this.validation.validateAddPj(pj)){
-      this.flashMessage.show('Data yang anda masukan belum lengkap',{
-        cssClass : 'alert-danger',
-        timeOut : 3000
+    if (!this.validation.validateAddPj(pj)) {
+      this.flashMessage.show('Data yang anda masukan belum lengkap', {
+        cssClass: 'alert-danger',
+        timeOut: 3000
       });
       return false;
     }
-    if(!this.validation.matchPassword(pj)){
-      this.flashMessage.show('Password tidak sama',{
-        cssClass : 'alert-danger',
-        timeOut : 3000
+    if (this.emailExist) {
+      this.flashMessage.show('Email Sudah Terdaftar', {
+        cssClass: 'alert-danger',
+        timeOut: 3000
       });
       return false;
     }
 
-    if(!this.validation.validateEmail(pj)){
-      this.flashMessage.show('Email yang anda masukan salah',{
-        cssClass : 'alert-danger',
-        timeOut : 3000
+    if (this.usernameExist) {
+      this.flashMessage.show('Nama Pengguna Sudah Terdaftar', {
+        cssClass: 'alert-danger',
+        timeOut: 3000
+      });
+      return false;
+    }
+
+    if (this.username.length < 6) {
+      this.flashMessage.show('Panjang Nama Pengguna Minimal 6 Karakter', {
+        cssClass: 'alert-danger',
+        timeOut: 3000
+      });
+      return false;
+    }
+    
+    if (this.password.length < 6) {
+      this.flashMessage.show('Panjang Kata Sandi Minimal 6 Karakter', {
+        cssClass: 'alert-danger',
+        timeOut: 3000
+      });
+      return false;
+    }
+
+    if (!this.validation.matchPassword(pj)) {
+      this.flashMessage.show('Kata Sandi Tidak Cocok', {
+        cssClass: 'alert-danger',
+        timeOut: 3000
+      });
+      return false;
+    }
+
+    if (!this.validation.validateEmail(pj)) {
+      this.flashMessage.show('Email yang anda masukan salah', {
+        cssClass: 'alert-danger',
+        timeOut: 3000
       });
       return false;
     }

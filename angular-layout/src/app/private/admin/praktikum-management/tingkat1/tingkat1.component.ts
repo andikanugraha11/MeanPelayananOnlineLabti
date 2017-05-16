@@ -22,6 +22,9 @@ export class Tingkat1Component implements OnInit {
 
     ngOnInit() {
         this.dtOptions = {
+            language: {
+                url: "http://cdn.datatables.net/plug-ins/1.10.15/i18n/Indonesian.json"
+            }
             // dom: 'Bfrtip',
             // buttons: [
             //     'print',
@@ -66,7 +69,7 @@ export class Tingkat1Component implements OnInit {
                     this.authService.getAllPraktikumTk1().subscribe(data => {
                         this.praktikums = data.praktikum;
                     });
-                } else if(data == false) {
+                } else if (data == false) {
                     this.toasterService.pop('error', 'Gagal', 'Gagal menambah praktikum');
                 }
             });

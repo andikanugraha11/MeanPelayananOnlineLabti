@@ -19,7 +19,7 @@ import { Subject } from 'rxjs/Rx';
   styleUrls: ['./user-management.component.css'],
 })
 export class UserManagementComponent implements OnInit {
- @ViewChild(DataTableDirective)
+  @ViewChild(DataTableDirective)
   dtElement: DataTableDirective;
   data: Object;
   praktikums: Object;
@@ -165,6 +165,12 @@ export class UserManagementComponent implements OnInit {
           )
           this.authService.getAllPraktikan().subscribe(data => {
             this.data = data.praktikan;
+            this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
+              // Destroy the table first
+              dtInstance.destroy();
+              // Call the dtTrigger to rerender again
+              this.dtTrigger.next();
+            });
           });
         } else {
           this.toasterService.pop('error', 'Gagal', 'Gagal menghapus penanggung praktikan');
