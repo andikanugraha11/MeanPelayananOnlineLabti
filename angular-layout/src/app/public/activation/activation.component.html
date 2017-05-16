@@ -20,7 +20,7 @@
 <form accept-charset="UTF-8" role="form" (submit)="completeData()" *ngIf="completeSection">
     <div class="text-center">
         <br/>
-        <h2>Silahkan lengkapi data anda</h2>
+        <h2>Silahkan Lengkapi Data Anda</h2>
         <br/>
     </div>
     <fieldset>
@@ -37,20 +37,26 @@
         <div class="form-group">
             <input [(ngModel)]="dataPraktikan.praktikan.npm" class="form-control" name="npm" type="text" disabled>
         </div>
-        <div *ngIf="usernameExist" class="text-danger">Username sudah digunakan</div>
-        <div [ngClass]="{ 'has-error': usernameExist }" class="form-group has-feedback">
-            <input (keyup)="isUsernameExist($event)" [(ngModel)]="username" class="form-control" placeholder="Username" name="username" type="text">
-            <span class="glyphicon  form-control-feedback" [ngClass]="{ 'glyphicon-remove': usernameExist }"></span>
-
+        <div *ngIf="usernameExist" class="text-danger">Nama Pengguna Sudah Digunakan</div>
+        <div *ngIf="username?.length < 6 && username != null" class="text-danger">Nama Pengguna Minimal 6 Karakter</div>
+        <div [ngClass]="{ 'has-error': usernameExist || (username?.length < 6 && username != null) }" class="form-group has-feedback">
+            <input (keyup)="isUsernameExist($event)" [(ngModel)]="username" class="form-control" placeholder="Nama Pengguna" name="username" type="text">
+            <span class="glyphicon  form-control-feedback" [ngClass]="{ 'glyphicon-remove': usernameExist || (username?.length < 6 && username != null) }"></span>
         </div>
-        <div class="form-group">
-            <input [(ngModel)]="email" class="form-control" name="email" placeholder="Email" type="text">
+        <div *ngIf="emailExist" class="text-danger">Email sudah digunakan</div>
+        <div [ngClass]="{ 'has-error': emailExist }" class="form-group has-feedback">
+            <input (keyup)="isEmailExist($event)" [(ngModel)]="email" class="form-control" name="email" placeholder="Email" type="text">
+            <span class="glyphicon  form-control-feedback" [ngClass]="{ 'glyphicon-remove': emailExist }"></span>
         </div>
-        <div class="form-group">
-            <input [(ngModel)]="password" class="form-control" name="password" placeholder="Password" type="password">
+        <div *ngIf="password?.length < 6 && password != null" class="text-danger">Kata Sandi Minimal 6 Karakter</div>
+        <div [ngClass]="{ 'has-error' : password?.length < 6 && password != null }" class="form-group has-feedback">
+            <input [(ngModel)]="password" class="form-control" name="password" placeholder="Kata Sandi" type="password">
+            <span class="glyphicon  form-control-feedback" [ngClass]="{ 'glyphicon-remove': password?.length < 6 && password != null }"></span>
         </div>
-        <div class="form-group">
-            <input [(ngModel)]="rePassword" class="form-control" name="rePassword" placeholder="Re-Password" type="password">
+        <div *ngIf="password != rePassword && rePassword !=null" class="text-danger">Kata Sandi Tidak Cocok</div>
+        <div [ngClass]="{ 'has-error' : password != rePassword && rePassword !=null}" class="form-group has-feedback">
+            <input [(ngModel)]="rePassword" class="form-control" name="rePassword" placeholder="Ulangi Kata Sandi" type="password">
+            <span class="glyphicon  form-control-feedback" [ngClass]="{ 'glyphicon-remove': password != rePassword && rePassword !=null }"></span>
         </div>
         <input class="btn btn-lg btn-success btn-block" type="submit" value="Aktivasi">
     </fieldset>

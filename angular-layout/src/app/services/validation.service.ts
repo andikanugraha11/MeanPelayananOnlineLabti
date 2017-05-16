@@ -117,16 +117,43 @@ export class ValidationService {
     }
   }
 
+  minPassword(data) {
+    let passwordLength = data.password.length
+    if (passwordLength < 6) {
+      return false;
+    } else {
+      return true;
+    }
+  }
+
+  minUsername(data) {
+    let usernameLength = data.username.length
+    if (usernameLength < 6) {
+      return false;
+    } else {
+      return true;
+    }
+  }
+
   isUsernameExist(username) {
     const data = {
-      username : username
+      username: username
     }
     let headers = new Headers();
-    return this.http.post(`http://localhost:8081/users/isUsernameExist`, data,  { headers: headers })
+    return this.http.post(`http://localhost:8081/users/isUsernameExist`, data, { headers: headers })
       .map(res => res.json());
   }
 
-  isNpmExist(npm){
+  isEmailExist(email) {
+    const data = {
+      email: email
+    }
+    let headers = new Headers();
+    return this.http.post(`http://localhost:8081/users/isEmailExist`, data, { headers: headers })
+      .map(res => res.json());
+  }
+
+  isNpmExist(npm) {
 
   }
 

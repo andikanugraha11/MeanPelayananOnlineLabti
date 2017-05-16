@@ -14,15 +14,17 @@ export class ActivationComponent implements OnInit {
 
   npm: String;
   kelas: String;
-  username: String;
-  email: String;
-  password: String;
-  rePassword: String;
+  username: String = null;
+  email: String = null;
+  password: String = null;
+  rePassword: String = null;
   dataPraktikan: any;
   findSection: Boolean;
   completeSection: Boolean;
   _praktikanId: String;
-  usernameExist : Boolean;
+  usernameExist: Boolean;
+  emailExist: Boolean;
+  passwordLength: Number;
 
   constructor(private flashMessage: FlashMessagesService, private router: Router, private validation: ValidationService, private authService: AuthService) {
   }
@@ -32,13 +34,29 @@ export class ActivationComponent implements OnInit {
     this.completeSection = false;
   }
 
-  isUsernameExist(e){
-    let username = this.username.toLowerCase();
-    console.log(username);
-    this.validation.isUsernameExist(username).subscribe(data =>{
-      this.usernameExist = data.exist;
-    });
+  isUsernameExist(e) {
+    if (this.username != null) {
+      let username = this.username;
+      //console.log(username);
+      this.validation.isUsernameExist(username).subscribe(data => {
+        this.usernameExist = data.exist;
+      });
+    }
+
   }
+
+  isEmailExist(e) {
+    if (this.email != null) {
+      let email = this.email;
+      // console.log(email);
+      this.validation.isEmailExist(email).subscribe(data => {
+        this.emailExist = data.exist;
+      });
+    }
+
+  }
+
+
 
   findPraktikan() {
     const praktikan = {
@@ -47,13 +65,7 @@ export class ActivationComponent implements OnInit {
     }
 
     //Validation
-    if(this.usernameExist){
-      this.flashMessage.show('Username sudah digunakan', {
-        cssClass: 'alert-danger',
-        timeOut: 3000
-      });
-      return false;
-    }
+
     if (!this.validation.validateActivation(praktikan)) {
       this.flashMessage.show('Data yang anda masukan belum lengkap', {
         cssClass: 'alert-danger',
@@ -83,7 +95,7 @@ export class ActivationComponent implements OnInit {
 
   completeData() {
     const praktikan = {
-      repassword : this.rePassword,
+      repassword: this.rePassword,
       _praktikanId: this.dataPraktikan.praktikan._id,
       username: this.username,
       email: this.email,
@@ -93,6 +105,7 @@ export class ActivationComponent implements OnInit {
       lastName: this.dataPraktikan.praktikan.nama.belakang
     }
 
+    
     if (!this.validation.validateActivationStep2(praktikan)) {
       this.flashMessage.show('Data yang anda masukan belum lengkap', {
         cssClass: 'alert-danger',
@@ -100,9 +113,22 @@ export class ActivationComponent implements OnInit {
       });
       return false;
     }
-
+    if(!this.validation.minPassword(praktikan)){
+      this.flashMessage.show('Kata Sandi Minimal 6 Karakter', {
+        cssClass: 'alert-danger',
+        timeOut: 3000
+      });
+      return false;
+    }
+    if(!this.validation.minUsername(praktikan)){
+      this.flashMessage.show('Nama Pengguna 6 Karakter', {
+        cssClass: 'alert-danger',
+        timeOut: 3000
+      });
+      return false;
+    }
     if (!this.validation.matchPassword(praktikan)) {
-      this.flashMessage.show('Password tidak sama', {
+      this.flashMessage.show('Kata Sandi tidak sama', {
         cssClass: 'alert-danger',
         timeOut: 3000
       });
@@ -110,7 +136,22 @@ export class ActivationComponent implements OnInit {
     }
 
     if (!this.validation.validateEmail(praktikan)) {
-      this.flashMessage.show('Harap isi email dengan benar', {
+      this.flashMessage.show('Harap Isi Email Dengan Benar', {
+        cssClass: 'alert-danger',
+        timeOut: 3000
+      });
+      return false;
+    }
+
+    if (this.usernameExist) {
+      this.flashMessage.show('Nama Pengguna Sudah Digunakan', {
+        cssClass: 'alert-danger',
+        timeOut: 3000
+      });
+      return false;
+    }
+    if (this.emailExist) {
+      this.flashMessage.show('Email Sudah Digunakan', {
         cssClass: 'alert-danger',
         timeOut: 3000
       });
