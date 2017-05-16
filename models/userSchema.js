@@ -243,6 +243,16 @@ module.exports.changePassword = (data, callback) => {
     })
 }
 
+module.exports.getUserByPraktikanId = (praktikanId, callback) => {
+    const query = { _praktikanId: praktikanId };
+    User.findOne(query).populate('_praktikanId')
+        .exec((err, result) => {
+            if (err) throw err;
+            callback(err, result);
+
+        });
+}
+
 //RemovePJ
 module.exports.removePJId = (id, callback) => {
     User.findByIdAndRemove(id, callback);

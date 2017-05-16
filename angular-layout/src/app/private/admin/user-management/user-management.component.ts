@@ -5,6 +5,7 @@ import { AuthService } from '../../../services/auth.service';
 import { DialogService } from "ng2-bootstrap-modal";
 import { ModalAddPraktikanComponent } from './modal-add-praktikan/modal-add-praktikan.component';
 import { ModalAddUploadPraktikanComponent } from './modal-add-upload-praktikan/modal-add-upload-praktikan.component';
+import { ModalDetailPraktikanComponent } from './modal-detail-praktikan/modal-detail-praktikan.component';
 import { ToasterService } from 'angular2-toaster';
 import { default as swal } from 'sweetalert2'
 import { Subject } from 'rxjs/Rx';
@@ -27,6 +28,9 @@ export class UserManagementComponent implements OnInit {
 
   ngOnInit() {
     this.dtOptions = {
+      language: {
+        url: "http://cdn.datatables.net/plug-ins/1.10.15/i18n/Indonesian.json"
+      }
       // dom: 'Bfrtip',
       // lengthMenu: [[10, 25, 50, -1], [10, 25, 50, "All"]],
       // buttons: [
@@ -114,6 +118,22 @@ export class UserManagementComponent implements OnInit {
         this.toasterService.pop('error', 'Gagal', 'Gagal menambah penanggung praktikan');
       }
     });
+  }
+
+  detailPraktikan(idPraktikan) {
+    this.authService.getUserByPraktikanId(idPraktikan)
+      .subscribe(data => {
+        if (data.success) {
+          console.log(data.data);
+          //console.log(data.praktikum._detailId);
+          let detail = this.dialogService.addDialog(ModalDetailPraktikanComponent, {
+            // idPraktikan : idPraktikan,
+            title: 'Detail Praktikum',
+            message: 'Detai message',
+            praktikan: data.data
+          });
+        }
+      });
   }
 
   removePraktikan(id) {

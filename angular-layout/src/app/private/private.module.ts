@@ -56,6 +56,7 @@ import { DataTablesModule } from 'angular-datatables';
 import { ModalAddUploadPraktikanComponent } from './admin/user-management/modal-add-upload-praktikan/modal-add-upload-praktikan.component';
 import { AccountComponent } from './account/account.component';
 import { ModalDetailPraktikumComponent } from './praktikan/praktikan-dashboard/modal-detail-praktikum/modal-detail-praktikum.component';
+import { ModalDetailPraktikanComponent } from './admin/user-management/modal-detail-praktikan/modal-detail-praktikan.component';
 
 
 const appRoutes: Routes =
@@ -233,7 +234,8 @@ const appRoutes: Routes =
     amSearchByNamePengulangan,
     ModalAddUploadPraktikanComponent,
     AccountComponent,
-    ModalDetailPraktikumComponent
+    ModalDetailPraktikumComponent,
+    ModalDetailPraktikanComponent
   ],
   entryComponents: [
     ModalAddPraktikanComponent,
@@ -249,7 +251,8 @@ const appRoutes: Routes =
     ModalDetailTingkat4Component,
     ModalMakeReportComponent,
     ModalAddUploadPraktikanComponent,
-    ModalDetailPraktikumComponent
+    ModalDetailPraktikumComponent,
+    ModalDetailPraktikanComponent
   ],
   providers: [ ValidationService, AuthService, AdminAuthGuard, loginGuard, PjAuthGuard, PetugasAuthGuard, PraktikanAuthGuard],
 })

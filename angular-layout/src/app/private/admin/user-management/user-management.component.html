@@ -63,13 +63,16 @@
                                             </ng-template>
                                         </td>
                                         <td class="text-center">
-                                            <div *ngIf="praktikan.aktif; then primaryBlock; else secondaryBlock"></div>
+
+                                            <!--<div *ngIf="praktikan.aktif; then primaryBlock; else secondaryBlock"></div>
                                             <ng-template #primaryBlock>
                                                 <a class="btn btn-primary" id={{praktikan._id}} (click)=resetPassword($event.target.attributes.id.value)>Reset Password</a>
                                             </ng-template>
                                             <ng-template #secondaryBlock>
                                                 <a class="btn btn-primary disabled" id={{praktikan._id}} (click)=resetPassword($event.target.attributes.id.value)>Reset Password</a>
-                                            </ng-template>
+                                            </ng-template>-->
+                                            <!--<a class="btn btn-primary" [ngClass]="{ 'disabled' : !praktikan.aktif }" id={{praktikan._id}} (click)=resetPassword($event.target.attributes.id.value)>Reset Password</a>-->
+                                            <a class="btn btn-primary" [ngClass]="{ 'disabled' : !praktikan.aktif }" id="{{praktikan._id}}" (click)=detailPraktikan($event.target.attributes.id.value)>Detail</a>
                                             <a class="btn btn-danger" id="{{praktikan._id}}" (click)=removePraktikan($event.target.attributes.id.value)>Hapus</a>
                                         </td>
                                     </tr>

@@ -619,4 +619,18 @@ router.post('/isEmailExist', (req, res, next) => {
     });
 });
 
+router.get('/getUserByPraktikanId/:idPraktikan', (req, res, next) => {
+    const praktikanId = req.params.idPraktikan;
+    User.getUserByPraktikanId(praktikanId, (err, data) => {
+        if (err) {
+            console.log(err);
+        } else {
+            res.json({
+                success: true,
+                data
+            })
+        }
+    });
+});
+
 module.exports = router;
