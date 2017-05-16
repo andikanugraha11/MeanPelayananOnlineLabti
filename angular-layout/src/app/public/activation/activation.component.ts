@@ -22,6 +22,7 @@ export class ActivationComponent implements OnInit {
   findSection: Boolean;
   completeSection: Boolean;
   _praktikanId: String;
+  usernameExist : Boolean;
 
   constructor(private flashMessage: FlashMessagesService, private router: Router, private validation: ValidationService, private authService: AuthService) {
   }
@@ -31,6 +32,13 @@ export class ActivationComponent implements OnInit {
     this.completeSection = false;
   }
 
+  isUsernameExist(e){
+    let username = this.username.toLowerCase();
+    console.log(username);
+    this.validation.isUsernameExist(username).subscribe(data =>{
+      this.usernameExist = data.exist;
+    });
+  }
 
   findPraktikan() {
     const praktikan = {
@@ -39,6 +47,13 @@ export class ActivationComponent implements OnInit {
     }
 
     //Validation
+    if(this.usernameExist){
+      this.flashMessage.show('Username sudah digunakan', {
+        cssClass: 'alert-danger',
+        timeOut: 3000
+      });
+      return false;
+    }
     if (!this.validation.validateActivation(praktikan)) {
       this.flashMessage.show('Data yang anda masukan belum lengkap', {
         cssClass: 'alert-danger',

@@ -1,9 +1,11 @@
 import { Injectable } from '@angular/core';
+import { Http, Headers } from '@angular/http';
+import 'rxjs/add/operator/map';
 
 @Injectable()
 export class ValidationService {
 
-  constructor() { }
+  constructor(private http: Http) { }
 
   matchPassword(data) {
     if (data.password != data.repassword) {
@@ -17,7 +19,7 @@ export class ValidationService {
     return re.test(data.email);
   }
 
-  resendAndReset(data){
+  resendAndReset(data) {
     if (data.email == undefined) {
       return false;
     } else {
@@ -25,7 +27,7 @@ export class ValidationService {
     }
   }
 
-  keyPassword(data){
+  keyPassword(data) {
     if (data.resetKey == undefined) {
       return false;
     } else {
@@ -33,7 +35,7 @@ export class ValidationService {
     }
   }
 
-  resetStep(data){
+  resetStep(data) {
     if (data.password == undefined || data.repassword == undefined) {
       return false;
     } else {
@@ -48,7 +50,7 @@ export class ValidationService {
       return true;
     }
   }
-  
+
 
   validateActivation(praktikan) {
     if (praktikan.npm == undefined || praktikan.kelas == undefined) {
@@ -92,27 +94,40 @@ export class ValidationService {
   }
 
   validateAddPraktikum4(data) {
-    if(data.tanggal1 == undefined || data.tanggal2 == undefined || data.tanggal3 == undefined || data.tanggal4 == undefined || data.shift == undefined || data.pj == undefined || data.nama_praktikum == undefined || data.kode == undefined || data.jlh_pertemuan == undefined || data.ruang == undefined ){
+    if (data.tanggal1 == undefined || data.tanggal2 == undefined || data.tanggal3 == undefined || data.tanggal4 == undefined || data.shift == undefined || data.pj == undefined || data.nama_praktikum == undefined || data.kode == undefined || data.jlh_pertemuan == undefined || data.ruang == undefined) {
       return false;
-    }else{
+    } else {
       return true;
     }
   }
 
   validateAddPraktikum8(data) {
-    if(data.tanggal1 == undefined || data.tanggal2 == undefined || data.tanggal3 == undefined || data.tanggal4 == undefined || data.tanggal5 == undefined || data.tanggal6 == undefined || data.tanggal7 == undefined || data.tanggal8 == undefined || data.shift == undefined || data.pj == undefined || data.nama_praktikum == undefined || data.kode == undefined || data.jlh_pertemuan == undefined || data.ruang == undefined ){
+    if (data.tanggal1 == undefined || data.tanggal2 == undefined || data.tanggal3 == undefined || data.tanggal4 == undefined || data.tanggal5 == undefined || data.tanggal6 == undefined || data.tanggal7 == undefined || data.tanggal8 == undefined || data.shift == undefined || data.pj == undefined || data.nama_praktikum == undefined || data.kode == undefined || data.jlh_pertemuan == undefined || data.ruang == undefined) {
       return false;
-    }else{
+    } else {
       return true;
     }
   }
 
-  validateMakeReport(data){
-    if(data.keterangan == undefined || data.pengganti == undefined){
+  validateMakeReport(data) {
+    if (data.keterangan == undefined || data.pengganti == undefined) {
       return false;
-    }else{
+    } else {
       return true;
     }
+  }
+
+  isUsernameExist(username) {
+    const data = {
+      username : username
+    }
+    let headers = new Headers();
+    return this.http.post(`http://localhost:8081/users/isUsernameExist`, data,  { headers: headers })
+      .map(res => res.json());
+  }
+
+  isNpmExist(npm){
+
   }
 
 }

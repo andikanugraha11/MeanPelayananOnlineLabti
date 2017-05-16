@@ -37,8 +37,11 @@
         <div class="form-group">
             <input [(ngModel)]="dataPraktikan.praktikan.npm" class="form-control" name="npm" type="text" disabled>
         </div>
-        <div class="form-group">
-            <input [(ngModel)]="username" class="form-control" placeholder="Username" name="username" type="text">
+        <div *ngIf="usernameExist" class="text-danger">Username sudah digunakan</div>
+        <div [ngClass]="{ 'has-error': usernameExist }" class="form-group has-feedback">
+            <input (keyup)="isUsernameExist($event)" [(ngModel)]="username" class="form-control" placeholder="Username" name="username" type="text">
+            <span class="glyphicon  form-control-feedback" [ngClass]="{ 'glyphicon-remove': usernameExist }"></span>
+
         </div>
         <div class="form-group">
             <input [(ngModel)]="email" class="form-control" name="email" placeholder="Email" type="text">

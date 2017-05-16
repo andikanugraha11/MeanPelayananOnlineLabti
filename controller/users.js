@@ -583,5 +583,22 @@ router.delete('/removePetugas/:id', (req, res, next) => {
     });
 });
 
+router.post('/isUsernameExist', (req, res, next) => {
+    const username = req.body.username;
+    // console.log(username);
+    User.getUserByUsername(username, (err, data) => {
+        if (data) {
+            res.json({
+                exist: true,
+            })
+        }
+        if (!data) {
+            res.json({
+                exist: false,
+            })
+        }
+
+    });
+});
 
 module.exports = router;

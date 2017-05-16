@@ -27,7 +27,7 @@ export class PjDashboardComponent implements OnInit {
       });
       service.getReportOnProgressByPjId(PjId).subscribe(data => {
         this.proses = data.report.length;
-        if (this.dibuat > 0) {
+        if (this.proses > 0) {
           this.peringatan = true;
         }
       });
