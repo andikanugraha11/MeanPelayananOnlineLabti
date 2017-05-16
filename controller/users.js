@@ -467,7 +467,7 @@ router.post('/auth', (req, res, next) => {
         if (!user) {
             return res.json({
                 success: false,
-                msg: 'User tidak ditemukan'
+                msg: 'Pengguna Tidak Ditemukan'
             });
         }
         if (user.isVerified == false) {
@@ -499,7 +499,7 @@ router.post('/auth', (req, res, next) => {
             } else {
                 return res.json({
                     success: false,
-                    msg: 'Password salah'
+                    msg: 'Kata Sandi Salah'
                 });
             }
         });
