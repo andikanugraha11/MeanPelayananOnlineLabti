@@ -9,9 +9,10 @@ import { Router } from '@angular/router';
 
 })
 export class PrivateComponent implements OnInit {
-
+  year: any;
   constructor(private authService: AuthService, private router: Router) {
-
+    const date = new Date();
+    this.year = date.getFullYear();
   }
   user: any;
   loggedIn: Boolean = false;
