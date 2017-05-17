@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { ValidationService } from '../../../../services/validation.service';
 import { Router } from '@angular/router';
 import { AuthService } from '../../../../services/auth.service';
@@ -6,6 +6,7 @@ import { DialogService } from "ng2-bootstrap-modal";
 import { ModalAddTingka1Component } from './modal-add-tingka1/modal-add-tingka1.component';
 import { ModalDetailTingkat1Component } from './modal-detail-tingkat1/modal-detail-tingkat1.component'
 import { ToasterService } from 'angular2-toaster';
+import { DataTableDirective } from 'angular-datatables';
 import { Subject } from 'rxjs/Rx';
 
 @Component({
@@ -14,7 +15,8 @@ import { Subject } from 'rxjs/Rx';
     styleUrls: ['./tingkat1.component.css'],
 })
 export class Tingkat1Component implements OnInit {
-
+    @ViewChild(DataTableDirective)
+    dtElement: DataTableDirective;
     praktikums: Object;
     dtOptions: any;
     dtTrigger: Subject<any> = new Subject();
@@ -68,6 +70,12 @@ export class Tingkat1Component implements OnInit {
                     this.toasterService.pop('success', 'Berhasil', 'Praktikum ditambah');
                     this.authService.getAllPraktikumTk1().subscribe(data => {
                         this.praktikums = data.praktikum;
+                        this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
+                            // Destroy the table first
+                            dtInstance.destroy();
+                            // Call the dtTrigger to rerender again
+                            this.dtTrigger.next();
+                        });
                     });
                 } else if (data == false) {
                     this.toasterService.pop('error', 'Gagal', 'Gagal menambah praktikum');

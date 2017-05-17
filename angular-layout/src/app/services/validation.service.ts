@@ -27,6 +27,14 @@ export class ValidationService {
     }
   }
 
+  oldPassword(data) {
+    if (data.inputPassword == undefined) {
+      return false;
+    } else {
+      return true;
+    }
+  }
+
   keyPassword(data) {
     if (data.resetKey == undefined) {
       return false;
@@ -142,6 +150,14 @@ export class ValidationService {
     let headers = new Headers();
     return this.http.post(`http://localhost:8081/users/isUsernameExist`, data, { headers: headers })
       .map(res => res.json());
+  }
+
+  accountNewPassowrd(data){
+    if (data.password == undefined || data.repassword == undefined) {
+      return false;
+    } else {
+      return true;
+    }
   }
 
   isEmailExist(email) {

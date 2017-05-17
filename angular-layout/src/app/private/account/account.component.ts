@@ -19,7 +19,7 @@ export class AccountComponent implements OnInit {
   renewpassword: String;
   userData: any;
 
-  constructor(private flashMessage: FlashMessagesService, private authService: AuthService, private router: Router) { }
+  constructor(private validation: ValidationService, private flashMessage: FlashMessagesService, private authService: AuthService, private router: Router) { }
 
   ngOnInit() {
 
@@ -33,6 +33,14 @@ export class AccountComponent implements OnInit {
       realPassword: this.userData.password,
       inputPassword: this.password
     }
+    if (!this.validation.oldPassword(data)) {
+      this.flashMessage.show('Harap Mengisi Kata Sandi Anda', {
+        cssClass: 'alert-danger',
+        timeOut: 3000
+      });
+      return false;
+    }
+
     this.authService.cekPassword(data).subscribe(data => {
       if (data.success) {
         this.confirmation = false;
@@ -50,7 +58,34 @@ export class AccountComponent implements OnInit {
   updatePassword() {
     const data = {
       userId: this.userData._id,
-      password: this.newpassword
+      password: this.newpassword,
+      repassword : this.renewpassword
+    }
+
+    if (!this.validation.accountNewPassowrd(data)) {
+      this.flashMessage.show('Data Belum Lengkap', {
+        cssClass: 'alert-danger',
+        timeOut: 3000
+      });
+      return false;
+    }
+    
+    if (!this.validation.matchPassword(data)) {
+      this.flashMessage.show('Kata Sandi Tidak Cocok', {
+        cssClass: 'alert-danger',
+        timeOut: 3000
+      });
+      return false;
+    }
+
+    
+
+    if (!this.validation.minPassword(data)) {
+      this.flashMessage.show('Kata Sandi Minimal 6 Karakter', {
+        cssClass: 'alert-danger',
+        timeOut: 3000
+      });
+      return false;
     }
 
     this.authService.changePassword(data).subscribe(data => {
