@@ -34,58 +34,15 @@ export class UserManagementComponent implements OnInit {
       language: {
         url: "http://cdn.datatables.net/plug-ins/1.10.15/i18n/Indonesian.json"
       }
-      // dom: 'Bfrtip',
-      // lengthMenu: [[10, 25, 50, -1], [10, 25, 50, "All"]],
-      // buttons: [
-      //   'print',
-      //   'excel',
-      //   'pdf'
-      // ]
     };
     this.authService.getAllPraktikan().subscribe(data => {
-      console.log(data)
       this.data = data.praktikan;
       this.dtTrigger.next();
-      //this.praktikums =  data.praktikan._praktikumId;
-      //console.log(this.data);
-      //console.log(this.praktikums)
     },
       err => {
         console.log(err);
         return false;
       });
-  }
-
-  resetPassword(id) {
-    swal({
-      title: 'Reset password praktikan',
-      text: "Set password praktikan menjadi NPM",
-      type: 'question',
-      showCancelButton: true,
-      confirmButtonColor: '#3085d6',
-      cancelButtonColor: '#d33',
-      confirmButtonText: 'Ya',
-      cancelButtonText: 'Tidak',
-    }).then(() => {
-      swal(
-        'Berhasil!',
-        'Password praktikan sudah di reset',
-        'success'
-      )
-      this.authService.getPraktikanById(id).subscribe(data => {
-        const dataUpdate = {
-          npm: data.praktikan.npm,
-          id
-        }
-        service.setPasswordToNpm(dataUpdate).subscribe(data => {
-          //console.log(data);
-        });
-        //console.log(npm);
-      });
-
-    });
-    const service = this.authService;
-
   }
 
   addPraktikan() {
@@ -95,38 +52,18 @@ export class UserManagementComponent implements OnInit {
     })
       .subscribe((data) => {
         if (data) {
-          this.toasterService.pop('success', 'Berhasil', 'Berhasil menambah praktikan');
+          this.toasterService.pop('success', 'Berhasil', 'Berhasil Menambah Praktikan');
           this.authService.getAllPraktikan().subscribe(data => {
             this.data = data.praktikan;
             this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
-              // Destroy the table first
               dtInstance.destroy();
-              // Call the dtTrigger to rerender again
               this.dtTrigger.next();
             });
           });
-          //apabila langsung else this.close akan dihitung gagal
         } else if (data == false) {
-          this.toasterService.pop('error', 'Gagal', 'Gagal menambah penanggung praktikan');
+          this.toasterService.pop('error', 'Gagal', 'Gagal Menambah Praktikan');
         }
       });
-  }
-
-  uploadPraktikan() {
-    let disposable = this.dialogService.addDialog(ModalAddUploadPraktikanComponent, {
-      title: 'Confirm title',
-      message: 'Confirm message'
-    }).subscribe((data) => {
-      if (data) {
-        this.toasterService.pop('success', 'Berhasil', 'Berhasil menambah praktikan');
-        this.authService.getAllPraktikan().subscribe(data => {
-          this.data = data.praktikan;
-        });
-        //apabila langsung else this.close akan dihitung gagal
-      } else if (data == false) {
-        this.toasterService.pop('error', 'Gagal', 'Gagal menambah penanggung praktikan');
-      }
-    });
   }
 
   detailPraktikan(idPraktikan) {
@@ -147,8 +84,8 @@ export class UserManagementComponent implements OnInit {
 
   removePraktikan(id) {
     swal({
-      title: 'Apakah anda yakin akan menghapus praktikan?',
-      text: "Anda tidak dapat mengembalikanya",
+      title: 'Apakah Anda Yakin Akan Menghapus Praktikan?',
+      text: "Data yang telah dihapus tidak dapat dikembalikan",
       type: 'warning',
       showCancelButton: true,
       confirmButtonColor: '#3085d6',
@@ -160,20 +97,18 @@ export class UserManagementComponent implements OnInit {
         if (data.success) {
           swal(
             'Terhapus!',
-            'Praktikan telah di hapus',
+            'Praktikan telah dihapus',
             'success'
           )
           this.authService.getAllPraktikan().subscribe(data => {
             this.data = data.praktikan;
             this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
-              // Destroy the table first
               dtInstance.destroy();
-              // Call the dtTrigger to rerender again
               this.dtTrigger.next();
             });
           });
         } else {
-          this.toasterService.pop('error', 'Gagal', 'Gagal menghapus penanggung praktikan');
+          this.toasterService.pop('error', 'Gagal', 'Gagal Menghapus Praktikan');
         }
       })
 

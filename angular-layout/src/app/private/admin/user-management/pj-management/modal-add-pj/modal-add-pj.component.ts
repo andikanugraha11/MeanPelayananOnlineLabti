@@ -74,7 +74,7 @@ export class ModalAddPjComponent extends DialogComponent<ConfirmModel, boolean> 
       return false;
     }
     if (this.emailExist) {
-      this.flashMessage.show('Email Sudah Terdaftar', {
+      this.flashMessage.show('Email sudah terdaftar', {
         cssClass: 'alert-danger',
         timeOut: 3000
       });
@@ -82,7 +82,7 @@ export class ModalAddPjComponent extends DialogComponent<ConfirmModel, boolean> 
     }
 
     if (this.usernameExist) {
-      this.flashMessage.show('Nama Pengguna Sudah Terdaftar', {
+      this.flashMessage.show('Nama pengguna sudah terdaftar', {
         cssClass: 'alert-danger',
         timeOut: 3000
       });
@@ -90,7 +90,7 @@ export class ModalAddPjComponent extends DialogComponent<ConfirmModel, boolean> 
     }
 
     if (this.username.length < 6) {
-      this.flashMessage.show('Panjang Nama Pengguna Minimal 6 Karakter', {
+      this.flashMessage.show('Panjang nama pengguna minimal 6 karakter', {
         cssClass: 'alert-danger',
         timeOut: 3000
       });
@@ -98,7 +98,7 @@ export class ModalAddPjComponent extends DialogComponent<ConfirmModel, boolean> 
     }
     
     if (this.password.length < 6) {
-      this.flashMessage.show('Panjang Kata Sandi Minimal 6 Karakter', {
+      this.flashMessage.show('Panjang kata sandi minimal 6 karakter', {
         cssClass: 'alert-danger',
         timeOut: 3000
       });
@@ -106,7 +106,7 @@ export class ModalAddPjComponent extends DialogComponent<ConfirmModel, boolean> 
     }
 
     if (!this.validation.matchPassword(pj)) {
-      this.flashMessage.show('Kata Sandi Tidak Cocok', {
+      this.flashMessage.show('Kata sandi tidak cocok', {
         cssClass: 'alert-danger',
         timeOut: 3000
       });

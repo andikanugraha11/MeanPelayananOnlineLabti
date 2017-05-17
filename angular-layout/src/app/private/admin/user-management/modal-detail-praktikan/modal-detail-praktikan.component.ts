@@ -31,8 +31,8 @@ export class ModalDetailPraktikanComponent extends DialogComponent<ConfirmModel,
   resetPassword(id) {
     const service = this.authService;
     swal({
-      title: 'Reset password praktikan',
-      text: "Set password praktikan menjadi NPM",
+      title: 'Atur Ulang Kata Sandi',
+      text: "Kata sandi akan di atur ulang menjadi NPM",
       type: 'question',
       showCancelButton: true,
       confirmButtonColor: '#3085d6',
@@ -42,7 +42,7 @@ export class ModalDetailPraktikanComponent extends DialogComponent<ConfirmModel,
     }).then(() => {
       swal(
         'Berhasil!',
-        'Password praktikan sudah di reset',
+        'Kata sandi telah di atur ulang',
         'success'
       )
       this.authService.getPraktikanById(id).subscribe(data => {
@@ -51,13 +51,11 @@ export class ModalDetailPraktikanComponent extends DialogComponent<ConfirmModel,
           id
         }
         service.setPasswordToNpm(dataUpdate).subscribe(data => {
-          //console.log(data);
         });
-        //console.log(npm);
       });
 
     });
-    
+
 
   }
 

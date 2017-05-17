@@ -26,17 +26,10 @@ export class PjManagementComponent implements OnInit {
       language: {
         url: "http://cdn.datatables.net/plug-ins/1.10.15/i18n/Indonesian.json"
       }
-      // dom: 'Bfrtip',
-      // buttons: [
-      //     'print',
-      //     'excel',
-      //     'pdf'
-      // ]
     };
     this.authService.getAllPJ().subscribe(data => {
       this.data = data.pj;
       this.dtTrigger.next();
-      //console.log(this.data);
     },
       err => {
         console.log(err);
@@ -50,15 +43,12 @@ export class PjManagementComponent implements OnInit {
       message: 'Confirm message'
     })
       .subscribe((data) => {
-        //We get dialog result
         if (data) {
           this.toasterService.pop('success', 'Berhasil', 'Berhasil menambah penanggung jawab');
           this.authService.getAllPJ().subscribe(data => {
             this.data = data.pj;
             this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
-              // Destroy the table first
               dtInstance.destroy();
-              // Call the dtTrigger to rerender again
               this.dtTrigger.next();
             });
           });
@@ -70,7 +60,7 @@ export class PjManagementComponent implements OnInit {
 
   removePJ(id) {
     swal({
-      title: 'Apakah anda yakin akan menghapus penanggung jawab?',
+      title: 'Apakah Anda Yakin Akan Menghapus Penanggung Jawab?',
       text: "Sangat tidak disarankan untuk menghapus PJ apabila sudah memiliki mata praktikum",
       type: 'warning',
       showCancelButton: true,
@@ -83,16 +73,14 @@ export class PjManagementComponent implements OnInit {
       this.authService.removePJ(id).subscribe(data => {
         if (data.success) {
           swal(
-            'Terhapus!',
-            'Penanggung Jawab dihapus',
+            'Berhasil',
+            'Penanggung jawab dihapus',
             'success'
           )
           this.authService.getAllPJ().subscribe(data => {
             this.data = data.pj;
             this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
-              // Destroy the table first
               dtInstance.destroy();
-              // Call the dtTrigger to rerender again
               this.dtTrigger.next();
             });
           });

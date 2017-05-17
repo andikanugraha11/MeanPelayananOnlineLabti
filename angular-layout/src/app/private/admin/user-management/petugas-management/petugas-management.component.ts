@@ -24,7 +24,6 @@ export class PetugasManagementComponent implements OnInit {
     dtTrigger: Subject<any> = new Subject();
 
     constructor(private toasterService: ToasterService, private flashMessage: FlashMessagesService, private authService: AuthService, private router: Router, private dialogService: DialogService) {
-        // let flsMsg = new FlashMessage()
     }
 
     ngOnInit() {
@@ -32,21 +31,14 @@ export class PetugasManagementComponent implements OnInit {
             language: {
                 url: "http://cdn.datatables.net/plug-ins/1.10.15/i18n/Indonesian.json"
             }
-            // dom: 'Bfrtip',
-            // buttons: [
-            //     'print',
-            //     'excel',
-            //     'pdf'
-            // ]
         };
 
         this.authService.getAllPetugas().subscribe(data => {
             this.data = data.petugas;
             this.dtTrigger.next();
-            //console.log(this.data);
         },
             err => {
-                //console.log(err);
+                console.log(err);
                 return false;
             });
     }
@@ -63,12 +55,9 @@ export class PetugasManagementComponent implements OnInit {
                     this.authService.getAllPetugas().subscribe(data => {
                         this.data = data.petugas;
                         this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
-                            // Destroy the table first
                             dtInstance.destroy();
-                            // Call the dtTrigger to rerender again
                             this.dtTrigger.next();
                         });
-                        // this.dtTrigger.next();
                     })
                 } else if (data == false) {
                     this.toasterService.pop('error', 'Gagal', 'Gagal menambah petugas');
@@ -79,7 +68,7 @@ export class PetugasManagementComponent implements OnInit {
     removePetugas(id) {
 
         swal({
-            title: 'Apakah anda yakin akan mengahapus petugas?',
+            title: 'Apakah Anda Yakin Akan Menghapus Petugas?',
             text: "Data yang sudah dihapus tidak dapat dikembalikan",
             type: 'warning',
             showCancelButton: true,
@@ -92,16 +81,14 @@ export class PetugasManagementComponent implements OnInit {
             this.authService.removePetugas(id).subscribe(data => {
                 if (data.success) {
                     swal(
-                        'Terhapus!',
-                        'petugas dihapus',
+                        'Berhasil',
+                        'Petugas dihapus',
                         'success'
                     )
                     this.authService.getAllPetugas().subscribe(data => {
                         this.data = data.petugas;
                         this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
-                            // Destroy the table first
                             dtInstance.destroy();
-                            // Call the dtTrigger to rerender again
                             this.dtTrigger.next();
                         });
                     })
