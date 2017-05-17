@@ -1,0 +1,107 @@
+<div id="wrapper">
+
+    <!-- Navigation -->
+    <nav class="navbar navbar-inverse navbar-fixed-top">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+            <a class="navbar-brand" [routerLink]="['/']">Pelayanan Online LABTI</a>
+        </div>
+        <!-- Top Menu Items -->
+        <ng-container *ngIf="loggedIn; then thenBlock; else elseBlock"></ng-container>
+        <ng-template #thenBlock>
+            <ul class="nav navbar-right top-nav">
+                <li class="dropdown">
+
+                    <a style="color: #ffffff" href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user"></i> {{user.username}} <b class="caret"></b></a>
+                    <ul class="dropdown-menu">
+                        <!--<li>
+                            <a href="#"><i class="fa fa-fw fa-user"></i> Profile</a>
+                        </li>
+                        <li class="divider"></li>-->
+                        <li>
+                            <a href="" (click)="logout()"><i class="fa fa-fw fa-power-off"></i> Keluar</a>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+        </ng-template>
+        <ng-template #elseBlock>
+            <ul class="nav navbar-right top-nav">
+
+                <li>
+                    <a [routerLink]="['/']" style="color: #ffffff" href="#"><i class="fa fa-sign-in"></i> Masuk</a>
+                </li>
+            </ul>
+        </ng-template>
+
+
+    </nav>
+</div>
+<!-- /#wrapper -->
+<div class="container">
+
+    <!-- Introduction Row -->
+    <div class="row">
+        <div class="col-lg-12">
+            <h1 class="page-header">Tentang
+                <small>Labolatorium Teknik Informatika</small>
+            </h1>
+            <hr/>
+            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sint, explicabo dolores ipsam aliquam inventore corrupti eveniet quisquam quod totam laudantium repudiandae obcaecati ea consectetur debitis velit facere nisi expedita vel?</p>
+        </div>
+    </div>
+    <hr/>
+    <div class="row">
+        <div class="col-lg-12">
+            <h1 class="page-header">Tentang
+                <small>Developer</small>
+            </h1>
+            <hr/>
+        </div>
+    </div>
+    <!-- Team Members Row -->
+    <div class="row">
+
+        <div class="col-lg-offset-4 col-lg-4 col-sm-6 text-center">
+            <img class="img-circle img-responsive img-center" src="http://placehold.it/200x200" alt="">
+            <h3>Andika Nugraha</h3>
+            <h4>Full Stack Developer</h4>
+            <p>What does this team member to? Keep it short! This is also a great spot for social links!</p>
+        </div>
+        <!--<div class="col-lg-4 col-sm-6 text-center">
+            <img class="img-circle img-responsive img-center" src="http://placehold.it/200x200" alt="">
+            <h3>John Smith
+                <small>Job Title</small>
+            </h3>
+            <p>What does this team member to? Keep it short! This is also a great spot for social links!</p>
+        </div>-->
+    </div>
+
+    <hr>
+    <div class="row">
+        <div class="col-lg-12">
+            <h1 class="page-header">Teknologi Yang Digunakan
+                <small>Labolatorium Teknik Informatika</small>
+            </h1>
+            <hr/>
+            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sint, explicabo dolores ipsam aliquam inventore corrupti eveniet quisquam quod totam laudantium repudiandae obcaecati ea consectetur debitis velit facere nisi expedita vel?</p>
+        </div>
+    </div>
+    <hr/>
+    <footer>
+        <div class="row">
+            <div class="col-lg-12">
+                <p>Copyright &copy; Your Website 2014</p>
+            </div>
+            <!-- /.col-lg-12 -->
+        </div>
+        <!-- /.row -->
+    </footer>
+
+</div>

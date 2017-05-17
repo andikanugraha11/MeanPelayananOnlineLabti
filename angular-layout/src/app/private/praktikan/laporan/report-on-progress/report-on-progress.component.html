@@ -6,7 +6,7 @@
         <div class="row">
             <div class="col-lg-12">
                 <h1 class="page-header">
-                    Laporan <small>Praktikan</small>
+                    Laporan <small>Sedang diproses</small>
                 </h1>
                 <ol class="breadcrumb">
                     <li class="active">
@@ -55,9 +55,13 @@
                                     <div>: {{report.keterangan}}</div>
                                     <div>: {{report.status}} </div>
                                     <div *ngIf="report.proses.pengulangan; else belumpengulangan">: Sudah</div>
-                                    <template #belumpengulangan><div>: Belum</div></template>
+                                    <ng-template #belumpengulangan>
+                                        <div>: Belum</div>
+                                    </ng-template>
                                     <div *ngIf="report.proses.pembayaran; else belumpembayaran">: Sudah</div>
-                                    <template #belumpembayaran><div>: Belum</div></template>
+                                    <ng-template #belumpembayaran>
+                                        <div>: Belum</div>
+                                    </ng-template>
                                 </div>
                             </div>
                         </div>

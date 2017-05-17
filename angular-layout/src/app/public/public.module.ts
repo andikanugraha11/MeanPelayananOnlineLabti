@@ -13,6 +13,7 @@ import { AccessDeniedComponent } from './access-denied/access-denied.component';
 import { NotLoginGuard } from '../guards/notLogin.guard';
 import { ActivationSuccessComponent } from './activation-success/activation-success.component';
 import { ResendActivationComponent } from './resend-activation/resend-activation.component';
+import { AboutComponent } from './about/about.component';
 
 
 const appRoutes: Routes =
@@ -48,6 +49,10 @@ const appRoutes: Routes =
       path: '403',
       component: AccessDeniedComponent
     },
+    {
+      path: 'about',
+      component : AboutComponent
+    }
 
   ]
 
@@ -67,7 +72,8 @@ const appRoutes: Routes =
     ResetPasswordComponent,
     AccessDeniedComponent,
     ActivationSuccessComponent,
-    ResendActivationComponent
+    ResendActivationComponent,
+    AboutComponent
   ],
   providers: [NotLoginGuard],
 })

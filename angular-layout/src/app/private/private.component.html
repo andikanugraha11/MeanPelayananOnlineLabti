@@ -10,7 +10,7 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-            <a class="navbar-brand" href="index.html">Pelayanan Online LABTI</a>
+            <a [routerLink]="['/']" class="navbar-brand">Pelayanan Online LABTI</a>
         </div>
         <!-- Top Menu Items -->
         <ng-container *ngIf="loggedIn; then thenBlock; else elseBlock"></ng-container>
