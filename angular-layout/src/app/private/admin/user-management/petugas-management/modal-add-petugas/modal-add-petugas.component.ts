@@ -24,10 +24,34 @@ export class ModalAddPetugasComponent extends DialogComponent<ConfirmModel, bool
   email: String;
   password: String;
   repassword: String;
+  emailExist:Boolean = false;
+  usernameExist:Boolean = false;
 
   constructor(private flashMessage : FlashMessagesService, dialogService: DialogService, private router: Router, private validation: ValidationService, private authService: AuthService) {
     super(dialogService);
   }
+  isEmailExist(e) {
+    if (this.email != null) {
+      let email = this.email;
+      //console.log(username);
+      this.validation.isEmailExist(email).subscribe(data => {
+        this.emailExist = data.exist;
+      });
+    }
+
+  }
+
+  isUsernameExist(e) {
+    if (this.username != null) {
+      let username = this.username;
+      //console.log(username);
+      this.validation.isUsernameExist(username).subscribe(data => {
+        this.usernameExist = data.exist;
+      });
+    }
+
+  }
+
 
   addPetugas() {
     const petugas = {
@@ -47,6 +71,37 @@ export class ModalAddPetugasComponent extends DialogComponent<ConfirmModel, bool
       });
       return false;
     }
+    if (this.emailExist) {
+      this.flashMessage.show('Email Sudah Terdaftar', {
+        cssClass: 'alert-danger',
+        timeOut: 3000
+      });
+      return false;
+    }
+
+    if (this.usernameExist) {
+      this.flashMessage.show('Nama Pengguna Sudah Terdaftar', {
+        cssClass: 'alert-danger',
+        timeOut: 3000
+      });
+      return false;
+    }
+    if (this.username.length < 6) {
+      this.flashMessage.show('Panjang Nama Pengguna Minimal 6 Karakter', {
+        cssClass: 'alert-danger',
+        timeOut: 3000
+      });
+      return false;
+    }
+    
+    if (this.password.length < 6) {
+      this.flashMessage.show('Panjang Kata Sandi Minimal 6 Karakter', {
+        cssClass: 'alert-danger',
+        timeOut: 3000
+      });
+      return false;
+    }
+    
     if(!this.validation.matchPassword(petugas)){
       this.flashMessage.show('Password tidak sama',{
         cssClass : 'alert-danger',

@@ -15,18 +15,32 @@
                         <input [(ngModel)]="belakang" class="form-control" placeholder="Nama Belakang" name="belakang" type="text">
                     </div>
                 </div>
-                <div class="form-group">
-                    <input [(ngModel)]="username" class="form-control" placeholder="Username" name="username" type="text">
+                <div *ngIf="username?.length < 6 && username != undefined" class="text-danger">Nama Pengguna Minimal 6 Karakter</div>
+                <div *ngIf="usernameExist" class="text-danger">Nama Pengguna Sudah Digunakan</div>
+                <div [ngClass]="{ 'has-error' : (username?.length < 6 && username != undefined) || usernameExist }" class="form-group has-feedback">
+                    <input (keyup)="isUsernameExist($event)" [(ngModel)]="username" class="form-control" placeholder="Nama Pengguna" name="username" type="text">
+                    <span class="glyphicon  form-control-feedback" [ngClass]="{ 'glyphicon-remove': (username?.length < 6 && username != undefined) || usernameExist }"></span>
                 </div>
-                <div class="form-group">
+                <div *ngIf="emailExist" class="text-danger">Email Sudah Digunakan</div>
+                <div (keyup)="isEmailExist($event)" [ngClass]="{ 'has-error' : emailExist }" class="form-group has-feedback">
                     <input [(ngModel)]="email" class="form-control" placeholder="Email" name="email" type="text">
+                    <span class="glyphicon  form-control-feedback" [ngClass]="{ 'glyphicon-remove': emailExist }"></span>
                 </div>
                 <div class="row form-group">
+
                     <div class="col-md-6">
-                        <input [(ngModel)]="password" class="form-control" placeholder="Password" name="depan" type="password">
+                        <div *ngIf="password?.length < 6 && password != undefined" class="text-danger">Kata Sandi Minimal 6 Karakter</div>
+                        <div [ngClass]="{ 'has-error' : password?.length < 6 && password != undefined }" class="form-group has-feedback">
+                            <input [(ngModel)]="password" class="form-control" placeholder="Kata Sandi" name="depan" type="password">
+                            <span class="glyphicon  form-control-feedback" [ngClass]="{ 'glyphicon-remove': password?.length < 6 && password != undefined }"></span>
+                        </div>
                     </div>
                     <div class="col-md-6">
-                        <input [(ngModel)]="repassword" class="form-control" placeholder="Re-enter Password" name="repassword" type="password">
+                        <div *ngIf="password !== repassword && repassword != undefined" class="text-danger">Kata Sandi Tidak Cocok</div>
+                        <div [ngClass]="{ 'has-error' : password !== repassword && repassword != undefined}" class="form-group has-feedback">
+                            <input [(ngModel)]="repassword" class="form-control" placeholder="Ulangi Kata Sandi" name="repassword" type="password">
+                            <span class="glyphicon  form-control-feedback" [ngClass]="{ 'glyphicon-remove': password !== repassword && repassword != undefined }"></span>
+                        </div>
                     </div>
                 </div>
             </div>
