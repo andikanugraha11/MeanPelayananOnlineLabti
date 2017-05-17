@@ -109,7 +109,7 @@ export class ResetPasswordComponent implements OnInit {
     }
 
     if (!this.validation.matchPassword(data)) {
-      this.flashMessage.show('Password tidak sama', {
+      this.flashMessage.show('Kata Sandi Tidak Cocok', {
         cssClass: 'alert-danger',
         timeOut: 3000
       });
