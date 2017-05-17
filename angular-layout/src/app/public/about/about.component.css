@@ -14,3 +14,15 @@ body {
 footer {
     margin: 50px 0;
 }
+
+a.linkedin:hover {
+    background-color: #0077B5;
+}
+
+a.instagram:hover {
+    background-color: #3f729b;
+}
+
+a.github:hover {
+    background-color: #323131;
+}

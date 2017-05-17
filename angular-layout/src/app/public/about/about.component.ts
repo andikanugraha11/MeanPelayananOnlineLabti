@@ -9,7 +9,12 @@ import { Router } from '@angular/router';
 export class AboutComponent implements OnInit {
   user: any;
   loggedIn: Boolean = false;
-  constructor(private authService: AuthService, private router: Router) { }
+  year:any;
+
+  constructor(private authService: AuthService, private router: Router) {
+    const date = new Date();
+    this.year = date.getFullYear();
+  }
 
   ngOnInit() {
      document.body.className = 'about-bg';
