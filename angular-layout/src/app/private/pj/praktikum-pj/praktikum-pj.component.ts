@@ -20,7 +20,9 @@ export class PraktikumPjComponent implements OnInit {
 
   ngOnInit() {
     this.dtOptions = {
-
+            language: {
+                url: "http://cdn.datatables.net/plug-ins/1.10.15/i18n/Indonesian.json"
+            }
     };
     const service = this.authService;
     this.authService.getProfile().subscribe(profile => {
@@ -29,7 +31,6 @@ export class PraktikumPjComponent implements OnInit {
           this.pjData = data.data;
           this.praktikums = this.pjData._praktikumId;
           this.dtTrigger.next();
-          //console.log(this.pjData._praktikumId);
         },
         err => {
           console.log(err);
@@ -40,16 +41,6 @@ export class PraktikumPjComponent implements OnInit {
   		console.log(err);
   		return false;
   	});
-
-
-    // this.authService.getPraktikumByPj(this.PjId).subscribe(data => {
-    //   this.praktikums = data.praktikum;
-    //   console.log(this.PjId);
-    // },
-    // err => {
-    //   console.log(err);
-    //   return false;
-    // });
 
 
   }

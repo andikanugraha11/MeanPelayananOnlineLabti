@@ -27,12 +27,6 @@ export class Tingkat1Component implements OnInit {
             language: {
                 url: "http://cdn.datatables.net/plug-ins/1.10.15/i18n/Indonesian.json"
             }
-            // dom: 'Bfrtip',
-            // buttons: [
-            //     'print',
-            //     'excel',
-            //     'pdf'
-            // ]
         };
         this.authService.getAllPraktikumTk1().subscribe(data => {
             this.praktikums = data.praktikum;

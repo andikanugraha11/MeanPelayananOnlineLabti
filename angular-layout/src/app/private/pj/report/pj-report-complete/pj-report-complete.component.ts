@@ -18,12 +18,9 @@ export class PjReportCompleteComponent implements OnInit {
 
   ngOnInit() {
     this.dtOptions = {
-      dom: 'Bfrtip',
-      buttons: [
-          'print',
-          'excel',
-          'pdf'
-      ]
+      language: {
+        url: "http://cdn.datatables.net/plug-ins/1.10.15/i18n/Indonesian.json"
+      }
     };
     const service = this.authService;
     this.authService.getProfile().subscribe(profile => {

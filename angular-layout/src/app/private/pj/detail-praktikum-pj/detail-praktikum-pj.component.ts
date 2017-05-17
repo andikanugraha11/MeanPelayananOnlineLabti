@@ -27,11 +27,9 @@ export class DetailPraktikumPjComponent implements OnInit {
 
   ngOnInit() {
     const idPraktikum = this.route.snapshot.params['id_praktikum'];
-    //console.log(this.idPraktikum);
     this.authService.getPraktikumById(idPraktikum).subscribe(data => {
       this.praktikum = data.praktikum;
       this.details = data.praktikum._detailId;
-      //console.log(data);
     },
       err => {
         console.log(err);
@@ -51,7 +49,6 @@ export class DetailPraktikumPjComponent implements OnInit {
   onChangePertemuan() {
     this.flag = true;
     let idDetail = this.detailPertemuan;
-    //let jlhPertemuan;
     const service = this.authService;
     this.authService.getPraktikumDetailById(idDetail).subscribe(data => {
       this.praktikans = data.praktikum.praktikan;
@@ -59,29 +56,21 @@ export class DetailPraktikumPjComponent implements OnInit {
       this.dataPraktikum = data.praktikum;
       this.jlhPertemuan = data.praktikum._praktikumId._detailId.length;
 
-      //service.countReportPraktikan()
-      //console.log(this.dataPraktikum);
-
     },
       err => {
         console.log(err);
         return false;
       });
-    //console.log(idDetail);
   }
 
   makeReport(idPraktikan) {
-    // console.log(idPraktikan);
-    // console.log(this.dataPraktikum);
     const service = this.authService;
     this.authService.getReportPraktikan(idPraktikan, this.dataPraktikum._praktikumId._id).subscribe(data => {
-      // console.log(data);
-      // console.log(data.report.length);
       const jlhReport = data.report.length;
       if (this.jlhPertemuan == 8) {
         if (jlhReport >= 2) {
           swal({
-            title: 'Praktikan yang bersangkutan telah melebihi batas ketidak hadiran !',
+            title: 'Praktikan Melebihi Batas Ketidak Hadiran!',
             text: "Praktikan akan di hapus dari praktikum : " + this.dataPraktikum._praktikumId.nama_praktikum,
             type: 'error',
             showCancelButton: true,
