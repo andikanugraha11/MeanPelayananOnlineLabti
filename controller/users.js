@@ -20,8 +20,6 @@ router.get('/role', passport.authenticate('jwt', { session: false }), (req, res,
     res.json({ role: req.user.role })
 });
 
-//verivication
-
 //mailer
 const smtpTransport = nodemailer.createTransport({
     service: "Gmail",
@@ -31,10 +29,8 @@ const smtpTransport = nodemailer.createTransport({
     }
 });
 
-
-
 //Verivikasi
-router.get('/verifikasi/:id/:key', (req, res, next) => {
+router.get('/verifikasi/:id/:key', passport.authenticate('jwt', { session: false }), (req, res, next) => {
     const userId = req.params.id;
     const key = req.params.key;
     const data = {
@@ -58,14 +54,13 @@ router.get('/verifikasi/:id/:key', (req, res, next) => {
     });
 });
 
-router.get('/test', (req, res, next) => {
+router.get('/test', passport.authenticate('jwt', { session: false }), (req, res, next) => {
 
     res.redirect('/suskses');
 });
 
-
 //setPasswordToNpm
-router.post('/setPasswordToNpm', (req, res, next) => {
+router.post('/setPasswordToNpm', passport.authenticate('jwt', { session: false }), (req, res, next) => {
 
     const id = req.body.id;
     const npm = req.body.npm;
@@ -85,8 +80,9 @@ router.post('/setPasswordToNpm', (req, res, next) => {
     });
 
 });
+
 //users/add/admin
-router.post('/add/admin', (req, res, next) => {
+router.post('/add/admin', passport.authenticate('jwt', { session: false }), (req, res, next) => {
 
     let newUser = new User({
         //_praktikanId: req.body._praktikanId,
@@ -114,7 +110,7 @@ router.post('/add/admin', (req, res, next) => {
 });
 
 //users/add/pj
-router.post('/add/pj', (req, res, next) => {
+router.post('/add/pj', passport.authenticate('jwt', { session: false }), (req, res, next) => {
     let newUser = new User({
         role: 'pj',
         isVerified: true,
@@ -151,8 +147,6 @@ router.post('/add/pj', (req, res, next) => {
     })
 });
 
-
-
 //user/get/pj
 router.get('/getAllPj', passport.authenticate('jwt', { session: false }), (req, res, next) => {
 
@@ -165,7 +159,7 @@ router.get('/getAllPj', passport.authenticate('jwt', { session: false }), (req, 
 });
 
 //user/get/petugas
-router.get('/getAllPetugas', (req, res, next) => {
+router.get('/getAllPetugas', passport.authenticate('jwt', { session: false }), (req, res, next) => {
 
     User.getAllPetugasPopulate((petugas) => {
         res.json({
@@ -175,12 +169,8 @@ router.get('/getAllPetugas', (req, res, next) => {
     });
 });
 
-
-
-
-
 //cekpassword
-router.post('/cekPassword', (req, res, next) => {
+router.post('/cekPassword', passport.authenticate('jwt', { session: false }), (req, res, next) => {
     const inputPassword = req.body.inputPassword;
     const realPassword = req.body.realPassword;
     // console.log(inputPassword);
@@ -204,7 +194,7 @@ router.post('/cekPassword', (req, res, next) => {
 });
 
 //changepassword
-router.post('/changePassword', (req, res, next) => {
+router.post('/changePassword', passport.authenticate('jwt', { session: false }), (req, res, next) => {
     const data = {
         userId: req.body.userId,
         password: req.body.password
@@ -224,10 +214,8 @@ router.post('/changePassword', (req, res, next) => {
     });
 });
 
-
-
 //Remove PJ
-router.delete('/removePJ/:id', (req, res, next) => {
+router.delete('/removePJ/:id', passport.authenticate('jwt', { session: false }), (req, res, next) => {
     const id = req.params.id;
     User.removePJId(id, (err, data) => {
         if (err) {
@@ -245,7 +233,7 @@ router.delete('/removePJ/:id', (req, res, next) => {
 });
 
 //users/add/petugas
-router.post('/add/petugas', (req, res, next) => {
+router.post('/add/petugas', passport.authenticate('jwt', { session: false }), (req, res, next) => {
     let newUser = new User({
         role: 'petugas',
         isVerified: true,
@@ -286,7 +274,7 @@ router.post('/add/petugas', (req, res, next) => {
 });
 
 //Remove Petugas
-router.delete('/removePetugas/:id', (req, res, next) => {
+router.delete('/removePetugas/:id', passport.authenticate('jwt', { session: false }), (req, res, next) => {
     const id = req.params.id;
     User.removePetugasId(id, (err, data) => {
         if (err) {
@@ -303,7 +291,7 @@ router.delete('/removePetugas/:id', (req, res, next) => {
     });
 });
 
-router.get('/getUserByPraktikanId/:idPraktikan', (req, res, next) => {
+router.get('/getUserByPraktikanId/:idPraktikan', passport.authenticate('jwt', { session: false }), (req, res, next) => {
     const praktikanId = req.params.idPraktikan;
     User.getUserByPraktikanId(praktikanId, (err, data) => {
         if (err) {
@@ -316,7 +304,6 @@ router.get('/getUserByPraktikanId/:idPraktikan', (req, res, next) => {
         }
     });
 });
-
 
 //PUBLIC CONTROLLER
 //users/add 
