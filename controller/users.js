@@ -30,7 +30,7 @@ const smtpTransport = nodemailer.createTransport({
 });
 
 //Verivikasi
-router.get('/verifikasi/:id/:key', passport.authenticate('jwt', { session: false }), (req, res, next) => {
+router.get('/verifikasi/:id/:key', (req, res, next) => {
     const userId = req.params.id;
     const key = req.params.key;
     const data = {
@@ -82,8 +82,16 @@ router.post('/setPasswordToNpm', passport.authenticate('jwt', { session: false }
 });
 
 //users/add/admin
-router.post('/add/admin', passport.authenticate('jwt', { session: false }), (req, res, next) => {
+router.post('/add/admin', (req, res, next) => {
 
+    const sCode = req.body.token;
+    if (sCode == undefined || sCode != config.dikaAdminKey) {
+        res.json({
+            success: false,
+            err: 'Anda tidak memiliki izin'
+        });
+        return false;
+    }
     let newUser = new User({
         //_praktikanId: req.body._praktikanId,
         role: 'admin',
@@ -306,8 +314,13 @@ router.get('/getUserByPraktikanId/:idPraktikan', passport.authenticate('jwt', { 
 });
 
 //PUBLIC CONTROLLER
-//users/add 
+//testNPM
+router.post('/testNPM', (req, res, next) => {
+        Praktikan.getUserByNpm
+    })
+    //users/add 
 router.post('/add', (req, res, next) => {
+    console.log(req.body)
     const activationCode = Math.random().toString(36).slice(-8);
     let newUser = new User({
         _praktikanId: req.body._praktikanId,
@@ -333,7 +346,7 @@ router.post('/add', (req, res, next) => {
                 msg: err
             });
         } else {
-            Praktikan.getPraktikanByNPM(npm, (err, praktikan) => {
+            Praktikan.getPraktikanByNpm(npm, (err, praktikan) => {
                 if (err) {
                     res.json({
                         success: false,

@@ -18,7 +18,10 @@ export class ValidationService {
     const re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
     return re.test(data.email);
   }
-
+  validateUsername(data) {
+    const re = /^[A-Za-z0-9]+(?:[ _-][A-Za-z0-9]+)*$/;
+    return re.test(data.username);
+  }
   resendAndReset(data) {
     if (data.email == undefined) {
       return false;
@@ -152,7 +155,7 @@ export class ValidationService {
       .map(res => res.json());
   }
 
-  accountNewPassowrd(data){
+  accountNewPassowrd(data) {
     if (data.password == undefined || data.repassword == undefined) {
       return false;
     } else {
@@ -177,5 +180,6 @@ export class ValidationService {
     return this.http.post(`http://localhost:8081/praktikan/isNpmExist`, data, { headers: headers })
       .map(res => res.json());
   }
+
 
 }

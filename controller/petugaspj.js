@@ -13,7 +13,7 @@ const Petugas = require('../models/petugasPjSchema');
 // GET All PJ
 //user/get/pj
 //user/get/pj
-router.get('/getAllPj', (req, res, next) => {
+router.get('/getAllPj', passport.authenticate('jwt', { session: false }), (req, res, next) => {
 
     PJ.getAllPJ((pj) => {
         res.json({

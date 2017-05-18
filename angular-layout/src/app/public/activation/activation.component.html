@@ -38,15 +38,17 @@
             <input [(ngModel)]="dataPraktikan.praktikan.npm" class="form-control" name="npm" type="text" disabled>
         </div>
         <div *ngIf="usernameExist" class="text-danger">Nama Pengguna Sudah Digunakan</div>
+        <div *ngIf="!usernameTrue && username != null" class="text-danger">Nama pengguna terdiri dari alfanumerik dan tidak mengandung karakter khusus</div>
         <div *ngIf="username?.length < 6 && username != null" class="text-danger">Nama Pengguna Minimal 6 Karakter</div>
-        <div [ngClass]="{ 'has-error': usernameExist || (username?.length < 6 && username != null) }" class="form-group has-feedback">
+        <div [ngClass]="{ 'has-error': usernameExist || (username?.length < 6 && username != null)|| (!usernameTrue && username != null) }" class="form-group has-feedback">
             <input (keyup)="isUsernameExist($event)" [(ngModel)]="username" class="form-control" placeholder="Nama Pengguna" name="username" type="text">
-            <span class="glyphicon  form-control-feedback" [ngClass]="{ 'glyphicon-remove': usernameExist || (username?.length < 6 && username != null) }"></span>
+            <span class="glyphicon  form-control-feedback" [ngClass]="{ 'glyphicon-remove': usernameExist || (username?.length < 6 && username != null)|| (!usernameTrue && username != null)  }"></span>
         </div>
         <div *ngIf="emailExist" class="text-danger">Email sudah digunakan</div>
-        <div [ngClass]="{ 'has-error': emailExist }" class="form-group has-feedback">
+        <div *ngIf="!emailTrue && email != null" class="text-danger">Masukan email yang valid</div>
+        <div [ngClass]="{ 'has-error': emailExist || (!emailTrue&&email != null)}" class="form-group has-feedback">
             <input (keyup)="isEmailExist($event)" [(ngModel)]="email" class="form-control" name="email" placeholder="Email" type="text">
-            <span class="glyphicon  form-control-feedback" [ngClass]="{ 'glyphicon-remove': emailExist }"></span>
+            <span class="glyphicon  form-control-feedback" [ngClass]="{ 'glyphicon-remove': emailExist || (!emailTrue&&email != null)}"></span>
         </div>
         <div *ngIf="password?.length < 6 && password != null" class="text-danger">Kata Sandi Minimal 6 Karakter</div>
         <div [ngClass]="{ 'has-error' : password?.length < 6 && password != null }" class="form-group has-feedback">
