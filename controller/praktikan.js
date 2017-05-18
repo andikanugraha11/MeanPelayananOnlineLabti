@@ -34,32 +34,7 @@ router.post('/add', (req, res, next) => {
     });
 });
 
-//getPraktikanBy
-router.post('/getPraktikanByNpmAndKelas', (req, res, next) => {
-    let findPraktikan = {
-        npm: req.body.npm.toUpperCase(),
-        kelas: req.body.kelas.toUpperCase(),
-        aktif: false
-    }
-    Praktikan.getPraktikanByNpmAndKelas(findPraktikan, (err, praktikan) => {
-        if (err) {
-            res.json({
-                success: false,
-                msg: 'Gagal mencari data'
-            });
-        } else if (praktikan == null) {
-            res.json({
-                success: false,
-                msg: 'Praktikan tidak ditemukan'
-            });
-        } else {
-            res.json({
-                success: true,
-                praktikan
-            });
-        }
-    });
-});
+
 
 
 //Get all praktikan
@@ -167,6 +142,36 @@ router.post('/isNpmExist', (req, res, next) => {
 
     });
 });
+
+
+//Public
+//getPraktikanBy
+router.post('/getPraktikanByNpmAndKelas', (req, res, next) => {
+    let findPraktikan = {
+        npm: req.body.npm.toUpperCase(),
+        kelas: req.body.kelas.toUpperCase(),
+        aktif: false
+    }
+    Praktikan.getPraktikanByNpmAndKelas(findPraktikan, (err, praktikan) => {
+        if (err) {
+            res.json({
+                success: false,
+                msg: 'Gagal mencari data'
+            });
+        } else if (praktikan == null) {
+            res.json({
+                success: false,
+                msg: 'Praktikan tidak ditemukan'
+            });
+        } else {
+            res.json({
+                success: true,
+                praktikan
+            });
+        }
+    });
+});
+
 
 // //Multer
 // const storage = multer.diskStorage({

@@ -11,6 +11,8 @@ export class AuthService {
 
   constructor(private http: Http) { }
 
+  //PUBLIC SERVICE
+
   //Auth user
   authenticateUser(user) {
     let headers = new Headers();
@@ -26,6 +28,48 @@ export class AuthService {
     this.authToken = token;
     this.user = user;
   }
+
+  //cekPraktikan
+  getPraktikanByNpmAndKelas(praktikan) {
+    let headers = new Headers();
+    return this.http.post('http://localhost:8081/praktikan/getPraktikanByNpmAndKelas', praktikan, { headers: headers })
+      .map(res => res.json());
+  }
+
+  //userRegister
+  userRegister(user) {
+    let headers = new Headers();
+    return this.http.post('http://localhost:8081/users/add', user, { headers: headers })
+      .map(res => res.json());
+  }
+
+  resendActivation(data) {
+    let headers = new Headers();
+    return this.http.post('http://localhost:8081/users/resendActivation', data, { headers: headers })
+      .map(res => res.json());
+  }
+
+  sendKey(data) {
+    let headers = new Headers();
+    return this.http.post('http://localhost:8081/users/sendKey', data, { headers: headers })
+      .map(res => res.json());
+  }
+
+  keyCheck(data) {
+    let headers = new Headers();
+    return this.http.post('http://localhost:8081/users/keyCheck', data, { headers: headers })
+      .map(res => res.json());
+  }
+
+  resetPasswordByKey(data) {
+    let headers = new Headers();
+    return this.http.post('http://localhost:8081/users/resetByKey', data, { headers: headers })
+      .map(res => res.json());
+  }
+
+
+  //PRIVATE SERVICE
+
   getProfile() {
     let headers = new Headers();
     this.loadToken();
@@ -42,13 +86,12 @@ export class AuthService {
     return this.http.get('http://localhost:8081/users/role', { headers: headers })
       .map(res => res.json());
   }
+
   loadToken() {
     const token = localStorage.getItem('id_token');
     this.authToken = token;
   }
-  // loadUserFromStorage(){
-  //   const user = localStorage.getItem('user');
-  // }
+
   loggedIn() {
     return tokenNotExpired();
   }
@@ -57,19 +100,6 @@ export class AuthService {
     this.authToken = null;
     this.user = null;
     localStorage.clear();
-  }
-  //cekPraktikan
-  getPraktikanByNpmAndKelas(praktikan) {
-    let headers = new Headers();
-    return this.http.post('http://localhost:8081/praktikan/getPraktikanByNpmAndKelas', praktikan, { headers: headers })
-      .map(res => res.json());
-  }
-
-  //userRegister
-  userRegister(user) {
-    let headers = new Headers();
-    return this.http.post('http://localhost:8081/users/add', user, { headers: headers })
-      .map(res => res.json());
   }
 
   // Get All Praktikan
@@ -366,31 +396,7 @@ export class AuthService {
     return this.http.get('http://localhost:8081/praktikum/getAvailablePraktikum/' + praktikumDate + '/' + praktikumCode, { headers: headers })
       .map(res => res.json());
   }
-
-  resendActivation(data) {
-    let headers = new Headers();
-    return this.http.post('http://localhost:8081/users/resendActivation', data, { headers: headers })
-      .map(res => res.json());
-  }
-
-  sendKey(data) {
-    let headers = new Headers();
-    return this.http.post('http://localhost:8081/users/sendKey', data, { headers: headers })
-      .map(res => res.json());
-  }
-
-  keyCheck(data) {
-    let headers = new Headers();
-    return this.http.post('http://localhost:8081/users/keyCheck', data, { headers: headers })
-      .map(res => res.json());
-  }
-
-  resetPasswordByKey(data) {
-    let headers = new Headers();
-    return this.http.post('http://localhost:8081/users/resetByKey', data, { headers: headers })
-      .map(res => res.json());
-  }
-
+  
   cekPassword(data) {
     let headers = new Headers();
     return this.http.post('http://localhost:8081/users/cekPassword', data, { headers: headers })

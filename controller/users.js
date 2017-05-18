@@ -365,50 +365,7 @@ router.post('/resetByKey', (req, res, next) => {
     })
 });
 
-//user/resend
-router.post('/resendActivation', (req, res, next) => {
-    const email = req.body.email.toLowerCase();
-    User.getUserByEmail(email, (err, user) => {
-        if (err) {
-            return res.json({
-                success: false,
-                msg: 'Terjadi kesalahan'
-            });
-        }
-        if (!user) {
-            return res.json({
-                success: false,
-                msg: 'User dengan email tersebut tidak ditemukan'
-            });
-        }
-        if (user.isVerified == true) {
-            return res.json({
-                success: false,
-                msg: 'Anda sudah melakukan verifikasi email'
-            })
-        }
 
-        const host = req.get('host');
-        const link = "http://" + host + "/users/verifikasi/" + user._id + "/" + user.key;
-        const mailOption = {
-            from: '<Laboratorium Teknik Informatika>',
-            to: email, //query
-            subject: "Resend Aktivasi Email - Laboratorium Teknik Informatika",
-            html: "Hallo " + user.username + " , <br> Silahkan aktivasi email anda dengan membuka alamat berikut. <br> <a href=" + link + ">Alamat aktivasi</a>"
-        }
-
-        smtpTransport.sendMail(mailOption, (err, data) => {
-            if (err) {
-                console.log(err);
-            } else {
-                res.json({
-                    success: true,
-                    msg: 'Email terkirim'
-                })
-            }
-        })
-    });
-});
 
 //cekpassword
 router.post('/cekPassword', (req, res, next) => {
@@ -583,6 +540,21 @@ router.delete('/removePetugas/:id', (req, res, next) => {
     });
 });
 
+router.get('/getUserByPraktikanId/:idPraktikan', (req, res, next) => {
+    const praktikanId = req.params.idPraktikan;
+    User.getUserByPraktikanId(praktikanId, (err, data) => {
+        if (err) {
+            console.log(err);
+        } else {
+            res.json({
+                success: true,
+                data
+            })
+        }
+    });
+});
+
+//Public
 router.post('/isUsernameExist', (req, res, next) => {
     const username = req.body.username.toLowerCase();
     // console.log(username);
@@ -637,17 +609,48 @@ router.post('/isNpmExist', (req, res, next) => {
     });
 });
 
-router.get('/getUserByPraktikanId/:idPraktikan', (req, res, next) => {
-    const praktikanId = req.params.idPraktikan;
-    User.getUserByPraktikanId(praktikanId, (err, data) => {
+//user/resend
+router.post('/resendActivation', (req, res, next) => {
+    const email = req.body.email.toLowerCase();
+    User.getUserByEmail(email, (err, user) => {
         if (err) {
-            console.log(err);
-        } else {
-            res.json({
-                success: true,
-                data
+            return res.json({
+                success: false,
+                msg: 'Terjadi kesalahan'
+            });
+        }
+        if (!user) {
+            return res.json({
+                success: false,
+                msg: 'User dengan email tersebut tidak ditemukan'
+            });
+        }
+        if (user.isVerified == true) {
+            return res.json({
+                success: false,
+                msg: 'Anda sudah melakukan verifikasi email'
             })
         }
+
+        const host = req.get('host');
+        const link = "http://" + host + "/users/verifikasi/" + user._id + "/" + user.key;
+        const mailOption = {
+            from: '<Laboratorium Teknik Informatika>',
+            to: email, //query
+            subject: "Resend Aktivasi Email - Laboratorium Teknik Informatika",
+            html: "Hallo " + user.username + " , <br> Silahkan aktivasi email anda dengan membuka alamat berikut. <br> <a href=" + link + ">Alamat aktivasi</a>"
+        }
+
+        smtpTransport.sendMail(mailOption, (err, data) => {
+            if (err) {
+                console.log(err);
+            } else {
+                res.json({
+                    success: true,
+                    msg: 'Email terkirim'
+                })
+            }
+        })
     });
 });
 
