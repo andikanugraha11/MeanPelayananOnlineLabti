@@ -144,7 +144,8 @@ router.post('/isNpmExist', (req, res, next) => {
 });
 
 
-//Public
+//PUBLIC CONTROLLER
+
 //getPraktikanBy
 router.post('/getPraktikanByNpmAndKelas', (req, res, next) => {
     let findPraktikan = {
