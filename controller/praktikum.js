@@ -11,7 +11,7 @@ const petugasPj = require('../models/petugasPjSchema');
 const DetailPraktikum = require('../models/detailPraktikumSchema');
 
 //praktikum/add/tingkat1 
-router.post('/add/tingkat1', (req, res, next) => {
+router.post('/add/tingkat1', passport.authenticate('jwt', { session: false }), (req, res, next) => {
     let jlh_pertemuan = req.body.jlh_pertemuan;
     let PJ = req.body.pj;
     let kelas = req.body.kelas;
@@ -322,7 +322,7 @@ router.post('/add/tingkat1', (req, res, next) => {
 });
 
 //praktikum/add/tingkat2 
-router.post('/add/tingkat2', (req, res, next) => {
+router.post('/add/tingkat2', passport.authenticate('jwt', { session: false }), (req, res, next) => {
     let jlh_pertemuan = req.body.jlh_pertemuan;
     let PJ = req.body.pj;
     let kelas = req.body.kelas;
@@ -633,7 +633,7 @@ router.post('/add/tingkat2', (req, res, next) => {
 });
 
 //praktikum/add/tingkat3 
-router.post('/add/tingkat3', (req, res, next) => {
+router.post('/add/tingkat3', passport.authenticate('jwt', { session: false }), (req, res, next) => {
     let jlh_pertemuan = req.body.jlh_pertemuan;
     let PJ = req.body.pj;
     let kelas = req.body.kelas;
@@ -944,7 +944,7 @@ router.post('/add/tingkat3', (req, res, next) => {
 });
 
 //praktikum/add/tingkat4 
-router.post('/add/tingkat4', (req, res, next) => {
+router.post('/add/tingkat4', passport.authenticate('jwt', { session: false }), (req, res, next) => {
     let jlh_pertemuan = req.body.jlh_pertemuan;
     let PJ = req.body.pj;
     let kelas = req.body.kelas;
@@ -1255,7 +1255,7 @@ router.post('/add/tingkat4', (req, res, next) => {
 });
 
 //GET Praktikan tk 1
-router.get('/getPraktikum/tk1', (req, res, next) => {
+router.get('/getPraktikum/tk1', passport.authenticate('jwt', { session: false }), (req, res, next) => {
 
     Praktikum.PraktikumTk1((praktikum) => {
         res.json({
@@ -1266,7 +1266,7 @@ router.get('/getPraktikum/tk1', (req, res, next) => {
 });
 
 //GET Praktikan tk 2
-router.get('/getPraktikum/tk2', (req, res, next) => {
+router.get('/getPraktikum/tk2', passport.authenticate('jwt', { session: false }), (req, res, next) => {
 
     Praktikum.PraktikumTk2((praktikum) => {
         res.json({
@@ -1277,7 +1277,7 @@ router.get('/getPraktikum/tk2', (req, res, next) => {
 });
 
 //GET Praktikan tk 3
-router.get('/getPraktikum/tk3', (req, res, next) => {
+router.get('/getPraktikum/tk3', passport.authenticate('jwt', { session: false }), (req, res, next) => {
 
     Praktikum.PraktikumTk3((praktikum) => {
         res.json({
@@ -1288,7 +1288,7 @@ router.get('/getPraktikum/tk3', (req, res, next) => {
 });
 
 //GET Praktikan tk 4
-router.get('/getPraktikum/tk4', (req, res, next) => {
+router.get('/getPraktikum/tk4', passport.authenticate('jwt', { session: false }), (req, res, next) => {
 
     Praktikum.PraktikumTk4((praktikum) => {
         res.json({
@@ -1299,7 +1299,7 @@ router.get('/getPraktikum/tk4', (req, res, next) => {
 });
 
 //GET Praktikum by id
-router.get('/getPraktikumById/:id', (req, res, next) => {
+router.get('/getPraktikumById/:id', passport.authenticate('jwt', { session: false }), (req, res, next) => {
     const id = req.params.id;
     Praktikum.getPraktikumByIdPopulate(id, (praktikum) => {
         res.json({
@@ -1310,7 +1310,7 @@ router.get('/getPraktikumById/:id', (req, res, next) => {
 });
 
 //GET Praktikum by pj
-router.get('/getPraktikumByPj/:id', (req, res, next) => {
+router.get('/getPraktikumByPj/:id', passport.authenticate('jwt', { session: false }), (req, res, next) => {
     const id = req.params.id;
     petugasPj.getPjByIdPopulate(id, (data) => {
         res.json({
@@ -1321,7 +1321,7 @@ router.get('/getPraktikumByPj/:id', (req, res, next) => {
 });
 
 //GET PraktikumDetail by id
-router.get('/getPraktikumDetailById/:id', (req, res, next) => {
+router.get('/getPraktikumDetailById/:id', passport.authenticate('jwt', { session: false }), (req, res, next) => {
     const id = req.params.id;
     DetailPraktikum.getPraktikumByIdPopulate(id, (praktikum) => {
         res.json({
@@ -1332,7 +1332,7 @@ router.get('/getPraktikumDetailById/:id', (req, res, next) => {
 });
 
 //GET PraktikumDetail by id
-router.get('/getAvailablePraktikum/:praktikumDate/:praktikumCode', (req, res, next) => {
+router.get('/getAvailablePraktikum/:praktikumDate/:praktikumCode', passport.authenticate('jwt', { session: false }), (req, res, next) => {
     const praktikumDate = req.params.praktikumDate;
     const praktikumCode = req.params.praktikumCode;
     // console.log(dateCreate);
@@ -1347,7 +1347,7 @@ router.get('/getAvailablePraktikum/:praktikumDate/:praktikumCode', (req, res, ne
 });
 
 //pullpraktikan
-router.post('/pullPraktikan', (req, res, next) => {
+router.post('/pullPraktikan', passport.authenticate('jwt', { session: false }), (req, res, next) => {
     //console.log('test')
     let idPraktikan = req.body.idPraktikan;
     let idPraktikum = req.body.idPraktikum;
