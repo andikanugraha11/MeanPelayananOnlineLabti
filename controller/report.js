@@ -12,7 +12,7 @@ const DetailPraktikum = require('../models/detailPraktikumSchema');
 const Report = require('../models/reportSchema');
 
 //make new report
-router.post('/add', (req, res, next) => {
+router.post('/add', passport.authenticate('jwt', { session: false }), (req, res, next) => {
     let newReport = new Report({
         _praktikumId: req.body.idPraktikum,
         _detailPraktikumId: req.body.detailPraktikum,
@@ -50,7 +50,7 @@ router.post('/add', (req, res, next) => {
 });
 
 //praktikan do report
-router.post('/praktikanDoReport', (req, res, next) => {
+router.post('/praktikanDoReport', passport.authenticate('jwt', { session: false }), (req, res, next) => {
     let updateReport = {
         keterangan: req.body.keterangan,
         praktikum_pengganti: req.body.pengganti,
@@ -99,7 +99,7 @@ router.post('/praktikanDoReport', (req, res, next) => {
 
 });
 //updatePengulangan
-router.get('/updatePengulangan/:reportId', (req, res, next) => {
+router.get('/updatePengulangan/:reportId', passport.authenticate('jwt', { session: false }), (req, res, next) => {
     const reportId = req.params.reportId;
     Report.updatePengulangan(reportId, (err, report) => {
         if (err) {
@@ -117,7 +117,7 @@ router.get('/updatePengulangan/:reportId', (req, res, next) => {
 })
 
 //confirm payment
-router.get('/confirmPayment/:reportId', (req, res, next) => {
+router.get('/confirmPayment/:reportId', passport.authenticate('jwt', { session: false }), (req, res, next) => {
     const reportId = req.params.reportId;
     Report.confirmPayment(reportId, (err, report) => {
         if (err) {
@@ -135,7 +135,7 @@ router.get('/confirmPayment/:reportId', (req, res, next) => {
 })
 
 //get report praktikan
-router.get('/getPraktikanReport/:praktikanId/:praktikumId', (req, res, next) => {
+router.get('/getPraktikanReport/:praktikanId/:praktikumId', passport.authenticate('jwt', { session: false }), (req, res, next) => {
     const praktikanId = req.params.praktikanId;
     const praktikumId = req.params.praktikumId;
     //console.log(praktikanId + praktikumId);
@@ -148,7 +148,7 @@ router.get('/getPraktikanReport/:praktikanId/:praktikumId', (req, res, next) => 
 });
 
 //GET report by praktikan ID
-router.get('/getReportByPraktikanId/:id', (req, res, next) => {
+router.get('/getReportByPraktikanId/:id', passport.authenticate('jwt', { session: false }), (req, res, next) => {
     const id = req.params.id;
     Report.getReportByPraktikanId(id, (report) => {
         res.json({
@@ -159,7 +159,7 @@ router.get('/getReportByPraktikanId/:id', (req, res, next) => {
 });
 
 //GET report cretaed By PJ ID
-router.get('/getReportCreatedByPjId/:id', (req, res, next) => {
+router.get('/getReportCreatedByPjId/:id', passport.authenticate('jwt', { session: false }), (req, res, next) => {
     const PjId = req.params.id;
     Report.getReportCreatedByPjId(PjId, (report) => {
         res.json({
@@ -170,7 +170,7 @@ router.get('/getReportCreatedByPjId/:id', (req, res, next) => {
 });
 
 //GET report by praktikan ID (On Progress)
-router.get('/getReportOnProgressByPraktikanId/:id', (req, res, next) => {
+router.get('/getReportOnProgressByPraktikanId/:id', passport.authenticate('jwt', { session: false }), (req, res, next) => {
     const id = req.params.id;
     Report.getReportOnProgressByPraktikanId(id, (report) => {
         res.json({
@@ -181,7 +181,7 @@ router.get('/getReportOnProgressByPraktikanId/:id', (req, res, next) => {
 });
 
 //GET report by praktikan ID (Complete)
-router.get('/getReportCompleteByPraktikanId/:id', (req, res, next) => {
+router.get('/getReportCompleteByPraktikanId/:id', passport.authenticate('jwt', { session: false }), (req, res, next) => {
     const id = req.params.id;
     Report.getReportCompleteByPraktikanId(id, (report) => {
         res.json({
@@ -192,7 +192,7 @@ router.get('/getReportCompleteByPraktikanId/:id', (req, res, next) => {
 });
 
 //GET report by PJ ID (Complete)
-router.get('/getReportCompleteByPjId/:id', (req, res, next) => {
+router.get('/getReportCompleteByPjId/:id', passport.authenticate('jwt', { session: false }), (req, res, next) => {
     const id = req.params.id;
     Report.getReportCompleteByPjId(id, (report) => {
         res.json({
@@ -203,7 +203,7 @@ router.get('/getReportCompleteByPjId/:id', (req, res, next) => {
 });
 
 //GET report by PJ ID (On Progress)
-router.get('/getReportOnProgressByPjId/:id', (req, res, next) => {
+router.get('/getReportOnProgressByPjId/:id', passport.authenticate('jwt', { session: false }), (req, res, next) => {
     const PjId = req.params.id;
     Report.getReportOnProgressByPjId(PjId, (report) => {
         res.json({
@@ -215,7 +215,7 @@ router.get('/getReportOnProgressByPjId/:id', (req, res, next) => {
 
 
 
-router.get('/getReportById/:id', (req, res, next) => {
+router.get('/getReportById/:id', passport.authenticate('jwt', { session: false }), (req, res, next) => {
     const id = req.params.id;
     Report.getReportById(id, (err, report) => {
         res.json({
@@ -225,7 +225,7 @@ router.get('/getReportById/:id', (req, res, next) => {
     });
 });
 //GET all report 
-router.get('/getAllReport', (req, res, next) => {
+router.get('/getAllReport', passport.authenticate('jwt', { session: false }), (req, res, next) => {
     Report.getAllReport((err, report) => {
         res.json({
             success: true,
@@ -235,7 +235,7 @@ router.get('/getAllReport', (req, res, next) => {
 });
 
 //GET all report (Created)
-router.get('/getAllReportCreated', (req, res, next) => {
+router.get('/getAllReportCreated', passport.authenticate('jwt', { session: false }), (req, res, next) => {
     Report.getAllReportCreated((err, report) => {
         res.json({
             success: true,
@@ -245,7 +245,7 @@ router.get('/getAllReportCreated', (req, res, next) => {
 });
 
 //GET all report (Complete)
-router.get('/getAllReportComplete', (req, res, next) => {
+router.get('/getAllReportComplete', passport.authenticate('jwt', { session: false }), (req, res, next) => {
     Report.getAllReportComplete((err, report) => {
         res.json({
             success: true,
@@ -255,7 +255,7 @@ router.get('/getAllReportComplete', (req, res, next) => {
 });
 
 //GET all report (OnProgress)
-router.get('/getAllReportOnProgress', (req, res, next) => {
+router.get('/getAllReportOnProgress', passport.authenticate('jwt', { session: false }), (req, res, next) => {
     Report.getAllReportOnProgress((err, report) => {
         res.json({
             success: true,
@@ -264,7 +264,7 @@ router.get('/getAllReportOnProgress', (req, res, next) => {
     });
 });
 
-router.get('/removeReportOnCreate/:reportId/:praktikanId/:detailId', (req, res, next) => {
+router.get('/removeReportOnCreate/:reportId/:praktikanId/:detailId', passport.authenticate('jwt', { session: false }), (req, res, next) => {
     const reportId = req.params.reportId;
     const praktikanId = req.params.praktikanId;
     const detailId = req.params.detailId;
