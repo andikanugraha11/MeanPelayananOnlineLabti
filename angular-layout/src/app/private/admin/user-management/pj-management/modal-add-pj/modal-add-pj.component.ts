@@ -25,15 +25,30 @@ export class ModalAddPjComponent extends DialogComponent<ConfirmModel, boolean> 
   email: String;
   password: String;
   repassword: String;
-  emailExist:Boolean = false;
-  usernameExist:Boolean = false;
-
+  emailExist: Boolean = false;
+  usernameExist: Boolean = false;
+  emailTrue: Boolean = false;
+  usernameTrue: Boolean = false;
   constructor(private flashMessage: FlashMessagesService, dialogService: DialogService, private router: Router, private validation: ValidationService, private authService: AuthService) {
     super(dialogService);
   }
+  
+  isUsenameTrue(e) {
+    let username = this.username.toString();
+    const re = /^[A-Za-z0-9]+(?:[ _-][A-Za-z0-9]+)*$/;
+    this.usernameTrue = re.test(username);
+  }
+
+  isEmailTrue(e) {
+    let email = this.email.toString();
+    const re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    this.emailTrue = re.test(email);
+  }
 
   isEmailExist(e) {
+    
     if (this.email != null) {
+      this.isEmailTrue(e);
       let email = this.email;
       //console.log(username);
       this.validation.isEmailExist(email).subscribe(data => {
@@ -44,7 +59,9 @@ export class ModalAddPjComponent extends DialogComponent<ConfirmModel, boolean> 
   }
 
   isUsernameExist(e) {
+    
     if (this.username != null) {
+      this.isUsenameTrue(e);
       let username = this.username;
       //console.log(username);
       this.validation.isUsernameExist(username).subscribe(data => {
@@ -66,6 +83,7 @@ export class ModalAddPjComponent extends DialogComponent<ConfirmModel, boolean> 
       password: this.password,
       repassword: this.repassword
     }
+    
     if (!this.validation.validateAddPj(pj)) {
       this.flashMessage.show('Data yang anda masukan belum lengkap', {
         cssClass: 'alert-danger',
@@ -73,6 +91,7 @@ export class ModalAddPjComponent extends DialogComponent<ConfirmModel, boolean> 
       });
       return false;
     }
+
     if (this.emailExist) {
       this.flashMessage.show('Email sudah terdaftar', {
         cssClass: 'alert-danger',
@@ -96,7 +115,7 @@ export class ModalAddPjComponent extends DialogComponent<ConfirmModel, boolean> 
       });
       return false;
     }
-    
+
     if (this.password.length < 6) {
       this.flashMessage.show('Panjang kata sandi minimal 6 karakter', {
         cssClass: 'alert-danger',
@@ -115,6 +134,14 @@ export class ModalAddPjComponent extends DialogComponent<ConfirmModel, boolean> 
 
     if (!this.validation.validateEmail(pj)) {
       this.flashMessage.show('Email yang anda masukan salah', {
+        cssClass: 'alert-danger',
+        timeOut: 3000
+      });
+      return false;
+    }
+
+    if (!this.validation.validateUsername(pj)) {
+      this.flashMessage.show('Harap Isi Nama Pengguna Dengan Benar', {
         cssClass: 'alert-danger',
         timeOut: 3000
       });
