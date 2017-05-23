@@ -33,7 +33,6 @@ export class PrivateComponent implements OnInit {
       } else if (this.user.role == 'praktikan') {
         this.rolePraktikan = true;
       }
-      console.log(this.user);
     },
       err => {
         console.log(err);

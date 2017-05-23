@@ -45,7 +45,7 @@ router.get('/verifikasi/:id/:key', (req, res, next) => {
                 msg: err
             });
         } else {
-            res.redirect('/suskses');
+            res.redirect('/sukses');
             // res.json({
             //     success: true,
             //     msg: 'Aktivasi email berhasil'
@@ -54,9 +54,9 @@ router.get('/verifikasi/:id/:key', (req, res, next) => {
     });
 });
 
-router.get('/test', passport.authenticate('jwt', { session: false }), (req, res, next) => {
+router.get('/test', (req, res, next) => {
 
-    res.redirect('/suskses');
+    res.redirect('/sukses');
 });
 
 //setPasswordToNpm

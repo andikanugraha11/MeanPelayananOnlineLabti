@@ -1,0 +1,42 @@
+@import url(https://fonts.googleapis.com/css?family=Roboto:300);
+.public-login {
+    padding-top: 6%;
+    position: relative;
+    background-image: url(images/background1.jpg);
+    /*your background image*/
+    background-repeat: no-repeat;
+    /*background-repeat: no-repeat;*/
+    background-position: center center;
+    /*we want to have one single image not a repeated one*/
+    /*background-size: 100%;*/
+    background-size: cover;
+    background-attachment: fixed;
+    /*this sets the image to fullscreen covering the whole screen*/
+    /*css hack for ie*/
+    /*filter: progid: DXImageTransform.Microsoft.AlphaImageLoader(src='.https://myelectronicpaper.files.wordpress.com/2011/10/kmps-e2.jpg', sizingMethod='scale');*/
+    /*-ms-filter: "progid:DXImageTransform.Microsoft.AlphaImageLoader(src='https://myelectronicpaper.files.wordpress.com/2011/10/kmps-e2.jpg',sizingMethod='scale')";*/
+}
+
+.labti-logo {
+    margin-left: 38%;
+    margin-bottom: 20px;
+    margin-top: 10px;
+}
+
+.costum-panel-heading {
+    color: #ffffff;
+    background-color: #2C3E50;
+    border-color: #2C3E50;
+    padding: 10px 15px;
+    border-bottom: 1px solid transparent;
+    border-top-right-radius: 3px;
+    border-top-left-radius: 3px;
+}
+
+.silver {
+    background: #BDC3C7;
+}
+
+.about-bg {
+    background: #FFFFFF;
+}

@@ -14,38 +14,6 @@ import { BootstrapModalModule } from 'ng2-bootstrap-modal';
 
 const appRoutes : Routes = 
 [
-  // {
-  //   path        : '',
-  //   component   : PublicComponent,
-  //   children    : [
-  //     {
-  //       path        : '',
-  //       component   : LoginComponent
-  //     },
-  //     {
-  //       path        : 'activation',
-  //       component   : ActivationComponent
-  //     },
-  //     {
-  //       path        : 'reset',
-  //       component   : ResetPasswordComponent
-  //     },
-  //   ]
-  // },
-  // {
-  //   path        : 'dashboard',
-  //   component   : DashboardComponent,
-  //   children : [
-  //     {
-  //       path        : '',
-  //       component   : HomeComponent
-  //     },
-  //     {
-  //       path        : 'make-a-report',
-  //       component   : MakeAReportComponent
-  //     }
-  //   ]
-  // },
   {
     path        : '404',
     component   : PageNotFoundComponent

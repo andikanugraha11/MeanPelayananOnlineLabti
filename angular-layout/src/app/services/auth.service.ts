@@ -16,7 +16,7 @@ export class AuthService {
   //Auth user
   authenticateUser(user) {
     let headers = new Headers();
-    return this.http.post('http://localhost:8081/users/auth', user, { headers: headers })
+    return this.http.post('users/auth', user, { headers: headers })
       .map(res => res.json());
     //hapus localhost on production
   }
@@ -32,38 +32,38 @@ export class AuthService {
   //cekPraktikan
   getPraktikanByNpmAndKelas(praktikan) {
     let headers = new Headers();
-    return this.http.post('http://localhost:8081/praktikan/getPraktikanByNpmAndKelas', praktikan, { headers: headers })
+    return this.http.post('praktikan/getPraktikanByNpmAndKelas', praktikan, { headers: headers })
       .map(res => res.json());
   }
 
   //userRegister
   userRegister(user) {
     let headers = new Headers();
-    return this.http.post('http://localhost:8081/users/add', user, { headers: headers })
+    return this.http.post('users/add', user, { headers: headers })
       .map(res => res.json());
   }
 
   resendActivation(data) {
     let headers = new Headers();
-    return this.http.post('http://localhost:8081/users/resendActivation', data, { headers: headers })
+    return this.http.post('users/resendActivation', data, { headers: headers })
       .map(res => res.json());
   }
 
   sendKey(data) {
     let headers = new Headers();
-    return this.http.post('http://localhost:8081/users/sendKey', data, { headers: headers })
+    return this.http.post('users/sendKey', data, { headers: headers })
       .map(res => res.json());
   }
 
   keyCheck(data) {
     let headers = new Headers();
-    return this.http.post('http://localhost:8081/users/keyCheck', data, { headers: headers })
+    return this.http.post('users/keyCheck', data, { headers: headers })
       .map(res => res.json());
   }
 
   resetPasswordByKey(data) {
     let headers = new Headers();
-    return this.http.post('http://localhost:8081/users/resetByKey', data, { headers: headers })
+    return this.http.post('users/resetByKey', data, { headers: headers })
       .map(res => res.json());
   }
 
@@ -74,7 +74,7 @@ export class AuthService {
     let headers = new Headers();
     this.loadToken();
     headers.append('Authorization', this.authToken);
-    return this.http.get('http://localhost:8081/users/profile', { headers: headers })
+    return this.http.get('users/profile', { headers: headers })
       .map(res => res.json());
   }
 
@@ -83,7 +83,7 @@ export class AuthService {
     let headers = new Headers();
     this.loadToken();
     headers.append('Authorization', this.authToken);
-    return this.http.get('http://localhost:8081/users/role', { headers: headers })
+    return this.http.get('users/role', { headers: headers })
       .map(res => res.json());
   }
 
@@ -107,7 +107,7 @@ export class AuthService {
     let headers = new Headers();
     this.loadToken();
     headers.append('Authorization', this.authToken);
-    return this.http.get('http://localhost:8081/praktikan/getAllPraktikan', { headers: headers })
+    return this.http.get('praktikan/getAllPraktikan', { headers: headers })
       .map(res => res.json());
   }
 
@@ -115,7 +115,7 @@ export class AuthService {
     let headers = new Headers();
     this.loadToken();
     headers.append('Authorization', this.authToken);
-    return this.http.get('http://localhost:8081/praktikan/getAllPraktikanActive', { headers: headers })
+    return this.http.get('praktikan/getAllPraktikanActive', { headers: headers })
       .map(res => res.json());
   }
 
@@ -123,7 +123,7 @@ export class AuthService {
     let headers = new Headers();
     this.loadToken();
     headers.append('Authorization', this.authToken);
-    return this.http.get('http://localhost:8081/praktikan/getAllPraktikanNotActive', { headers: headers })
+    return this.http.get('praktikan/getAllPraktikanNotActive', { headers: headers })
       .map(res => res.json());
   }
 
@@ -131,7 +131,7 @@ export class AuthService {
     let headers = new Headers();
     this.loadToken();
     headers.append('Authorization', this.authToken);
-    return this.http.get('http://localhost:8081/praktikan/getPraktikanById/' + id, { headers: headers })
+    return this.http.get('praktikan/getPraktikanById/' + id, { headers: headers })
       .map(res => res.json());
   }
 
@@ -139,7 +139,7 @@ export class AuthService {
     let headers = new Headers();
     this.loadToken();
     headers.append('Authorization', this.authToken);
-    return this.http.get('http://localhost:8081/praktikan/getPraktikanByIdPopulate/' + id, { headers: headers })
+    return this.http.get('praktikan/getPraktikanByIdPopulate/' + id, { headers: headers })
       .map(res => res.json());
   }
 
@@ -148,7 +148,7 @@ export class AuthService {
     let headers = new Headers();
     this.loadToken();
     headers.append('Authorization', this.authToken);
-    return this.http.get('http://localhost:8081/users/getAllPj', { headers: headers })
+    return this.http.get('users/getAllPj', { headers: headers })
       .map(res => res.json());
   }
 
@@ -157,7 +157,7 @@ export class AuthService {
     let headers = new Headers();
     this.loadToken();
     headers.append('Authorization', this.authToken);
-    return this.http.get('http://localhost:8081/users/getAllPetugas', { headers: headers })
+    return this.http.get('users/getAllPetugas', { headers: headers })
       .map(res => res.json());
   }
 
@@ -166,7 +166,7 @@ export class AuthService {
     let headers = new Headers();
     this.loadToken();
     headers.append('Authorization', this.authToken);
-    return this.http.post('http://localhost:8081/praktikan/add', praktikan, { headers: headers })
+    return this.http.post('praktikan/add', praktikan, { headers: headers })
       .map(res => res.json());
   }
 
@@ -175,14 +175,14 @@ export class AuthService {
     let headers = new Headers({ 'Content-Type': 'application/json' });
     this.loadToken();
     headers.append('Authorization', this.authToken);
-    return this.http.post('http://localhost:8081/praktikan/uploadcsv', file, { headers: headers })
+    return this.http.post('praktikan/uploadcsv', file, { headers: headers })
       .map(res => res.json());
   }
 
   uploadCsv(files) {
     const formData: any = new FormData();
     formData.append("uploads[]", files[0], files[0]['name']);
-    return this.http.post('http://localhost:8081/praktikan/uploadcsvfile', formData)
+    return this.http.post('praktikan/uploadcsvfile', formData)
       .map(res => res.json());
   }
 
@@ -191,7 +191,7 @@ export class AuthService {
     let headers = new Headers();
     this.loadToken();
     headers.append('Authorization', this.authToken);
-    return this.http.post('http://localhost:8081/users/setPasswordToNpm', data, { headers: headers })
+    return this.http.post('users/setPasswordToNpm', data, { headers: headers })
       .map(res => res.json());
   }
   //Remove Praktikan
@@ -199,7 +199,7 @@ export class AuthService {
     let headers = new Headers();
     this.loadToken();
     headers.append('Authorization', this.authToken);
-    return this.http.delete('http://localhost:8081/praktikan/removePraktikan/' + id, { headers: headers })
+    return this.http.delete('praktikan/removePraktikan/' + id, { headers: headers })
       .map(res => res.json());
   }
 
@@ -208,7 +208,7 @@ export class AuthService {
     let headers = new Headers();
     this.loadToken();
     headers.append('Authorization', this.authToken);
-    return this.http.delete('http://localhost:8081/users/removePJ/' + id, { headers: headers })
+    return this.http.delete('users/removePJ/' + id, { headers: headers })
       .map(res => res.json());
   }
 
@@ -217,7 +217,7 @@ export class AuthService {
     let headers = new Headers();
     this.loadToken();
     headers.append('Authorization', this.authToken);
-    return this.http.delete('http://localhost:8081/users/removePetugas/' + id, { headers: headers })
+    return this.http.delete('users/removePetugas/' + id, { headers: headers })
       .map(res => res.json());
   }
 
@@ -226,7 +226,7 @@ export class AuthService {
     let headers = new Headers();
     this.loadToken();
     headers.append('Authorization', this.authToken);
-    return this.http.post('http://localhost:8081/users/add/pj', pj, { headers: headers })
+    return this.http.post('users/add/pj', pj, { headers: headers })
       .map(res => res.json());
   }
 
@@ -235,7 +235,7 @@ export class AuthService {
     let headers = new Headers();
     this.loadToken();
     headers.append('Authorization', this.authToken);
-    return this.http.post('http://localhost:8081/users/add/petugas', petugas, { headers: headers })
+    return this.http.post('users/add/petugas', petugas, { headers: headers })
       .map(res => res.json());
   }
 
@@ -243,7 +243,7 @@ export class AuthService {
     let headers = new Headers();
     this.loadToken();
     headers.append('Authorization', this.authToken);
-    return this.http.post('http://localhost:8081/praktikum/add/tingkat1', praktikum, { headers: headers })
+    return this.http.post('praktikum/add/tingkat1', praktikum, { headers: headers })
       .map(res => res.json());
   }
 
@@ -251,7 +251,7 @@ export class AuthService {
     let headers = new Headers();
     this.loadToken();
     headers.append('Authorization', this.authToken);
-    return this.http.post('http://localhost:8081/praktikum/add/tingkat2', praktikum, { headers: headers })
+    return this.http.post('praktikum/add/tingkat2', praktikum, { headers: headers })
       .map(res => res.json());
   }
 
@@ -259,7 +259,7 @@ export class AuthService {
     let headers = new Headers();
     this.loadToken();
     headers.append('Authorization', this.authToken);
-    return this.http.post('http://localhost:8081/praktikum/add/tingkat3', praktikum, { headers: headers })
+    return this.http.post('praktikum/add/tingkat3', praktikum, { headers: headers })
       .map(res => res.json());
   }
 
@@ -267,7 +267,7 @@ export class AuthService {
     let headers = new Headers();
     this.loadToken();
     headers.append('Authorization', this.authToken);
-    return this.http.post('http://localhost:8081/praktikum/add/tingkat4', praktikum, { headers: headers })
+    return this.http.post('praktikum/add/tingkat4', praktikum, { headers: headers })
       .map(res => res.json());
   }
 
@@ -276,7 +276,7 @@ export class AuthService {
     let headers = new Headers();
     this.loadToken();
     headers.append('Authorization', this.authToken);
-    return this.http.get('http://localhost:8081/praktikum/getPraktikum/tk1', { headers: headers })
+    return this.http.get('praktikum/getPraktikum/tk1', { headers: headers })
       .map(res => res.json());
   }
 
@@ -284,7 +284,7 @@ export class AuthService {
     let headers = new Headers();
     this.loadToken();
     headers.append('Authorization', this.authToken);
-    return this.http.get('http://localhost:8081/praktikum/getPraktikum/tk2', { headers: headers })
+    return this.http.get('praktikum/getPraktikum/tk2', { headers: headers })
       .map(res => res.json());
   }
 
@@ -292,7 +292,7 @@ export class AuthService {
     let headers = new Headers();
     this.loadToken();
     headers.append('Authorization', this.authToken);
-    return this.http.get('http://localhost:8081/praktikum/getPraktikum/tk3', { headers: headers })
+    return this.http.get('praktikum/getPraktikum/tk3', { headers: headers })
       .map(res => res.json());
   }
 
@@ -300,7 +300,7 @@ export class AuthService {
     let headers = new Headers();
     this.loadToken();
     headers.append('Authorization', this.authToken);
-    return this.http.get('http://localhost:8081/praktikum/getPraktikum/tk4', { headers: headers })
+    return this.http.get('praktikum/getPraktikum/tk4', { headers: headers })
       .map(res => res.json());
   }
 
@@ -308,7 +308,7 @@ export class AuthService {
     let headers = new Headers();
     this.loadToken();
     headers.append('Authorization', this.authToken);
-    return this.http.get('http://localhost:8081/praktikum/getPraktikumById/' + id, { headers: headers })
+    return this.http.get('praktikum/getPraktikumById/' + id, { headers: headers })
       .map(res => res.json());
   }
 
@@ -316,7 +316,7 @@ export class AuthService {
     let headers = new Headers();
     this.loadToken();
     headers.append('Authorization', this.authToken);
-    return this.http.get('http://localhost:8081/praktikum/getPraktikumByPj/' + id, { headers: headers })
+    return this.http.get('praktikum/getPraktikumByPj/' + id, { headers: headers })
       .map(res => res.json());
   }
 
@@ -324,14 +324,14 @@ export class AuthService {
     let headers = new Headers();
     this.loadToken();
     headers.append('Authorization', this.authToken);
-    return this.http.get(`http://localhost:8081/users/getUserByPraktikanId/${id}`, { headers: headers })
+    return this.http.get(`users/getUserByPraktikanId/${id}`, { headers: headers })
       .map(res => res.json());
   }
   getPraktikumDetailById(id) {
     let headers = new Headers();
     this.loadToken();
     headers.append('Authorization', this.authToken);
-    return this.http.get('http://localhost:8081/praktikum/getPraktikumDetailById/' + id, { headers: headers })
+    return this.http.get('praktikum/getPraktikumDetailById/' + id, { headers: headers })
       .map(res => res.json());
   }
 
@@ -340,7 +340,7 @@ export class AuthService {
     let headers = new Headers();
     this.loadToken();
     headers.append('Authorization', this.authToken);
-    return this.http.get('http://localhost:8081/laporan/getPraktikanReport/' + praktikanId + '/' + praktikumId, { headers: headers })
+    return this.http.get('laporan/getPraktikanReport/' + praktikanId + '/' + praktikumId, { headers: headers })
       .map(res => res.json());
   }
 
@@ -349,7 +349,7 @@ export class AuthService {
     let headers = new Headers();
     this.loadToken();
     headers.append('Authorization', this.authToken);
-    return this.http.post('http://localhost:8081/praktikum/pullPraktikan', data, { headers: headers })
+    return this.http.post('praktikum/pullPraktikan', data, { headers: headers })
       .map(res => res.json());
   }
   //Remove on create report
@@ -357,7 +357,7 @@ export class AuthService {
     let headers = new Headers();
     this.loadToken();
     headers.append('Authorization', this.authToken);
-    return this.http.get('http://localhost:8081/laporan/removeReportOnCreate/' + reportId + '/' + praktikanId + '/' + detailId, { headers: headers })
+    return this.http.get('laporan/removeReportOnCreate/' + reportId + '/' + praktikanId + '/' + detailId, { headers: headers })
       .map(res => res.json());
   }
   //Make report
@@ -365,21 +365,21 @@ export class AuthService {
     let headers = new Headers();
     this.loadToken();
     headers.append('Authorization', this.authToken);
-    return this.http.post('http://localhost:8081/laporan/add', report, { headers: headers })
+    return this.http.post('laporan/add', report, { headers: headers })
       .map(res => res.json());
   }
   praktikanDoReport(report) {
     let headers = new Headers();
     this.loadToken();
     headers.append('Authorization', this.authToken);
-    return this.http.post('http://localhost:8081/laporan/praktikanDoReport', report, { headers: headers })
+    return this.http.post('laporan/praktikanDoReport', report, { headers: headers })
       .map(res => res.json());
   }
   updatePengulangan(reportId) {
     let headers = new Headers();
     this.loadToken();
     headers.append('Authorization', this.authToken);
-    return this.http.get('http://localhost:8081/laporan/updatePengulangan/' + reportId, { headers: headers })
+    return this.http.get('laporan/updatePengulangan/' + reportId, { headers: headers })
       .map(res => res.json());
   }
   //Report 1 (status = dibuat )
@@ -387,7 +387,7 @@ export class AuthService {
     let headers = new Headers();
     this.loadToken();
     headers.append('Authorization', this.authToken);
-    return this.http.get('http://localhost:8081/laporan/getReportByPraktikanId/' + id, { headers: headers })
+    return this.http.get('laporan/getReportByPraktikanId/' + id, { headers: headers })
       .map(res => res.json());
   }
 
@@ -395,7 +395,7 @@ export class AuthService {
     let headers = new Headers();
     this.loadToken();
     headers.append('Authorization', this.authToken);
-    return this.http.get('http://localhost:8081/laporan/getReportCreatedByPjId/' + id, { headers: headers })
+    return this.http.get('laporan/getReportCreatedByPjId/' + id, { headers: headers })
       .map(res => res.json());
   }
 
@@ -403,7 +403,7 @@ export class AuthService {
     let headers = new Headers();
     this.loadToken();
     headers.append('Authorization', this.authToken);
-    return this.http.get('http://localhost:8081/laporan/getReportCompleteByPjId/' + id, { headers: headers })
+    return this.http.get('laporan/getReportCompleteByPjId/' + id, { headers: headers })
       .map(res => res.json());
   }
 
@@ -412,7 +412,7 @@ export class AuthService {
     let headers = new Headers();
     this.loadToken();
     headers.append('Authorization', this.authToken);
-    return this.http.get('http://localhost:8081/laporan/confirmPayment/' + reportId, { headers: headers })
+    return this.http.get('laporan/confirmPayment/' + reportId, { headers: headers })
       .map(res => res.json());
   }
 
@@ -421,7 +421,7 @@ export class AuthService {
     let headers = new Headers();
     this.loadToken();
     headers.append('Authorization', this.authToken);
-    return this.http.get('http://localhost:8081/laporan/getReportOnProgressByPraktikanId/' + id, { headers: headers })
+    return this.http.get('laporan/getReportOnProgressByPraktikanId/' + id, { headers: headers })
       .map(res => res.json());
   }
 
@@ -430,7 +430,7 @@ export class AuthService {
     let headers = new Headers();
     this.loadToken();
     headers.append('Authorization', this.authToken);
-    return this.http.get('http://localhost:8081/laporan/getReportCompleteByPraktikanId/' + id, { headers: headers })
+    return this.http.get('laporan/getReportCompleteByPraktikanId/' + id, { headers: headers })
       .map(res => res.json());
   }
 
@@ -438,28 +438,28 @@ export class AuthService {
     let headers = new Headers();
     this.loadToken();
     headers.append('Authorization', this.authToken);
-    return this.http.get('http://localhost:8081/laporan/getReportOnProgressByPjId/' + id, { headers: headers })
+    return this.http.get('laporan/getReportOnProgressByPjId/' + id, { headers: headers })
       .map(res => res.json());
   }
   getAllReport() {
     let headers = new Headers();
     this.loadToken();
     headers.append('Authorization', this.authToken);
-    return this.http.get('http://localhost:8081/laporan/getAllReport', { headers: headers })
+    return this.http.get('laporan/getAllReport', { headers: headers })
       .map(res => res.json());
   }
   getAllReportCreated() {
     let headers = new Headers();
     this.loadToken();
     headers.append('Authorization', this.authToken);
-    return this.http.get('http://localhost:8081/laporan/getAllReportCreated', { headers: headers })
+    return this.http.get('laporan/getAllReportCreated', { headers: headers })
       .map(res => res.json());
   }
   getAllReportOnProgress() {
     let headers = new Headers();
     this.loadToken();
     headers.append('Authorization', this.authToken);
-    return this.http.get('http://localhost:8081/laporan/getAllReportOnProgress', { headers: headers })
+    return this.http.get('laporan/getAllReportOnProgress', { headers: headers })
       .map(res => res.json());
   }
 
@@ -467,7 +467,7 @@ export class AuthService {
     let headers = new Headers();
     this.loadToken();
     headers.append('Authorization', this.authToken);
-    return this.http.get('http://localhost:8081/laporan/getAllReportComplete', { headers: headers })
+    return this.http.get('laporan/getAllReportComplete', { headers: headers })
       .map(res => res.json());
   }
 
@@ -475,7 +475,7 @@ export class AuthService {
     let headers = new Headers();
     this.loadToken();
     headers.append('Authorization', this.authToken);
-    return this.http.get('http://localhost:8081/laporan/getReportById/' + id, { headers: headers })
+    return this.http.get('laporan/getReportById/' + id, { headers: headers })
       .map(res => res.json());
   }
 
@@ -483,7 +483,7 @@ export class AuthService {
     let headers = new Headers();
     this.loadToken();
     headers.append('Authorization', this.authToken);
-    return this.http.get('http://localhost:8081/praktikum/getAvailablePraktikum/' + praktikumDate + '/' + praktikumCode, { headers: headers })
+    return this.http.get('praktikum/getAvailablePraktikum/' + praktikumDate + '/' + praktikumCode, { headers: headers })
       .map(res => res.json());
   }
 
@@ -491,7 +491,7 @@ export class AuthService {
     let headers = new Headers();
     this.loadToken();
     headers.append('Authorization', this.authToken);
-    return this.http.post('http://localhost:8081/users/cekPassword', data, { headers: headers })
+    return this.http.post('users/cekPassword', data, { headers: headers })
       .map(res => res.json());
   }
 
@@ -499,7 +499,7 @@ export class AuthService {
     let headers = new Headers();
     this.loadToken();
     headers.append('Authorization', this.authToken);
-    return this.http.post('http://localhost:8081/users/changePassword', data, { headers: headers })
+    return this.http.post('users/changePassword', data, { headers: headers })
       .map(res => res.json());
   }
 }

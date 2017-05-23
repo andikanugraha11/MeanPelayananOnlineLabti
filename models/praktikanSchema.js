@@ -6,7 +6,6 @@ const Praktikum = require('./praktikumSchema');
 const Schema = mongoose.Schema;
 const ObjectId = Schema.Types.ObjectId;
 const praktikanSchema = Schema({
-
     npm: {
         type: String,
         required: true,

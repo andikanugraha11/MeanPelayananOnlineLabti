@@ -190,7 +190,7 @@ const appRoutes: Routes =
     DataTableModule,
     TabsModule,
     ToasterModule,
-    DataTablesModule.forRoot()
+    DataTablesModule
   ],
   declarations: [
     PrivateComponent,

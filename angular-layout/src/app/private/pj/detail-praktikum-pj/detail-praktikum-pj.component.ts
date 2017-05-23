@@ -12,7 +12,7 @@ import { default as swal } from 'sweetalert2'
   styleUrls: ['./detail-praktikum-pj.component.css']
 })
 export class DetailPraktikumPjComponent implements OnInit {
-  praktikum = Object;
+  praktikum : any;
   details: Object;
   detailPertemuan: String;
   praktikans: Object;

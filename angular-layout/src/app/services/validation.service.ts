@@ -177,7 +177,7 @@ export class ValidationService {
       npm: npm
     }
     let headers = new Headers();
-    return this.http.post(`http://localhost:8081/praktikan/isNpmExist`, data, { headers: headers })
+    return this.http.post(`praktikan/isNpmExist`, data, { headers: headers })
       .map(res => res.json());
   }
 
