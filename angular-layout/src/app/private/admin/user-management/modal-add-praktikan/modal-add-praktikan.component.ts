@@ -30,7 +30,6 @@ export class ModalAddPraktikanComponent extends DialogComponent<ConfirmModel, bo
   isNpmExist(e) {
     if (this.npm != null) {
       let npm = this.npm;
-      //console.log(username);
       this.validation.isNpmExist(npm).subscribe(data => {
         this.npmExist = data.exist;
       });

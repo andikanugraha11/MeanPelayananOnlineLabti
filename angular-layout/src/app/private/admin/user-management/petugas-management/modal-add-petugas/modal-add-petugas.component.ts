@@ -48,7 +48,6 @@ export class ModalAddPetugasComponent extends DialogComponent<ConfirmModel, bool
     if (this.email != null) {
       this.isEmailTrue(e);
       let email = this.email;
-      //console.log(username);
       this.validation.isEmailExist(email).subscribe(data => {
         this.emailExist = data.exist;
       });
@@ -60,7 +59,6 @@ export class ModalAddPetugasComponent extends DialogComponent<ConfirmModel, bool
     if (this.username != null) {
       this.isUsenameTrue(e);
       let username = this.username;
-      //console.log(username);
       this.validation.isUsernameExist(username).subscribe(data => {
         this.usernameExist = data.exist;
       });

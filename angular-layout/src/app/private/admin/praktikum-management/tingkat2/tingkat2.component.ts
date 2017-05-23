@@ -37,7 +37,6 @@ export class Tingkat2Component implements OnInit {
         this.authService.getAllPraktikumTk2().subscribe(data => {
             this.praktikums = data.praktikum;
             this.dtTrigger.next();
-            //console.log(this.praktikums);
         },
             err => {
                 console.log(err);
@@ -49,7 +48,6 @@ export class Tingkat2Component implements OnInit {
         this.authService.getPraktikumById(idPraktikum)
             .subscribe(data => {
                 if (data.success) {
-                    //console.log(data.praktikum._detailId);
                     let detail = this.dialogService.addDialog(ModalDetailTingkat2Component, {
                         title: 'Detail Praktikum',
                         message: 'Detai message',

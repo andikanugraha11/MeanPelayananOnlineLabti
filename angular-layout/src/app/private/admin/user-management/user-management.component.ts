@@ -70,8 +70,6 @@ export class UserManagementComponent implements OnInit {
     this.authService.getUserByPraktikanId(idPraktikan)
       .subscribe(data => {
         if (data.success) {
-          console.log(data.data);
-          //console.log(data.praktikum._detailId);
           let detail = this.dialogService.addDialog(ModalDetailPraktikanComponent, {
             // idPraktikan : idPraktikan,
             title: 'Detail Praktikum',

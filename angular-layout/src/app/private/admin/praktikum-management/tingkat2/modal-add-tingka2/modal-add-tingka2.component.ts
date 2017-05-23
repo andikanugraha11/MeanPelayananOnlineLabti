@@ -58,7 +58,6 @@ export class ModalAddTingka2Component extends DialogComponent<ConfirmModel, bool
     this.tampil = false;
     this.authService.getAllPJ().subscribe(data => {
       this.pjs = data.pj;
-      console.log(this.pjs);
     },
       err => {
         console.log(err);
@@ -121,7 +120,6 @@ export class ModalAddTingka2Component extends DialogComponent<ConfirmModel, bool
     }
 
     if (this.jlh_pertemuan == 4) {
-      //console.log(this.jlh_pertemuan);
       if (!this.validation.validateAddPraktikum4(praktikum)) {
         this.flashMessage.show('Data yang anda masukan belum lengkap', {
           cssClass: 'alert-danger',
@@ -130,7 +128,6 @@ export class ModalAddTingka2Component extends DialogComponent<ConfirmModel, bool
         return false;
       }
     } else {
-      //console.log(this.jlh_pertemuan);
       if (!this.validation.validateAddPraktikum8(praktikum)) {
         this.flashMessage.show('Data yang anda masukan belum lengkap', {
           cssClass: 'alert-danger',

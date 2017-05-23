@@ -37,7 +37,6 @@ export class Tingkat3Component implements OnInit {
         this.authService.getAllPraktikumTk3().subscribe(data => {
             this.praktikums = data.praktikum;
             this.dtTrigger.next();
-            //console.log(this.praktikums);
         },
             err => {
                 console.log(err);
